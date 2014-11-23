@@ -1,0 +1,6 @@
+D:\COMP397\flyer\bin\flyer.dll.config
+D:\COMP397\flyer\bin\flyer.dll
+D:\COMP397\flyer\bin\flyer.pdb
+D:\COMP397\flyer\obj\Debug\flyer.csprojResolveAssemblyReference.cache
+D:\COMP397\flyer\obj\Debug\flyer.dll
+D:\COMP397\flyer\obj\Debug\flyer.pdb

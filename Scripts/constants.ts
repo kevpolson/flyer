@@ -1,0 +1,36 @@
+﻿module constants {
+    // State Machine Constants
+    export var LOADING_STATE: number = 0;
+    export var MENU_STATE: number = 1;
+    export var PLAY_STATE: number = 2;
+    export var GAME_OVER_STATE: number = 3;
+
+    // Game Constants
+    export var MISSILE_NUM: number = 2;
+    export var LABEL_FONT = "40px Consolas";
+    export var LABEL_COLOUR = "#FF8000";
+    export var SCORE_COLOUR = "#000000";
+    export var PLAYER_LIVES = 5;
+    export var EXPLOSION_TIME = 1000;
+    export var GAME_SPEED = 2.5;
+    export var GROUND_HEIGHT = 423;
+
+    // Input Constants
+    export var KEYCODE_ENTER: number = 13;
+    export var KEYCODE_SPACE: number = 32;
+    export var KEYCODE_UP: number = 38;
+    export var KEYCODE_DOWN: number = 40;
+    export var KEYCODE_LEFT: number = 37;
+    export var KEYCODE_RIGHT: number = 39;
+    export var KEYCODE_W: number = 87;
+    export var KEYCODE_S: number = 83;
+    export var KEYCODE_A: number = 65;
+    export var KEYCODE_D: number = 68;
+
+    // Player Animation Constants
+    export var IDLE_WIDTH: number = 35;
+    export var IDLE_HEIGHT: number = 40;
+    export var FLY_WIDTH: number = 45;
+    export var FLY_HEIGHT: number = 15;
+    export var ANIMATION_TIME: number = 0.1;
+}
