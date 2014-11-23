@@ -7,6 +7,7 @@
 /// <reference path="states/play.ts" />
 var stage;
 var game;
+var input;
 var camera;
 
 var background;
@@ -31,7 +32,7 @@ function init() {
     createjs.Ticker.addEventListener("tick", gameLoop);
 
     optimizeForMobile();
-    managers.Input.init();
+    input = new managers.Input();
 
     bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
     currentState = constants.PLAY_STATE;

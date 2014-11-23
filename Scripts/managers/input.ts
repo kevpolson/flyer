@@ -1,91 +1,133 @@
 ﻿module managers {
     export class Input {
-        public static upKeyDown: boolean;
-        public static downKeyDown: boolean;
-        public static leftKeyDown: boolean;
-        public static rightKeyDown: boolean;
-        public static spaceKeyDown: boolean;
-        public static enterKeyDown: boolean;
-
-        //static currentKeyUp = [];
-        //static previousKeyUp = [];
-        static currentKeyDown = [];
-        static previousKeyDown = [];
-
-        public static init() {
-            window.onkeyup = this.keyReleased; 
-            window.onkeydown = this.keyPressed; 
+        /*
+        upKeyDown: boolean;
+        downKeyDown: boolean;
+        leftKeyDown: boolean;
+        rightKeyDown: boolean;
+        spaceKeyDown: boolean;
+        enterKeyDown: boolean;
+        escapeKeyDown: boolean;
+        */
+        specialKeyPressed: number;
+        specialKeyReleased: number;
+        currentKeyDown: boolean[] = [false, false, false, false, false, false, false];
+        private previousKeyDown: boolean[] = [false, false, false, false, false, false, false];
+        constructor() {
+            window.onkeyup = this.onKeyReleased; 
+            window.onkeydown = this.onKeyPressed; 
         }
 
-        public static update() {
-            //this.previousKeyUp = this.currentKeyUp;
-            this.previousKeyDown = this.currentKeyDown;
+        update() {
+            for (var i = 0; i < this.currentKeyDown.length; i++) {
+                this.previousKeyDown[i] = this.currentKeyDown[i];
+            }
+            this.checkSpecialKeyDown();
+            this.checkSpecialKeyUp();
         }
 
-        //allow for WASD and arrow control scheme
-        static keyPressed(event) {
-            //this.currentKeyDown = [];
-            var count = this.currentKeyDown.length - 1;
-            if (count < 0) {
-                count = 0;
-            }
-
-            if (event.keyCode === constants.KEYCODE_W || event.keyCode === constants.KEYCODE_UP) {
-                this.upKeyDown = true;
-                this.currentKeyDown[count++] = event.keyCode;
-                console.log('up');
-            }
-            if (event.keyCode === constants.KEYCODE_S || event.keyCode === constants.KEYCODE_DOWN) {
-                this.downKeyDown = true;
-                this.currentKeyDown[count++] = event.keyCode;
-                console.log('down');
-            }
-            if (event.keyCode === constants.KEYCODE_A || event.keyCode === constants.KEYCODE_LEFT) {
-                this.leftKeyDown = true;
-                this.currentKeyDown[count++] = event.keyCode;
-            }
-            if (event.keyCode === constants.KEYCODE_D || event.keyCode === constants.KEYCODE_RIGHT) {
-                this.rightKeyDown = true;
-                this.currentKeyDown[count++] = event.keyCode;
-            }
-            if (event.keyCode === constants.KEYCODE_SPACE) {
-                this.spaceKeyDown = true;
-                this.currentKeyDown[count++] = event.keyCode;
-            }
-            if (event.keyCode === constants.KEYCODE_ENTER) {
-                this.enterKeyDown = true;
-                this.currentKeyDown[count++] = event.keyCode;
-            }
-            console.log(this.currentKeyDown.length);
+        isKeyDown(key: string) {
+            return this.currentKeyDown[constants.Keys[key]];
         }
 
-        static keyReleased(event) {
-            //this.currentKeyUp = [];
-            if (event.keyCode === constants.KEYCODE_W || event.keyCode === constants.KEYCODE_UP) {
-                this.upKeyDown = false;
-                console.log('up');
+        hasKeyBeenUp(key: string) {
+            return !this.previousKeyDown[constants.Keys[key]] && this.currentKeyDown[constants.Keys[key]];
+        }
+
+        private onKeyPressed(event) {
+            input.specialKeyPressed = event.keyCode;
+            if (input.specialKeyPressed != constants.KEYCODE_SPACE &&
+                input.specialKeyPressed != constants.KEYCODE_ENTER &&
+                input.specialKeyPressed != constants.KEYCODE_ESCAPE) {
+                    input.checkKeyDown(event.keyCode);
             }
-            if (event.keyCode === constants.KEYCODE_S || event.keyCode === constants.KEYCODE_DOWN) {
-                this.downKeyDown = false;
-                console.log('down');
+        }
+
+        private onKeyReleased(event) {
+            input.specialKeyReleased = event.keyCode;
+            input.checkKeyUp(event.keyCode);
+        }
+
+        private checkSpecialKeyDown() {
+            if (this.specialKeyPressed != constants.INVALID) {
+                if (this.specialKeyPressed === constants.KEYCODE_SPACE) {
+                    this.currentKeyDown[constants.Keys[constants.SPACE]] = true;
+                }
+                if (this.specialKeyPressed === constants.KEYCODE_ENTER) {
+                    this.currentKeyDown[constants.Keys[constants.ENTER]] = true;
+                }
+                if (this.specialKeyPressed === constants.KEYCODE_ESCAPE) {
+                    this.currentKeyDown[constants.Keys[constants.ESCAPE]] = true;
+                }
+                this.specialKeyPressed = constants.INVALID;
             }
-            if (event.keyCode === constants.KEYCODE_A || event.keyCode === constants.KEYCODE_LEFT) {
-                this.leftKeyDown = false;
-                console.log('left');
+        }
+ 
+        private checkSpecialKeyUp() {
+            if (this.specialKeyReleased != constants.INVALID) {
+                if (this.specialKeyReleased === constants.KEYCODE_SPACE) {
+                    this.currentKeyDown[constants.Keys[constants.SPACE]] = false;
+                }
+                if (this.specialKeyReleased === constants.KEYCODE_ENTER) {
+                    this.currentKeyDown[constants.Keys[constants.ENTER]] = false;
+                }
+                if (this.specialKeyReleased === constants.KEYCODE_ESCAPE) {
+                    this.currentKeyDown[constants.Keys[constants.ESCAPE]] = false;
+                }
+                this.specialKeyReleased = constants.INVALID;
             }
-            if (event.keyCode === constants.KEYCODE_D || event.keyCode === constants.KEYCODE_RIGHT) {
-                this.rightKeyDown = false;
-                console.log('right');
+        }
+        
+        checkKeyDown(keyPressed: number) {
+            if (keyPressed === constants.KEYCODE_W || keyPressed === constants.KEYCODE_UP) {
+                input.currentKeyDown[constants.Keys[constants.UP]] = true;
             }
-            if (event.keyCode === constants.KEYCODE_SPACE) {
-                this.spaceKeyDown = false;
-                console.log('space');
+            if (keyPressed === constants.KEYCODE_S || keyPressed === constants.KEYCODE_DOWN) {
+                input.currentKeyDown[constants.Keys[constants.DOWN]] = true;
             }
-            if (event.keyCode === constants.KEYCODE_ENTER) {
-                this.enterKeyDown = false;
-                console.log('enter');
+            if (keyPressed === constants.KEYCODE_A || keyPressed === constants.KEYCODE_LEFT) {
+                input.currentKeyDown[constants.Keys[constants.LEFT]] = true;
             }
+            if (keyPressed === constants.KEYCODE_D || keyPressed === constants.KEYCODE_RIGHT) {
+                input.currentKeyDown[constants.Keys[constants.RIGHT]] = true;
+            }
+            /*
+            if (keyPressed === constants.KEYCODE_SPACE) {
+                input.currentKeyDown[constants.Keys[constants.SPACE]] = true;
+            }
+            if (keyPressed === constants.KEYCODE_ENTER) {
+                input.currentKeyDown[constants.Keys[constants.ENTER]] = true;
+            }
+            if (keyPressed === constants.KEYCODE_ESCAPE) {
+                input.currentKeyDown[constants.Keys[constants.ESCAPE]] = true;
+            }
+            */
+        }
+
+        checkKeyUp(keyReleased: number) {
+            if (keyReleased === constants.KEYCODE_W || keyReleased === constants.KEYCODE_UP) {
+                input.currentKeyDown[constants.Keys[constants.UP]] = false;
+            }
+            if (keyReleased === constants.KEYCODE_S || keyReleased === constants.KEYCODE_DOWN) {
+                input.currentKeyDown[constants.Keys[constants.DOWN]] = false;
+            }
+            if (keyReleased === constants.KEYCODE_A || keyReleased === constants.KEYCODE_LEFT) {
+                input.currentKeyDown[constants.Keys[constants.LEFT]] = false;
+            }
+            if (keyReleased === constants.KEYCODE_D || keyReleased === constants.KEYCODE_RIGHT) {
+                input.currentKeyDown[constants.Keys[constants.RIGHT]] = false;
+            }
+            /*
+            if (keyReleased === constants.KEYCODE_SPACE) {
+                input.currentKeyDown[constants.Keys[constants.SPACE]] = false;
+            }
+            if (keyReleased === constants.KEYCODE_ENTER) {
+                input.currentKeyDown[constants.Keys[constants.ENTER]] = false;
+            }
+            if (keyReleased === constants.KEYCODE_ESCAPE) {
+                input.currentKeyDown[constants.Keys[constants.ESCAPE]] = false;
+            }
+            */
         }
     }
-
 } 

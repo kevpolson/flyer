@@ -21,8 +21,8 @@ module objects {
             //game.addChild(this);
         }
 
-        update() {
-        }
+        //update() {
+        //}
 
         destroy() {
             //game.removeChild(this);

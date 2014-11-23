@@ -45,8 +45,20 @@ var objects;
             }
         };
 
-        Player.prototype.update = function () {
-            this.x += 10;
+        Player.prototype.update = function (input) {
+            if (input.isKeyDown(constants.UP)) {
+                console.log('up');
+            } else if (input.isKeyDown(constants.DOWN)) {
+                console.log('down');
+            }
+            if (input.isKeyDown(constants.RIGHT)) {
+                console.log('right');
+            } else if (input.isKeyDown(constants.LEFT)) {
+                console.log('left');
+            }
+            if (input.hasKeyBeenUp(constants.SPACE)) {
+                console.log('space');
+            }
         };
 
         //set idle animation

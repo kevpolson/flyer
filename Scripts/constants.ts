@@ -16,16 +16,26 @@
     export var GROUND_HEIGHT = 423;
 
     // Input Constants
+    export var KEYCODE_UP: number = 38;
+    export var KEYCODE_W: number = 87;
+    export var KEYCODE_DOWN: number = 40;
+    export var KEYCODE_S: number = 83;
+    export var KEYCODE_LEFT: number = 37;
+    export var KEYCODE_A: number = 65;
+    export var KEYCODE_RIGHT: number = 39;
+    export var KEYCODE_D: number = 68;
     export var KEYCODE_ENTER: number = 13;
     export var KEYCODE_SPACE: number = 32;
-    export var KEYCODE_UP: number = 38;
-    export var KEYCODE_DOWN: number = 40;
-    export var KEYCODE_LEFT: number = 37;
-    export var KEYCODE_RIGHT: number = 39;
-    export var KEYCODE_W: number = 87;
-    export var KEYCODE_S: number = 83;
-    export var KEYCODE_A: number = 65;
-    export var KEYCODE_D: number = 68;
+    export var KEYCODE_ESCAPE: number = 27;
+
+    export enum Keys { Up = 0, Down = 1, Left = 2, Right = 3, Space = 4, Enter = 5, Escape = 6 };
+    export var UP: string = 'Up';
+    export var DOWN: string = 'Down';
+    export var LEFT: string = 'Left';
+    export var RIGHT: string = 'Right';
+    export var SPACE: string = 'Space';
+    export var ENTER: string = 'Enter';
+    export var ESCAPE: string = 'Escape';
 
     // Player Animation Constants
     export var IDLE_WIDTH: number = 35;
@@ -33,4 +43,6 @@
     export var FLY_WIDTH: number = 45;
     export var FLY_HEIGHT: number = 15;
     export var ANIMATION_TIME: number = 0.1;
+
+    export var INVALID: number = -1;
 }

@@ -6,8 +6,10 @@ var states;
 (function (states) {
     function playState() {
         //update all elements of the play state
+        input.update();
+
         background.update();
-        player.update();
+        player.update(input);
         camera.update();
     }
     states.playState = playState;

@@ -22,9 +22,8 @@ var objects;
             this.speed = constants.GAME_SPEED;
             //game.addChild(this);
         }
-        GameObject.prototype.update = function () {
-        };
-
+        //update() {
+        //}
         GameObject.prototype.destroy = function () {
             //game.removeChild(this);
         };
