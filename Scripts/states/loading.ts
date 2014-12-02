@@ -1,7 +1,7 @@
 ﻿/// <reference path="../constants.ts" />
 /// <reference path="../managers/asset.ts" />
 /// <reference path="../objects/player.ts" />
-/// <reference path="../objects/background.ts" />
+/// <reference path="../objects/level.ts" />
 /// <reference path="../objects/label.ts" />
 
 module states {
@@ -13,13 +13,15 @@ module states {
 
         currentState = constants.PLAY_STATE;
         changeState(currentState);
-
     }
 
     export function loadingState(event) {
         progress.text = (event.progress * 100).toString() + "%";
 
         stage.update();
+    }
+
+    export function loadingUpdate() {
     }
 
     export function loading() {

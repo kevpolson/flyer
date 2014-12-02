@@ -23,7 +23,6 @@
             return !this.previousKeyDown[constants.Keys[key]] && this.currentKeyDown[constants.Keys[key]];
         };
 
-        //allow for WASD and arrow control scheme
         Input.prototype.onKeyPressed = function (event) {
             input.specialKeyPressed = event.keyCode;
             if (input.specialKeyPressed != constants.KEYCODE_SPACE && input.specialKeyPressed != constants.KEYCODE_ENTER && input.specialKeyPressed != constants.KEYCODE_ESCAPE) {
@@ -79,17 +78,6 @@
             if (keyPressed === constants.KEYCODE_D || keyPressed === constants.KEYCODE_RIGHT) {
                 input.currentKeyDown[constants.Keys[constants.RIGHT]] = true;
             }
-            /*
-            if (keyPressed === constants.KEYCODE_SPACE) {
-            input.currentKeyDown[constants.Keys[constants.SPACE]] = true;
-            }
-            if (keyPressed === constants.KEYCODE_ENTER) {
-            input.currentKeyDown[constants.Keys[constants.ENTER]] = true;
-            }
-            if (keyPressed === constants.KEYCODE_ESCAPE) {
-            input.currentKeyDown[constants.Keys[constants.ESCAPE]] = true;
-            }
-            */
         };
 
         Input.prototype.checkKeyUp = function (keyReleased) {
@@ -105,17 +93,6 @@
             if (keyReleased === constants.KEYCODE_D || keyReleased === constants.KEYCODE_RIGHT) {
                 input.currentKeyDown[constants.Keys[constants.RIGHT]] = false;
             }
-            /*
-            if (keyReleased === constants.KEYCODE_SPACE) {
-            input.currentKeyDown[constants.Keys[constants.SPACE]] = false;
-            }
-            if (keyReleased === constants.KEYCODE_ENTER) {
-            input.currentKeyDown[constants.Keys[constants.ENTER]] = false;
-            }
-            if (keyReleased === constants.KEYCODE_ESCAPE) {
-            input.currentKeyDown[constants.Keys[constants.ESCAPE]] = false;
-            }
-            */
         };
         return Input;
     })();

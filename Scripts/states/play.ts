@@ -1,15 +1,14 @@
 ﻿/// <reference path="../objects/label.ts" />
-/// <reference path="../objects/background.ts" />
-/// <reference path="../objects/camera.ts" />
+/// <reference path="../objects/level.ts" />
 /// <reference path="../objects/player.ts" />
 module states {
-    export function playState() {
+    export function playUpdate() {
         //update all elements of the play state
         input.update();
 
-        background.update();
         player.update(input);
-        camera.update();
+        level.update(player, stage.canvas.width);
+        //camera.update(game);
     }
 
     // play state Function
@@ -18,10 +17,10 @@ module states {
         game = new createjs.Container();
 
         // Instantiate Game Objects
-        background = new objects.Background(stage, game);
-        player = new objects.Player(stage, game);
-        console.log(player.x);
-        camera = new objects.Camera(stage, game, player);
+        level = new objects.Level(game);
+        player = new objects.Player(game);
+        
+        //camera = new objects.Camera(background.objectIndex, player.objectIndex);
         
         stage.addChild(game);
     }

@@ -1,14 +1,5 @@
 ﻿module managers {
     export class Input {
-        /*
-        upKeyDown: boolean;
-        downKeyDown: boolean;
-        leftKeyDown: boolean;
-        rightKeyDown: boolean;
-        spaceKeyDown: boolean;
-        enterKeyDown: boolean;
-        escapeKeyDown: boolean;
-        */
         specialKeyPressed: number;
         specialKeyReleased: number;
         currentKeyDown: boolean[] = [false, false, false, false, false, false, false];
@@ -91,17 +82,6 @@
             if (keyPressed === constants.KEYCODE_D || keyPressed === constants.KEYCODE_RIGHT) {
                 input.currentKeyDown[constants.Keys[constants.RIGHT]] = true;
             }
-            /*
-            if (keyPressed === constants.KEYCODE_SPACE) {
-                input.currentKeyDown[constants.Keys[constants.SPACE]] = true;
-            }
-            if (keyPressed === constants.KEYCODE_ENTER) {
-                input.currentKeyDown[constants.Keys[constants.ENTER]] = true;
-            }
-            if (keyPressed === constants.KEYCODE_ESCAPE) {
-                input.currentKeyDown[constants.Keys[constants.ESCAPE]] = true;
-            }
-            */
         }
 
         checkKeyUp(keyReleased: number) {
@@ -117,17 +97,6 @@
             if (keyReleased === constants.KEYCODE_D || keyReleased === constants.KEYCODE_RIGHT) {
                 input.currentKeyDown[constants.Keys[constants.RIGHT]] = false;
             }
-            /*
-            if (keyReleased === constants.KEYCODE_SPACE) {
-                input.currentKeyDown[constants.Keys[constants.SPACE]] = false;
-            }
-            if (keyReleased === constants.KEYCODE_ENTER) {
-                input.currentKeyDown[constants.Keys[constants.ENTER]] = false;
-            }
-            if (keyReleased === constants.KEYCODE_ESCAPE) {
-                input.currentKeyDown[constants.Keys[constants.ESCAPE]] = false;
-            }
-            */
         }
     }
 } 

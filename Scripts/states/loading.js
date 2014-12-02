@@ -1,7 +1,7 @@
 ﻿/// <reference path="../constants.ts" />
 /// <reference path="../managers/asset.ts" />
 /// <reference path="../objects/player.ts" />
-/// <reference path="../objects/background.ts" />
+/// <reference path="../objects/level.ts" />
 /// <reference path="../objects/label.ts" />
 var states;
 (function (states) {
@@ -22,6 +22,10 @@ var states;
         stage.update();
     }
     states.loadingState = loadingState;
+
+    function loadingUpdate() {
+    }
+    states.loadingUpdate = loadingUpdate;
 
     function loading() {
         // Declare new Game Container

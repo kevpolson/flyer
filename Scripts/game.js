@@ -1,6 +1,6 @@
 ﻿/// <reference path="constants.ts" />
 /// <reference path="managers/asset.ts" />
-/// <reference path="objects/background.ts" />
+/// <reference path="objects/level.ts" />
 /// <reference path="objects/player.ts" />
 /// <reference path="objects/label.ts" />
 /// <reference path="states/loading.ts" />
@@ -8,9 +8,8 @@
 var stage;
 var game;
 var input;
-var camera;
 
-var background;
+var level;
 var player;
 var bgMusic;
 
@@ -20,7 +19,10 @@ var currentStateFunction;
 // Preload function - Loads Assets and initializes game;
 function preload() {
     stage = new createjs.Stage(document.getElementById("canvas"));
-    states.loading();
+
+    currentState = constants.LOADING_STATE;
+    changeState(currentState);
+
     managers.Assets.init();
     managers.Assets.loader.addEventListener("complete", init);
 }
@@ -33,10 +35,7 @@ function init() {
 
     optimizeForMobile();
     input = new managers.Input();
-
-    bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
-    currentState = constants.PLAY_STATE;
-    changeState(currentState);
+    //bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
 }
 
 // Add touch support for mobile devices
@@ -50,21 +49,21 @@ function optimizeForMobile() {
 function gameLoop(event) {
     currentStateFunction();
     stage.update();
-    //console.log("objects: " + game.children.length);
+    //console.log("objects: " + stage.children.length);
 }
 
 function changeState(state) {
     switch (state) {
+        case constants.LOADING_STATE:
+            // instantiate play screen
+            currentStateFunction = states.loadingUpdate;
+            states.loading();
+            break;
         case constants.PLAY_STATE:
             // instantiate play screen
-            currentStateFunction = states.playState;
+            currentStateFunction = states.playUpdate;
             states.play();
             break;
     }
-}
-
-//the player will shoot when an enemy is pressed
-function playerShoot(event) {
-    player.shootPressed();
 }
 //# sourceMappingURL=game.js.map

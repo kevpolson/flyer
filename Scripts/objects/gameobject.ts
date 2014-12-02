@@ -1,15 +1,11 @@
 ﻿/// <reference path="../managers/asset.ts" />
 module objects {
     export class GameObject extends createjs.Sprite {
-        stage: createjs.Stage;
-        game: createjs.Container;
         width: number;
         height: number;
         speed: number;
-        constructor(stage: createjs.Stage, game: createjs.Container, spriteSheet: createjs.SpriteSheet, newAnimation: string) {
-            this.stage = stage;
-            this.game = game;
-
+        objectIndex: number;
+        constructor(game: createjs.Container, spriteSheet: createjs.SpriteSheet, newAnimation: string) {
             super(spriteSheet, newAnimation);
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -18,14 +14,12 @@ module objects {
 
             this.speed = constants.GAME_SPEED;
 
-            //game.addChild(this);
+            this.objectIndex = game.children.length;
+            game.addChildAt(this, this.objectIndex);
         }
 
-        //update() {
-        //}
-
         destroy() {
-            //game.removeChild(this);
+            game.removeChildAt(this.objectIndex);
         }
     }
 } 

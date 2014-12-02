@@ -9,10 +9,7 @@ var objects;
 (function (objects) {
     var GameObject = (function (_super) {
         __extends(GameObject, _super);
-        function GameObject(stage, game, spriteSheet, newAnimation) {
-            this.stage = stage;
-            this.game = game;
-
+        function GameObject(game, spriteSheet, newAnimation) {
             _super.call(this, spriteSheet, newAnimation);
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -20,12 +17,12 @@ var objects;
             this.regY = this.height * 0.5;
 
             this.speed = constants.GAME_SPEED;
-            //game.addChild(this);
+
+            this.objectIndex = game.children.length;
+            game.addChildAt(this, this.objectIndex);
         }
-        //update() {
-        //}
         GameObject.prototype.destroy = function () {
-            //game.removeChild(this);
+            game.removeChildAt(this.objectIndex);
         };
         return GameObject;
     })(createjs.Sprite);
