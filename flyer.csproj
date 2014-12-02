@@ -105,7 +105,6 @@
     <TypeScriptCompile Include="Scripts\managers\asset.ts" />
     <TypeScriptCompile Include="Scripts\managers\input.ts" />
     <TypeScriptCompile Include="Scripts\objects\level.ts" />
-    <TypeScriptCompile Include="Scripts\objects\camera.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
     <TypeScriptCompile Include="Scripts\objects\label.ts" />
     <TypeScriptCompile Include="Scripts\objects\player.ts" />

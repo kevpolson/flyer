@@ -9,7 +9,6 @@ var states;
 
         player.update(input);
         level.update(player, stage.canvas.width);
-        //camera.update(game);
     }
     states.playUpdate = playUpdate;
 
@@ -22,7 +21,6 @@ var states;
         level = new objects.Level(game);
         player = new objects.Player(game);
 
-        //camera = new objects.Camera(background.objectIndex, player.objectIndex);
         stage.addChild(game);
     }
     states.play = play;

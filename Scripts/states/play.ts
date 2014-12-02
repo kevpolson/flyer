@@ -8,7 +8,6 @@ module states {
 
         player.update(input);
         level.update(player, stage.canvas.width);
-        //camera.update(game);
     }
 
     // play state Function
@@ -19,8 +18,6 @@ module states {
         // Instantiate Game Objects
         level = new objects.Level(game);
         player = new objects.Player(game);
-        
-        //camera = new objects.Camera(background.objectIndex, player.objectIndex);
         
         stage.addChild(game);
     }

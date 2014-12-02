@@ -2,67 +2,94 @@
 module objects {
     // Background Class
     export class Level {
-        image1: createjs.Bitmap;
-        image2: createjs.Bitmap;
+        background: createjs.Bitmap[] = [];
+        objectIndex: number[] = [];
+        backgroundWidth: number;
         width: number;
         height: number;
         speed: number;
-        objectIndex: number;
+        screenCount: number;
+        maxScreens: number;
         constructor(game: createjs.Container) {
-            this.image1 = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
-            this.image2 = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
-            this.width = this.image1.getBounds().width;
-            this.height = this.image1.getBounds().height;
+            for (var i = 0; i < 2; i++) {
+                this.background[i] = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
+                this.backgroundWidth = this.background[i].getBounds().width;
+                this.background[i].x = i * this.backgroundWidth;
+
+                this.objectIndex[i] = game.children.length;
+                game.addChildAt(this.background[i], this.objectIndex[i]);
+            }
+            
+            this.maxScreens = 5;
+            this.width = this.backgroundWidth * this.maxScreens;
+            this.height = this.background[0].getBounds().height;
 
             this.speed = constants.GAME_SPEED;
-
-            this.image1.x = 0;
-            this.resetImage2();
-
-            this.objectIndex = game.children.length;
-            game.addChildAt(this.image1, this.objectIndex);
-            //this.game.addChildAt(this.image2, constants.BACKGROUND2_INDEX);
         }
 
         update(player: objects.Player, screenWidth: number) {
+            this.camera(player, screenWidth);
+        }
+    
+
+        resetImageRight(index: number) {
+            console.log(index);
+            this.background[index].x = this.backgroundWidth;
+        }
+
+        resetImageLeft(index: number) {
+            this.background[index].x = -this.backgroundWidth;
+        }
+
+        private camera(player: objects.Player, screenWidth: number) {
             if (player.lastMovement > 0) {
+                //locks player to the centre of the screen
                 if (player.actualX < this.width - screenWidth * 0.5) {
                     if (player.x > screenWidth * 0.5) {
-                        this.image1.x -= player.lastMovement;
+                        for (var i = 0; i < this.background.length; i++) {
+                            this.background[i].x -= player.lastMovement;
+                        }
                         player.x = screenWidth * 0.5;
                     }
                 }
+                //locks player to the level
                 else if (player.actualX + player.regX > this.width) {
                     player.x = screenWidth - player.regX;
                     player.actualX = this.width - player.regX;
                 }
+                for (var i = 0; i < this.background.length; i++) {
+                    if (this.background[i].x + this.backgroundWidth < 0) {
+                        this.resetImageRight(i);
+                    }
+                }
             }
             else if (player.lastMovement < 0) {
+                //locks player to the centre of the screen
                 if (player.actualX > screenWidth * 0.5) {
                     if (player.x < screenWidth * 0.5) {
-                        this.image1.x -= player.lastMovement;
+                        for (var i = 0; i < this.background.length; i++) {
+                            this.background[i].x -= player.lastMovement;
+                        }
                         player.x = screenWidth * 0.5;
                     }
                 }
+                //locks player to the level
                 else if (player.actualX - player.regX < 0) {
                     player.x = 0 + player.regX;
                     player.actualX = 0 + player.regX;
                 }
+                for (var i = 0; i < this.background.length; i++) {
+                    if (this.background[i].x > this.backgroundWidth) {
+                        this.resetImageLeft(i);
+                    }
+                }
             }
-        }
-    
-
-        resetImage1() {
-            this.image1.x = this.width - constants.GAME_SPEED;
-        }
-
-        resetImage2() {
-            this.image2.x = this.width - constants.GAME_SPEED;
         }
 
         destroy() {
-            game.removeChildAt(this.objectIndex);
-            //game.removeChildAt(constants.BACKGROUND2_INDEX);
+            for (var i = 0; i < this.background.length; i++) {
+                game.removeChildAt(this.objectIndex[i]);
+            }
         }
     }
 
