@@ -52,6 +52,7 @@
     (function (Animations) {
         Animations[Animations["idle"] = 0] = "idle";
         Animations[Animations["dash"] = 1] = "dash";
+        Animations[Animations["attack"] = 2] = "attack";
     })(constants.Animations || (constants.Animations = {}));
     var Animations = constants.Animations;
     ;

@@ -33,7 +33,7 @@ module objects {
         update(input: managers.Input) {
             //var diffRegX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
             //var diffRegY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
-
+            console.log(this.currentAnimation + ' ');
             this.regX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
             this.regY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
             //this.x += diffRegX;
@@ -47,31 +47,35 @@ module objects {
             }
             */
 
-            if (input.isKeyDown(constants.RIGHT)) {
-                this.scaleX = 1;
-                if (this.currentAnimation != "dash") {
-                    this.gotoAndPlay("dash");
+            if (this.currentAnimation != "attack") {
+                if (input.isKeyDown(constants.RIGHT)) {
+                    this.scaleX = 1;
+                    if (this.currentAnimation != "dash") {
+                        this.gotoAndPlay("dash");
+                    }
+                    this.x += this.speed;
+                    this.actualX += this.speed;
+                    this.lastMovement = this.speed;
+                } else if (input.isKeyDown(constants.LEFT)) {
+                    this.scaleX = -1;
+                    if (this.currentAnimation != "dash") {
+                        this.gotoAndPlay("dash");
+                    }
+                    this.x -= this.speed;
+                    this.actualX -= this.speed;
+                    this.lastMovement = -this.speed;
                 }
-                this.x += this.speed;
-                this.actualX += this.speed;
-                this.lastMovement = this.speed;
-            } else if (input.isKeyDown(constants.LEFT)) {
-                this.scaleX = -1;
-                if (this.currentAnimation != "dash") {
-                    this.gotoAndPlay("dash");
-                }
-                this.x -= this.speed;
-                this.actualX -= this.speed;
-                this.lastMovement = -this.speed;
-            }
-            else {
-                this.lastMovement = 0;
-                if (this.currentAnimation != "idle") {
-                    this.gotoAndPlay("idle");
+                else {
+                    this.lastMovement = 0;
+                    if (this.currentAnimation != "idle") {
+                        this.gotoAndPlay("idle");
+                    }
                 }
             }
             if(input.hasKeyBeenUp(constants.SPACE)) {
-                console.log('space');
+                if (this.currentAnimation != "attack") {
+                    this.gotoAndPlay("attack");
+                }
             }
         }
 
