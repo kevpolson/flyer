@@ -1,11 +1,11 @@
-﻿var __extends = this.__extends || function (d, b) {
+﻿/// <reference path="../managers/asset.ts" />
+/// <reference path="gameobject.ts" />
+var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-/// <reference path="../managers/asset.ts" />
-/// <reference path="gameobject.ts" />
 var objects;
 (function (objects) {
     // Player Class
@@ -19,8 +19,8 @@ var objects;
             var animations = managers.Assets.player.getAnimations();
             for (var a = 0; a < animations.length; a++) {
                 var frames = managers.Assets.player.getAnimation(animations[a]).frames;
-                this.heights[a] = [];
-                this.widths[a] = [];
+                this.heights[a] = new Array();
+                this.widths[a] = new Array();
                 console.log('frames: ' + frames);
                 for (var f = 0; f < frames.length; f++) {
                     console.log('height (' + a + ':' + f + '): ' + managers.Assets.player.getFrame(frames[f]).rect.height);
@@ -36,13 +36,8 @@ var objects;
             this.y = constants.GROUND_HEIGHT - this.regY;
         }
         Player.prototype.update = function (input) {
-            //var diffRegX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
-            //var diffRegY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
-            console.log(this.currentAnimation + ' ');
             this.regX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
             this.regY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
-
-            //this.x += diffRegX;
             this.y = constants.GROUND_HEIGHT - this.regY;
 
             /*
@@ -54,26 +49,11 @@ var objects;
             */
             if (this.currentAnimation != "attack") {
                 if (input.isKeyDown(constants.RIGHT)) {
-                    this.scaleX = 1;
-                    if (this.currentAnimation != "dash") {
-                        this.gotoAndPlay("dash");
-                    }
-                    this.x += this.speed;
-                    this.actualX += this.speed;
-                    this.lastMovement = this.speed;
+                    this.movement(1);
                 } else if (input.isKeyDown(constants.LEFT)) {
-                    this.scaleX = -1;
-                    if (this.currentAnimation != "dash") {
-                        this.gotoAndPlay("dash");
-                    }
-                    this.x -= this.speed;
-                    this.actualX -= this.speed;
-                    this.lastMovement = -this.speed;
+                    this.movement(-1);
                 } else {
-                    this.lastMovement = 0;
-                    if (this.currentAnimation != "idle") {
-                        this.gotoAndPlay("idle");
-                    }
+                    this.idle();
                 }
             }
             if (input.hasKeyBeenUp(constants.SPACE)) {
@@ -83,9 +63,24 @@ var objects;
             }
         };
 
+        //move player based on scale
+        Player.prototype.movement = function (scale) {
+            this.scaleX = scale;
+            this.x += scale * this.speed;
+            this.actualX += scale * this.speed;
+            this.lastMovement = scale * this.speed;
+
+            if (this.currentAnimation != "dash") {
+                this.gotoAndPlay("dash");
+            }
+        };
+
         //set idle animation
         Player.prototype.idle = function () {
-            this.gotoAndPlay("idle");
+            this.lastMovement = 0;
+            if (this.currentAnimation != "idle") {
+                this.gotoAndPlay("idle");
+            }
         };
         return Player;
     })(objects.GameObject);

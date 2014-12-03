@@ -1,5 +1,6 @@
 ﻿/// <reference path="../managers/asset.ts" />
 /// <reference path="gameobject.ts" />
+
 module objects {
     // Player Class
     export class Player extends GameObject {
@@ -13,8 +14,8 @@ module objects {
             var animations = managers.Assets.player.getAnimations();
             for (var a = 0; a < animations.length; a++) {
                 var frames = managers.Assets.player.getAnimation(animations[a]).frames;
-                this.heights[a] = [];
-                this.widths[a] = [];
+                this.heights[a] = new Array<number>();
+                this.widths[a] = new Array<number>();
                 console.log('frames: ' + frames);
                 for (var f = 0; f < frames.length; f++) {
                     console.log('height (' + a + ':' + f + '): ' + managers.Assets.player.getFrame(frames[f]).rect.height);
@@ -31,12 +32,8 @@ module objects {
         }
 
         update(input: managers.Input) {
-            //var diffRegX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
-            //var diffRegY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
-            console.log(this.currentAnimation + ' ');
             this.regX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
             this.regY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
-            //this.x += diffRegX;
             this.y = constants.GROUND_HEIGHT - this.regY;
 
             /*
@@ -49,27 +46,12 @@ module objects {
 
             if (this.currentAnimation != "attack") {
                 if (input.isKeyDown(constants.RIGHT)) {
-                    this.scaleX = 1;
-                    if (this.currentAnimation != "dash") {
-                        this.gotoAndPlay("dash");
-                    }
-                    this.x += this.speed;
-                    this.actualX += this.speed;
-                    this.lastMovement = this.speed;
+                    this.movement(1);
                 } else if (input.isKeyDown(constants.LEFT)) {
-                    this.scaleX = -1;
-                    if (this.currentAnimation != "dash") {
-                        this.gotoAndPlay("dash");
-                    }
-                    this.x -= this.speed;
-                    this.actualX -= this.speed;
-                    this.lastMovement = -this.speed;
+                    this.movement(-1);
                 }
                 else {
-                    this.lastMovement = 0;
-                    if (this.currentAnimation != "idle") {
-                        this.gotoAndPlay("idle");
-                    }
+                    this.idle();
                 }
             }
             if(input.hasKeyBeenUp(constants.SPACE)) {
@@ -79,9 +61,24 @@ module objects {
             }
         }
 
+        //move player based on scale    
+        movement(scale: number) {
+            this.scaleX = scale;
+            this.x += scale * this.speed;
+            this.actualX += scale * this.speed;
+            this.lastMovement = scale * this.speed;
+
+            if (this.currentAnimation != "dash") {
+                this.gotoAndPlay("dash");
+            }
+        }
+        
         //set idle animation
         idle() {
-            this.gotoAndPlay("idle");
+            this.lastMovement = 0;
+            if (this.currentAnimation != "idle") {
+                this.gotoAndPlay("idle");
+            }
         }
     }
 } 
