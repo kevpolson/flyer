@@ -14,7 +14,7 @@
     constants.PLAYER_LIVES = 5;
     constants.EXPLOSION_TIME = 1000;
     constants.GAME_SPEED = 2.5;
-    constants.GROUND_HEIGHT = 423;
+    constants.GROUND_HEIGHT = 425;
 
     // Input Constants
     constants.KEYCODE_UP = 38;
@@ -49,6 +49,12 @@
     constants.ESCAPE = 'Escape';
 
     // Player Animation Constants
+    (function (Animations) {
+        Animations[Animations["idle"] = 0] = "idle";
+        Animations[Animations["dash"] = 1] = "dash";
+    })(constants.Animations || (constants.Animations = {}));
+    var Animations = constants.Animations;
+    ;
     constants.IDLE_WIDTH = 35;
     constants.IDLE_HEIGHT = 40;
     constants.FLY_WIDTH = 45;

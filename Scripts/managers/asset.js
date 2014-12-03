@@ -7,6 +7,38 @@ var managers;
         { id: "bgMusic", src: "assets/sounds/UnderTheClouds.mp3" }
     ];
 
+    var newPlayerSheetData = {
+        "images": ["assets/images/newPlayer.png"],
+        "frames": [
+            [1, 1, 36, 59],
+            [38, 1, 36, 57],
+            [75, 1, 36, 56],
+            [112, 1, 36, 57],
+            [149, 1, 36, 59],
+            [186, 1, 36, 57],
+            [223, 1, 36, 56],
+            [260, 1, 36, 57],
+            [1, 61, 37, 53],
+            [39, 61, 43, 60],
+            [84, 61, 53, 60],
+            [137, 61, 46, 51],
+            [185, 61, 39, 52],
+            [224, 61, 41, 59],
+            [266, 61, 50, 51],
+            [317, 61, 46, 52]
+        ],
+        "animations": {
+            "idle": {
+                frames: [0, 1, 2, 3, 4, 5, 6, 7],
+                speed: constants.ANIMATION_TIME
+            },
+            "dash": {
+                frames: [8, 9, 10, 11, 12, 13, 14, 15],
+                speed: constants.ANIMATION_TIME
+            }
+        }
+    };
+
     // SpriteSheet for Player Object
     var playerSheetData = {
         "images": ["assets/images/supes.png"],
@@ -63,7 +95,7 @@ var managers;
             this.loader.installPlugin(createjs.Sound);
             this.loader.loadManifest(assetManifest);
 
-            this.player = new createjs.SpriteSheet(playerSheetData);
+            this.player = new createjs.SpriteSheet(newPlayerSheetData);
         };
         return Assets;
     })();

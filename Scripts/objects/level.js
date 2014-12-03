@@ -15,7 +15,7 @@ var objects;
                 game.addChildAt(this.background[i], this.objectIndex[i]);
             }
 
-            this.maxScreens = 5;
+            this.maxScreens = 2;
             this.width = this.backgroundWidth * this.maxScreens;
             this.height = this.background[0].getBounds().height;
 

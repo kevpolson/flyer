@@ -7,6 +7,38 @@ module managers {
     ];
 
 
+    var newPlayerSheetData = {
+        "images": ["assets/images/newPlayer.png"],
+        "frames": [
+            [1, 1, 36, 59],    //idle      [0]
+            [38, 1, 36, 57],   //idle      [1]
+            [75, 1, 36, 56],   //idle      [2]
+            [112, 1, 36, 57],  //idle      [3]
+            [149, 1, 36, 59],  //idle      [4]
+            [186, 1, 36, 57],  //idle      [5]
+            [223, 1, 36, 56],  //idle      [6]
+            [260, 1, 36, 57],  //idle      [7]
+            [1, 61, 37, 53],   //dash      [8]
+            [39, 61, 43, 60],  //dash      [9]
+            [84, 61, 53, 60],  //dash     [10]
+            [137, 61, 46, 51], //dash     [11]
+            [185, 61, 39, 52], //dash     [12]
+            [224, 61, 41, 59], //dash     [13]
+            [266, 61, 50, 51], //dash     [14]
+            [317, 61, 46, 52]  //dash     [15]
+        ],
+        "animations": {
+            "idle": {
+                frames: [0, 1, 2, 3, 4, 5, 6, 7],
+                speed: constants.ANIMATION_TIME
+            },
+            "dash": {
+                frames: [8, 9, 10, 11, 12, 13, 14, 15],
+                speed: constants.ANIMATION_TIME
+            }
+        }
+    }
+
     // SpriteSheet for Player Object
     var playerSheetData = {
         "images": ["assets/images/supes.png"],
@@ -59,7 +91,7 @@ module managers {
             this.loader.installPlugin(createjs.Sound);
             this.loader.loadManifest(assetManifest);
             
-            this.player = new createjs.SpriteSheet(playerSheetData);
+            this.player = new createjs.SpriteSheet(newPlayerSheetData);
         }
     }
 } 

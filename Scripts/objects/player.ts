@@ -5,29 +5,70 @@ module objects {
     export class Player extends GameObject {
         actualX: number;
         lastMovement: number;
+        heights = [];
+        widths = [];
         constructor(game: createjs.Container) {
             super(game, managers.Assets.player, "idle");
 
+            var animations = managers.Assets.player.getAnimations();
+            for (var a = 0; a < animations.length; a++) {
+                var frames = managers.Assets.player.getAnimation(animations[a]).frames;
+                this.heights[a] = [];
+                this.widths[a] = [];
+                console.log('frames: ' + frames);
+                for (var f = 0; f < frames.length; f++) {
+                    console.log('height (' + a + ':' + f + '): ' + managers.Assets.player.getFrame(frames[f]).rect.height);
+                    this.heights[a][frames[f]] = managers.Assets.player.getFrame(frames[f]).rect.height;
+                    this.widths[a][frames[f]] = managers.Assets.player.getFrame(frames[f]).rect.width;
+                }
+            }
+
+            console.log(this.heights);
+            console.log(this.widths);
             this.x = 100;
             this.actualX = this.x;
             this.y = constants.GROUND_HEIGHT - this.regY;
         }
 
         update(input: managers.Input) {
-            this.lastMovement = 0;
-            if(input.isKeyDown(constants.UP)) {
+            //var diffRegX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
+            //var diffRegY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5 - this.regX;
+
+            this.regX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
+            this.regY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
+            //this.x += diffRegX;
+            this.y = constants.GROUND_HEIGHT - this.regY;
+
+            /*
+            if (input.isKeyDown(constants.UP)) {
                 console.log('up');
             } else if (input.isKeyDown(constants.DOWN)) {
                 console.log('down');
             }
+            */
+
             if (input.isKeyDown(constants.RIGHT)) {
+                this.scaleX = 1;
+                if (this.currentAnimation != "dash") {
+                    this.gotoAndPlay("dash");
+                }
                 this.x += this.speed;
                 this.actualX += this.speed;
                 this.lastMovement = this.speed;
             } else if (input.isKeyDown(constants.LEFT)) {
+                this.scaleX = -1;
+                if (this.currentAnimation != "dash") {
+                    this.gotoAndPlay("dash");
+                }
                 this.x -= this.speed;
                 this.actualX -= this.speed;
                 this.lastMovement = -this.speed;
+            }
+            else {
+                this.lastMovement = 0;
+                if (this.currentAnimation != "idle") {
+                    this.gotoAndPlay("idle");
+                }
             }
             if(input.hasKeyBeenUp(constants.SPACE)) {
                 console.log('space');

@@ -13,7 +13,7 @@
     export var PLAYER_LIVES = 5;
     export var EXPLOSION_TIME = 1000;
     export var GAME_SPEED = 2.5;
-    export var GROUND_HEIGHT = 423;
+    export var GROUND_HEIGHT = 425;
 
     // Input Constants
     export var KEYCODE_UP: number = 38;
@@ -38,6 +38,7 @@
     export var ESCAPE: string = 'Escape';
 
     // Player Animation Constants
+    export enum Animations { idle = 0, dash = 1 };
     export var IDLE_WIDTH: number = 35;
     export var IDLE_HEIGHT: number = 40;
     export var FLY_WIDTH: number = 45;
