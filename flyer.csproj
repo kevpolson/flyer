@@ -105,10 +105,10 @@
     <TypeScriptCompile Include="Scripts\lib\tweenjs.d.ts" />
     <TypeScriptCompile Include="Scripts\managers\asset.ts" />
     <TypeScriptCompile Include="Scripts\managers\input.ts" />
-    <TypeScriptCompile Include="Scripts\objects\level.ts" />
+    <TypeScriptCompile Include="Scripts\objects\sidescrollinglevel.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
     <TypeScriptCompile Include="Scripts\objects\label.ts" />
-    <TypeScriptCompile Include="Scripts\objects\player.ts" />
+    <TypeScriptCompile Include="Scripts\objects\sidescrollingplayer.ts" />
     <TypeScriptCompile Include="Scripts\states\loading.ts" />
     <TypeScriptCompile Include="Scripts\states\play.ts" />
   </ItemGroup>

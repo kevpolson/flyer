@@ -9,9 +9,9 @@ var __extends = this.__extends || function (d, b) {
 var objects;
 (function (objects) {
     // Player Class
-    var Player = (function (_super) {
-        __extends(Player, _super);
-        function Player(game) {
+    var sideScrollingPlayer = (function (_super) {
+        __extends(sideScrollingPlayer, _super);
+        function sideScrollingPlayer(game) {
             _super.call(this, game, managers.Assets.player, "victory");
             this.heights = [];
             this.widths = [];
@@ -38,7 +38,7 @@ var objects;
             this.actualX = this.x;
             this.y = constants.GROUND_HEIGHT - this.regY;
         }
-        Player.prototype.update = function (input) {
+        sideScrollingPlayer.prototype.update = function (input) {
             this.animationCounter++;
             this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
 
@@ -81,7 +81,7 @@ var objects;
         };
 
         //move player based on scale
-        Player.prototype.movement = function (scale) {
+        sideScrollingPlayer.prototype.movement = function (scale) {
             this.scaleX = scale;
             this.x += scale * this.speed;
             this.actualX += scale * this.speed;
@@ -91,12 +91,12 @@ var objects;
         };
 
         //set idle animation
-        Player.prototype.idle = function () {
+        sideScrollingPlayer.prototype.idle = function () {
             this.lastMovement = 0;
             this.changeAnimation("idle", false);
         };
 
-        Player.prototype.changeAnimation = function (animationName, forceChange) {
+        sideScrollingPlayer.prototype.changeAnimation = function (animationName, forceChange) {
             if (this.currentAnimationType != animationName || forceChange) {
                 this.currentAnimationType = animationName;
                 this.gotoAndPlay(animationName);
@@ -105,8 +105,8 @@ var objects;
                 this.animationCounter = 0;
             }
         };
-        return Player;
+        return sideScrollingPlayer;
     })(objects.GameObject);
-    objects.Player = Player;
+    objects.sideScrollingPlayer = sideScrollingPlayer;
 })(objects || (objects = {}));
-//# sourceMappingURL=player.js.map
+//# sourceMappingURL=sidescrollingplayer.js.map

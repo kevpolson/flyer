@@ -3,7 +3,7 @@
 
 module objects {
     // Player Class
-    export class Player extends GameObject {
+    export class sideScrollingPlayer extends GameObject {
         actualX: number;
         lastMovement: number;
         heights = [];

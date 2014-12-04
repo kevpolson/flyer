@@ -1,7 +1,5 @@
 ﻿/// <reference path="../constants.ts" />
 /// <reference path="../managers/asset.ts" />
-/// <reference path="../objects/player.ts" />
-/// <reference path="../objects/level.ts" />
 /// <reference path="../objects/label.ts" />
 
 module states {

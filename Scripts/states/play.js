@@ -1,8 +1,11 @@
 ﻿/// <reference path="../objects/label.ts" />
-/// <reference path="../objects/level.ts" />
-/// <reference path="../objects/player.ts" />
+/// <reference path="../objects/sideScrollinglevel.ts" />
+/// <reference path="../objects/sidescrollingplayer.ts" />
 var states;
 (function (states) {
+    var player;
+    var level;
+
     function playUpdate() {
         //update all elements of the play state
         input.update();
@@ -20,8 +23,8 @@ var states;
         game = new createjs.Container();
 
         // Instantiate Game Objects
-        level = new objects.Level(game);
-        player = new objects.Player(game);
+        level = new objects.sideScrollingLevel(game);
+        player = new objects.sideScrollingPlayer(game);
 
         stage.addChild(game);
     }

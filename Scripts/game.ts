@@ -1,7 +1,5 @@
 ﻿/// <reference path="constants.ts" />
 /// <reference path="managers/asset.ts" />
-/// <reference path="objects/level.ts" />
-/// <reference path="objects/player.ts" />
 /// <reference path="objects/label.ts" />
 /// <reference path="states/loading.ts" />
 /// <reference path="states/play.ts" />
@@ -10,8 +8,6 @@ var stage: createjs.Stage;
 var game: createjs.Container;
 var input: managers.Input;
 
-var level: objects.Level;
-var player: objects.Player;
 var bgMusic: createjs.SoundInstance;
 
 var currentState: number;

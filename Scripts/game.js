@@ -1,7 +1,5 @@
 ﻿/// <reference path="constants.ts" />
 /// <reference path="managers/asset.ts" />
-/// <reference path="objects/level.ts" />
-/// <reference path="objects/player.ts" />
 /// <reference path="objects/label.ts" />
 /// <reference path="states/loading.ts" />
 /// <reference path="states/play.ts" />
@@ -9,8 +7,6 @@ var stage;
 var game;
 var input;
 
-var level;
-var player;
 var bgMusic;
 
 var currentState;
