@@ -31,11 +31,20 @@ module managers {
             [112, 122, 70, 53], //attack   [18]
             [183, 122, 64, 51], //attack   [19]
             [248, 122, 50, 53], //attack   [20]
-            [299, 122, 65, 51]  //attack   [21]
+            [299, 122, 65, 51], //attack   [21]
+            [1, 176, 41, 49],   //victory  [22]
+            [43, 176, 45, 47],  //victory  [23]
+            [89, 176, 41, 51],  //victory  [24]
+            [131, 176, 30, 70], //victory  [25]
+            [162, 176, 33, 67], //victory  [26]
+            [196, 176, 33, 69], //victory  [27]
+            [230, 176, 33, 69], //victory  [28]
+            [264, 176, 42, 62]  //victory  [29]
         ],
         "animations": {
             "idle": {
                 frames: [0, 1, 2, 3, 4, 5, 6, 7],
+                //next: "victory",
                 speed: constants.ANIMATION_TIME
             },
             "dash": {
@@ -44,6 +53,11 @@ module managers {
             },
             "attack": {
                 frames: [16, 17, 18, 19, 20, 21],
+                next: "idle",
+                speed: constants.ANIMATION_TIME
+            },
+            "victory": {
+                frames: [22, 23, 24, 25, 26, 27, 28, 29],
                 next: "idle",
                 speed: constants.ANIMATION_TIME
             }

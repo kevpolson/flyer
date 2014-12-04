@@ -31,11 +31,20 @@ var managers;
             [112, 122, 70, 53],
             [183, 122, 64, 51],
             [248, 122, 50, 53],
-            [299, 122, 65, 51]
+            [299, 122, 65, 51],
+            [1, 176, 41, 49],
+            [43, 176, 45, 47],
+            [89, 176, 41, 51],
+            [131, 176, 30, 70],
+            [162, 176, 33, 67],
+            [196, 176, 33, 69],
+            [230, 176, 33, 69],
+            [264, 176, 42, 62]
         ],
         "animations": {
             "idle": {
                 frames: [0, 1, 2, 3, 4, 5, 6, 7],
+                //next: "victory",
                 speed: constants.ANIMATION_TIME
             },
             "dash": {
@@ -44,6 +53,11 @@ var managers;
             },
             "attack": {
                 frames: [16, 17, 18, 19, 20, 21],
+                next: "idle",
+                speed: constants.ANIMATION_TIME
+            },
+            "victory": {
+                frames: [22, 23, 24, 25, 26, 27, 28, 29],
                 next: "idle",
                 speed: constants.ANIMATION_TIME
             }

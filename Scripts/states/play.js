@@ -8,6 +8,8 @@ var states;
         input.update();
 
         player.update(input);
+
+        //console.log(player.y + ' ' + player.regY + ' ' + player.currentFrame);
         level.update(player, stage.canvas.width);
     }
     states.playUpdate = playUpdate;

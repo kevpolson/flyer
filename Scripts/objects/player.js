@@ -12,20 +12,23 @@ var objects;
     var Player = (function (_super) {
         __extends(Player, _super);
         function Player(game) {
-            _super.call(this, game, managers.Assets.player, "idle");
+            _super.call(this, game, managers.Assets.player, "victory");
             this.heights = [];
             this.widths = [];
+            this.frames = [];
+            this.animationCounter = 0;
+            this.currentAnimationType = this.currentAnimation;
 
             var animations = managers.Assets.player.getAnimations();
             for (var a = 0; a < animations.length; a++) {
-                var frames = managers.Assets.player.getAnimation(animations[a]).frames;
                 this.heights[a] = new Array();
                 this.widths[a] = new Array();
-                console.log('frames: ' + frames);
-                for (var f = 0; f < frames.length; f++) {
-                    console.log('height (' + a + ':' + f + '): ' + managers.Assets.player.getFrame(frames[f]).rect.height);
-                    this.heights[a][frames[f]] = managers.Assets.player.getFrame(frames[f]).rect.height;
-                    this.widths[a][frames[f]] = managers.Assets.player.getFrame(frames[f]).rect.width;
+                this.frames[a] = managers.Assets.player.getAnimation(animations[a]).frames;
+                console.log('frames: ' + this.frames[a]);
+                for (var f = 0; f < this.frames[a].length; f++) {
+                    console.log('height (' + a + ':' + this.frames[a][f] + '): ' + managers.Assets.player.getFrame(this.frames[a][f]).rect.height);
+                    this.heights[a][f] = managers.Assets.player.getFrame(this.frames[a][f]).rect.height;
+                    this.widths[a][f] = managers.Assets.player.getFrame(this.frames[a][f]).rect.width;
                 }
             }
 
@@ -36,8 +39,20 @@ var objects;
             this.y = constants.GROUND_HEIGHT - this.regY;
         }
         Player.prototype.update = function (input) {
-            this.regX = this.widths[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
-            this.regY = this.heights[constants.Animations[this.currentAnimation]][player.currentFrame] * 0.5;
+            this.animationCounter++;
+            this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
+
+            if (this.animationCounter > constants.ANIMATION_COUNT) {
+                this.animationCounter = 0;
+                this.currentAnimationFrame++;
+                if (this.currentAnimationFrame >= managers.Assets.player.getNumFrames(this.currentAnimationType)) {
+                    this.changeAnimation(managers.Assets.player.getAnimation(this.currentAnimationType).next, true);
+                }
+            }
+
+            this.regX = this.widths[constants.Animations[this.currentAnimationType]][Math.floor(this.currentAnimationFrame)] * 0.5;
+            this.regY = this.heights[constants.Animations[this.currentAnimationType]][Math.floor(this.currentAnimationFrame)] * 0.5;
+
             this.y = constants.GROUND_HEIGHT - this.regY;
 
             /*
@@ -47,7 +62,7 @@ var objects;
             console.log('down');
             }
             */
-            if (this.currentAnimation != "attack") {
+            if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
                 if (input.isKeyDown(constants.RIGHT)) {
                     this.movement(1);
                 } else if (input.isKeyDown(constants.LEFT)) {
@@ -56,10 +71,12 @@ var objects;
                     this.idle();
                 }
             }
+
             if (input.hasKeyBeenUp(constants.SPACE)) {
-                if (this.currentAnimation != "attack") {
-                    this.gotoAndPlay("attack");
-                }
+                this.changeAnimation("attack", false);
+            }
+            if (input.hasKeyBeenUp(constants.ENTER)) {
+                this.changeAnimation("victory", false);
             }
         };
 
@@ -70,16 +87,22 @@ var objects;
             this.actualX += scale * this.speed;
             this.lastMovement = scale * this.speed;
 
-            if (this.currentAnimation != "dash") {
-                this.gotoAndPlay("dash");
-            }
+            this.changeAnimation("dash", false);
         };
 
         //set idle animation
         Player.prototype.idle = function () {
             this.lastMovement = 0;
-            if (this.currentAnimation != "idle") {
-                this.gotoAndPlay("idle");
+            this.changeAnimation("idle", false);
+        };
+
+        Player.prototype.changeAnimation = function (animationName, forceChange) {
+            if (this.currentAnimationType != animationName || forceChange) {
+                this.currentAnimationType = animationName;
+                this.gotoAndPlay(animationName);
+
+                this.currentAnimationFrame = 0;
+                this.animationCounter = 0;
             }
         };
         return Player;

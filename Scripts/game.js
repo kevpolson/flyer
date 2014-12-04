@@ -47,8 +47,8 @@ function optimizeForMobile() {
 
 // Game Loop
 function gameLoop(event) {
-    currentStateFunction();
     stage.update();
+    currentStateFunction();
     //console.log("objects: " + stage.children.length);
 }
 

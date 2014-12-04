@@ -38,12 +38,13 @@
     export var ESCAPE: string = 'Escape';
 
     // Player Animation Constants
-    export enum Animations { idle = 0, dash = 1, attack = 2 };
+    export enum Animations { idle = 0, dash = 1, attack = 2, victory = 3 };
     export var IDLE_WIDTH: number = 35;
     export var IDLE_HEIGHT: number = 40;
     export var FLY_WIDTH: number = 45;
     export var FLY_HEIGHT: number = 15;
     export var ANIMATION_TIME: number = 0.1;
+    export var ANIMATION_COUNT: number = 10;
 
     export var INVALID: number = -1;
 }

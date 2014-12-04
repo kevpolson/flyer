@@ -53,6 +53,7 @@
         Animations[Animations["idle"] = 0] = "idle";
         Animations[Animations["dash"] = 1] = "dash";
         Animations[Animations["attack"] = 2] = "attack";
+        Animations[Animations["victory"] = 3] = "victory";
     })(constants.Animations || (constants.Animations = {}));
     var Animations = constants.Animations;
     ;
@@ -61,6 +62,7 @@
     constants.FLY_WIDTH = 45;
     constants.FLY_HEIGHT = 15;
     constants.ANIMATION_TIME = 0.1;
+    constants.ANIMATION_COUNT = 10;
 
     constants.INVALID = -1;
 })(constants || (constants = {}));
