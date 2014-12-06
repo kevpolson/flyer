@@ -1,12 +1,12 @@
 ﻿var constants;
 (function (constants) {
-    // State Machine Constants
+    //State Machine Constants
     constants.LOADING_STATE = 0;
     constants.MENU_STATE = 1;
     constants.PLAY_STATE = 2;
     constants.GAME_OVER_STATE = 3;
 
-    // Game Constants
+    //Game Constants
     constants.MISSILE_NUM = 2;
     constants.LABEL_FONT = "40px Consolas";
     constants.LABEL_COLOUR = "#FF8000";
@@ -16,7 +16,7 @@
     constants.GAME_SPEED = 2.5;
     constants.GROUND_HEIGHT = 425;
 
-    // Input Constants
+    //Input Constants
     constants.KEYCODE_UP = 38;
     constants.KEYCODE_W = 87;
     constants.KEYCODE_DOWN = 40;
@@ -48,7 +48,7 @@
     constants.ENTER = 'Enter';
     constants.ESCAPE = 'Escape';
 
-    // Player Animation Constants
+    //Player Animation Constants
     (function (Animations) {
         Animations[Animations["idle"] = 0] = "idle";
         Animations[Animations["dash"] = 1] = "dash";
@@ -63,6 +63,12 @@
     constants.FLY_HEIGHT = 15;
     constants.ANIMATION_TIME = 0.1;
     constants.ANIMATION_COUNT = 10;
+
+    //SkyDiving Level Constants
+    constants.PLANE_HEIGHT = 150;
+    constants.FEET_PER_UPDATE_HIGH = 0.005;
+    constants.FEET_PER_UPDATE_MID = 0.01;
+    constants.FEET_PER_UPDATE_LOW = 0.05;
 
     constants.INVALID = -1;
 })(constants || (constants = {}));

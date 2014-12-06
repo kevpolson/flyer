@@ -1,4 +1,6 @@
 ﻿/// <reference path="../objects/label.ts" />
+/// <reference path="../objects/skydiverlevel.ts" />
+/// <reference path="../objects/skydiverplayer.ts" />
 /// <reference path="../objects/sideScrollinglevel.ts" />
 /// <reference path="../objects/sidescrollingplayer.ts" />
 var states;
@@ -23,9 +25,11 @@ var states;
         game = new createjs.Container();
 
         // Instantiate Game Objects
-        level = new objects.sideScrollingLevel(game);
-        player = new objects.sideScrollingPlayer(game);
+        level = new objects.skyDiverLevel(game, stage.canvas.width, stage.canvas.height);
+        player = new objects.skyDiverPlayer(game, stage.canvas.width, stage.canvas.height);
 
+        //level = new objects.sideScrollingLevel(game);
+        //player = new objects.sideScrollingPlayer(game);
         stage.addChild(game);
     }
     states.play = play;

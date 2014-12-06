@@ -12,19 +12,19 @@ module objects {
         currentAnimationType: string;
         animationCounter: number = 0;
         constructor(game: createjs.Container) {
-            super(game, managers.Assets.player, "victory");
+            super(game, managers.Assets.sidePlayer, "idle");
             this.currentAnimationType = this.currentAnimation;
             
-            var animations = managers.Assets.player.getAnimations();
+            var animations = managers.Assets.sidePlayer.getAnimations();
             for (var a = 0; a < animations.length; a++) {
                 this.heights[a] = new Array<number>();
                 this.widths[a] = new Array<number>();
-                this.frames[a] = managers.Assets.player.getAnimation(animations[a]).frames;
+                this.frames[a] = managers.Assets.sidePlayer.getAnimation(animations[a]).frames;
                 console.log('frames: ' + this.frames[a]);
                 for (var f = 0; f < this.frames[a].length; f++) {
-                    console.log('height (' + a + ':' + this.frames[a][f] + '): ' + managers.Assets.player.getFrame(this.frames[a][f]).rect.height);
-                    this.heights[a][f] = managers.Assets.player.getFrame(this.frames[a][f]).rect.height;
-                    this.widths[a][f] = managers.Assets.player.getFrame(this.frames[a][f]).rect.width;
+                    console.log('height (' + a + ':' + this.frames[a][f] + '): ' + managers.Assets.sidePlayer.getFrame(this.frames[a][f]).rect.height);
+                    this.heights[a][f] = managers.Assets.sidePlayer.getFrame(this.frames[a][f]).rect.height;
+                    this.widths[a][f] = managers.Assets.sidePlayer.getFrame(this.frames[a][f]).rect.width;
                 }
             }
 
@@ -42,8 +42,8 @@ module objects {
             if (this.animationCounter > constants.ANIMATION_COUNT) {
                 this.animationCounter = 0;
                 this.currentAnimationFrame++;
-                if(this.currentAnimationFrame >= managers.Assets.player.getNumFrames(this.currentAnimationType)) {
-                    this.changeAnimation(managers.Assets.player.getAnimation(this.currentAnimationType).next, true);
+                if (this.currentAnimationFrame >= managers.Assets.sidePlayer.getNumFrames(this.currentAnimationType)) {
+                    this.changeAnimation(managers.Assets.sidePlayer.getAnimation(this.currentAnimationType).next, true);
                 }
             }
 

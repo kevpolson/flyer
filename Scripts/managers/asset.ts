@@ -2,13 +2,39 @@
 module managers {
     // Image and Sound Manifest;
     var assetManifest = [
-        { id: "background", src: "assets/images/background.png" },
-        { id: "bgMusic", src: "assets/sounds/UnderTheClouds.mp3" }
+        { id: "bgMusic", src: "assets/sounds/UnderTheClouds.mp3" },
+        { id: "ground", src: "assets/images/ground.png" },
+        { id: "background", src: "assets/images/background.png" }
     ];
 
+    var skydivingPlayerSheetData = {
+        "images": ["assets/images/skydivingPlayer.png"],
+        "frames": [
+            [1, 1, 28, 32],   //falling  [0]
+            [38, 2, 36, 38],  //falling  [1] not used
+            [1, 34, 26, 28],  //forward  [2]
+            [36, 42, 32, 36], //forward  [3] not used
+            [1, 63, 26, 25],  //backward [4]
+            [36, 83, 36, 25], //backward [5] not used
+        ],
+        "animations": {
+            "falling": {
+                frames: [0],
+                speed: constants.ANIMATION_TIME
+            },
+            "forward": {
+                frames: [4],
+                speed: constants.ANIMATION_TIME
+            },
+            "backward": {
+                frames: [2],
+                speed: constants.ANIMATION_TIME
+            }
+        }
+    }
 
-    var newPlayerSheetData = {
-        "images": ["assets/images/newPlayer.png"],
+    var sideScrollingPlayerSheetData = {
+        "images": ["assets/images/sideScrollingPlayer.png"],
         "frames": [
             [1, 1, 36, 59],     //idle      [0]
             [38, 1, 36, 57],    //idle      [1]
@@ -64,37 +90,6 @@ module managers {
         }
     }
 
-    // SpriteSheet for Player Object
-    var playerSheetData = {
-        "images": ["assets/images/supes.png"],
-        "frames": [
-            [0, 0,
-             constants.IDLE_WIDTH, constants.IDLE_HEIGHT], //idle      [0]
-            [constants.IDLE_WIDTH, 0,
-             constants.IDLE_WIDTH, constants.IDLE_HEIGHT], //idle      [1]
-            [constants.IDLE_WIDTH * 2, 0,
-             constants.IDLE_WIDTH, constants.IDLE_HEIGHT], //idle      [2]
-            [constants.IDLE_WIDTH * 3, 0,
-             constants.IDLE_WIDTH, constants.IDLE_HEIGHT], //idle      [3]
-            [0, constants.IDLE_HEIGHT,
-             constants.FLY_WIDTH, constants.FLY_HEIGHT],   //fly left  [4]
-            [constants.FLY_WIDTH, constants.IDLE_HEIGHT,
-             constants.FLY_WIDTH, constants.FLY_HEIGHT],   //fly left  [5]
-            [0, constants.IDLE_HEIGHT + constants.FLY_HEIGHT,
-             constants.FLY_WIDTH, constants.FLY_HEIGHT],   //fly right [6]
-            [constants.FLY_WIDTH, constants.IDLE_HEIGHT + constants.FLY_HEIGHT,
-             constants.FLY_WIDTH, constants.FLY_HEIGHT]    //fly right [7]
-        ],
-        "animations": {
-            "idle": { frames: [0, 1, 2, 3],
-                      speed: constants.ANIMATION_TIME },
-            "flyLeft": { frames: [4, 5],
-                         speed: constants.ANIMATION_TIME },
-            "flyRight": { frames: [6, 7],
-                          speed: constants.ANIMATION_TIME }
-        }
-    }
-
     // Asset Manager Class
     export class Assets {
         public static manifest;
@@ -102,7 +97,8 @@ module managers {
 
         public static loader;
         public static buttons: createjs.SpriteSheet;
-        public static player: createjs.SpriteSheet;
+        public static sidePlayer: createjs.SpriteSheet;
+        public static skyPlayer: createjs.SpriteSheet;
         public static energytank: createjs.SpriteSheet;
         public static missile: createjs.SpriteSheet;
 
@@ -116,7 +112,8 @@ module managers {
             this.loader.installPlugin(createjs.Sound);
             this.loader.loadManifest(assetManifest);
             
-            this.player = new createjs.SpriteSheet(newPlayerSheetData);
+            this.sidePlayer = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
+            this.skyPlayer = new createjs.SpriteSheet(skydivingPlayerSheetData);
         }
     }
 } 

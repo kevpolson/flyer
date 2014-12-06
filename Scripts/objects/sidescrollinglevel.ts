@@ -1,4 +1,5 @@
-﻿/// <reference path="../managers/asset.ts" />
+﻿/// <reference path="../managers/input.ts" />
+/// <reference path="../managers/asset.ts" />
 module objects {
     // Background Class
     export class sideScrollingLevel {
@@ -87,7 +88,7 @@ module objects {
         }
 
         destroy() {
-            for (var i = 0; i < this.background.length; i++) {
+            for (var i = 0; i < this.objectIndex.length; i++) {
                 game.removeChildAt(this.objectIndex[i]);
             }
         }

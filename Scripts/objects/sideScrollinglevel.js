@@ -1,4 +1,5 @@
-﻿/// <reference path="../managers/asset.ts" />
+﻿/// <reference path="../managers/input.ts" />
+/// <reference path="../managers/asset.ts" />
 var objects;
 (function (objects) {
     // Background Class
@@ -75,7 +76,7 @@ var objects;
         };
 
         sideScrollingLevel.prototype.destroy = function () {
-            for (var i = 0; i < this.background.length; i++) {
+            for (var i = 0; i < this.objectIndex.length; i++) {
                 game.removeChildAt(this.objectIndex[i]);
             }
         };

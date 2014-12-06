@@ -1,11 +1,11 @@
 ﻿module constants {
-    // State Machine Constants
+    //State Machine Constants
     export var LOADING_STATE: number = 0;
     export var MENU_STATE: number = 1;
     export var PLAY_STATE: number = 2;
     export var GAME_OVER_STATE: number = 3;
 
-    // Game Constants
+    //Game Constants
     export var MISSILE_NUM: number = 2;
     export var LABEL_FONT = "40px Consolas";
     export var LABEL_COLOUR = "#FF8000";
@@ -15,7 +15,7 @@
     export var GAME_SPEED = 2.5;
     export var GROUND_HEIGHT = 425;
 
-    // Input Constants
+    //Input Constants
     export var KEYCODE_UP: number = 38;
     export var KEYCODE_W: number = 87;
     export var KEYCODE_DOWN: number = 40;
@@ -37,7 +37,7 @@
     export var ENTER: string = 'Enter';
     export var ESCAPE: string = 'Escape';
 
-    // Player Animation Constants
+    //Player Animation Constants
     export enum Animations { idle = 0, dash = 1, attack = 2, victory = 3 };
     export var IDLE_WIDTH: number = 35;
     export var IDLE_HEIGHT: number = 40;
@@ -45,6 +45,12 @@
     export var FLY_HEIGHT: number = 15;
     export var ANIMATION_TIME: number = 0.1;
     export var ANIMATION_COUNT: number = 10;
+
+    //SkyDiving Level Constants
+    export var PLANE_HEIGHT: number = 150;
+    export var FEET_PER_UPDATE_HIGH: number = 0.005; 
+    export var FEET_PER_UPDATE_MID: number = 0.01; 
+    export var FEET_PER_UPDATE_LOW: number = 0.05; 
 
     export var INVALID: number = -1;
 }

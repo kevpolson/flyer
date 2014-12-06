@@ -3,12 +3,39 @@ var managers;
 (function (managers) {
     // Image and Sound Manifest;
     var assetManifest = [
-        { id: "background", src: "assets/images/background.png" },
-        { id: "bgMusic", src: "assets/sounds/UnderTheClouds.mp3" }
+        { id: "bgMusic", src: "assets/sounds/UnderTheClouds.mp3" },
+        { id: "ground", src: "assets/images/ground.png" },
+        { id: "background", src: "assets/images/background.png" }
     ];
 
-    var newPlayerSheetData = {
-        "images": ["assets/images/newPlayer.png"],
+    var skydivingPlayerSheetData = {
+        "images": ["assets/images/skydivingPlayer.png"],
+        "frames": [
+            [1, 1, 28, 32],
+            [38, 2, 36, 38],
+            [1, 34, 26, 28],
+            [36, 42, 32, 36],
+            [1, 63, 26, 25],
+            [36, 83, 36, 25]
+        ],
+        "animations": {
+            "falling": {
+                frames: [0],
+                speed: constants.ANIMATION_TIME
+            },
+            "forward": {
+                frames: [4],
+                speed: constants.ANIMATION_TIME
+            },
+            "backward": {
+                frames: [2],
+                speed: constants.ANIMATION_TIME
+            }
+        }
+    };
+
+    var sideScrollingPlayerSheetData = {
+        "images": ["assets/images/sideScrollingPlayer.png"],
         "frames": [
             [1, 1, 36, 59],
             [38, 1, 36, 57],
@@ -64,48 +91,6 @@ var managers;
         }
     };
 
-    // SpriteSheet for Player Object
-    var playerSheetData = {
-        "images": ["assets/images/supes.png"],
-        "frames": [
-            [
-                0, 0,
-                constants.IDLE_WIDTH, constants.IDLE_HEIGHT],
-            [
-                constants.IDLE_WIDTH, 0,
-                constants.IDLE_WIDTH, constants.IDLE_HEIGHT],
-            [
-                constants.IDLE_WIDTH * 2, 0,
-                constants.IDLE_WIDTH, constants.IDLE_HEIGHT],
-            [
-                constants.IDLE_WIDTH * 3, 0,
-                constants.IDLE_WIDTH, constants.IDLE_HEIGHT],
-            [
-                0, constants.IDLE_HEIGHT,
-                constants.FLY_WIDTH, constants.FLY_HEIGHT],
-            [
-                constants.FLY_WIDTH, constants.IDLE_HEIGHT,
-                constants.FLY_WIDTH, constants.FLY_HEIGHT],
-            [
-                0, constants.IDLE_HEIGHT + constants.FLY_HEIGHT,
-                constants.FLY_WIDTH, constants.FLY_HEIGHT],
-            [
-                constants.FLY_WIDTH, constants.IDLE_HEIGHT + constants.FLY_HEIGHT,
-                constants.FLY_WIDTH, constants.FLY_HEIGHT]
-        ],
-        "animations": {
-            "idle": {
-                frames: [0, 1, 2, 3],
-                speed: constants.ANIMATION_TIME },
-            "flyLeft": {
-                frames: [4, 5],
-                speed: constants.ANIMATION_TIME },
-            "flyRight": {
-                frames: [6, 7],
-                speed: constants.ANIMATION_TIME }
-        }
-    };
-
     // Asset Manager Class
     var Assets = (function () {
         function Assets() {
@@ -120,7 +105,8 @@ var managers;
             this.loader.installPlugin(createjs.Sound);
             this.loader.loadManifest(assetManifest);
 
-            this.player = new createjs.SpriteSheet(newPlayerSheetData);
+            this.sidePlayer = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
+            this.skyPlayer = new createjs.SpriteSheet(skydivingPlayerSheetData);
         };
         return Assets;
     })();
