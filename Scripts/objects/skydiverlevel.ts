@@ -2,114 +2,94 @@
 /// <reference path="../managers/collision.ts" />
 /// <reference path="../managers/asset.ts" />
 /// <reference path="skydiverplayer.ts" />
-/// <reference path="smokering.ts" />
+/// <reference path="ring.ts" />
 module objects {
-    export class skyDiverLevel {
-        //ground: createjs.Bitmap;
-        /*
-        objectIndex: number[] = [];
-        width: number;
-        height: number;
-        speed: number;
-        altitude: number;
-        currentAltitude: number;
-        smokeRings: objects.smokeRing;
-        */
-        constructor(currentScene: THREE.Scene) {//game: createjs.Container, screenWidth: number, screenHeight: number) {
-            //var keyboard = new THREE.KeyboardState();
-            //var clock = new THREE.Clock();
-
-            var groundSprite = THREE.ImageUtils.loadTexture("assets/images/ground.png");
+    export class skyDiverLevel extends THREE.Mesh {
+        rings: objects.ring[];
+        missedRings: number;
+        multiplier: number;
+        score: number;
+        gameover: boolean;
+        levelCompleted: boolean;
+        constructor(currentScene: THREE.Scene) {
+            var groundSprite = THREE.ImageUtils.loadTexture("assets/images/threejs/ground.png");
             groundSprite.wrapT = THREE.ClampToEdgeWrapping;
-            var groundMaterial = new THREE.MeshBasicMaterial({ map: groundSprite, transparent: true });
-            var groundGeometry = new THREE.BoxGeometry(1280, 960, 0);//1024, 768, 0);
-            var ground = new THREE.Mesh(groundGeometry, groundMaterial);
-            currentScene.add(ground);
+            var groundMaterial = new THREE.MeshBasicMaterial({ map: groundSprite });
+            var groundGeometry = new THREE.BoxGeometry(1280, 960, 0);
 
-            //this.ground = new createjs.Bitmap(managers.Assets.loader.getResult("ground"));
-            //this.objectIndex[0] = game.children.length;
-            //game.addChildAt(this, this.objectIndex[0]);
+            super(groundGeometry, groundMaterial);
+            currentScene.add(this);
 
-            /*
-            this.x = screenWidth * 0.5;
-            this.y = screenHeight * 0.5;
+            var radius = 10;
+            this.rings = new Array<objects.ring>();
+            this.rings[0] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 900, radius, 50, 0);
+            this.rings[1] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 850, radius, 100, -55);
+            this.rings[2] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 800, radius, 150, -75);
+            this.rings[3] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 750, radius, 160, -25);
+            this.rings[4] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 700, radius, 215, 0);
+            this.rings[5] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 650, radius, 305, 50);
+            this.rings[6] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 600, radius, 400, 80);
+            this.rings[7] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 550, radius, 465, 100);
+            this.rings[8] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 500, radius, 375, 120);
+            this.rings[9] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 450, radius, 295, 155);
+            this.rings[10] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 400, radius, 205, 125);
+            this.rings[11] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 350, radius, 155, 65);
+            this.rings[12] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 300, radius, 75, 30);
+            this.rings[13] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 250, radius, 0, 0);
+            this.rings[14] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 200, radius, -50, 50);
+            this.rings[15] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 150, radius, -85, 95);
+            this.rings[16] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 100, radius, -125, 145);
+            this.rings[17] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 50, radius, -175, 175);
 
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
+            this.rings[18] = new objects.ring(currentScene, "assets/images/threejs/landing.png", 1, 20, -225, 130);
+            this.rings[19] = new objects.ring(currentScene, "assets/images/threejs/landingbonus.png", 1, 5, -225, 130);
 
-            this.speed = constants.GAME_SPEED;
-
-            this.altitude = constants.PLANE_HEIGHT;
-            this.currentAltitude = 1;
-
-            var initialScale = 0.1;
-
-            this.width = this.getTransformedBounds().width;
-            this.height = this.getTransformedBounds().height;
-            this.regX = this.width * 0.5;
-            this.regY = this.height * 0.5;
-            this.scaleX = initialScale; //this.currentAltitude;
-            this.scaleY = initialScale; //this.currentAltitude;
-
-            this.objectIndex[1] = game.children.length;
-            this.smokeRings = new objects.smokeRing(this.objectIndex[1], 1.2, 2.5);
-            */
+            this.missedRings = 0;
+            this.multiplier = 0;
+            this.score = 0;
+            this.gameover = false;
+            this.levelCompleted = false;
         }
 
-        /*
         update(player: objects.skyDiverPlayer) {
-            if (this.currentAltitude < 3) {
-                this.currentAltitude += constants.FEET_PER_UPDATE_HIGH;
-            }
-            else if (this.currentAltitude < 10) {
-                this.currentAltitude += constants.FEET_PER_UPDATE_MID;
-            }
-            else if (this.currentAltitude < this.altitude) {
-                this.currentAltitude += constants.FEET_PER_UPDATE_LOW;
+            var buffer = 2.5;
+            for (var i = 0; i < this.rings.length; i++) {
+                if (!this.rings[i].cleared &&
+                    player.position.z <= (this.rings[i].position.z + 0.01 ) &&
+                    player.position.z >= (this.rings[i].position.z - buffer)) {
+                    if (managers.Collision.inCircle(player.position.x, player.position.y, this.rings[i].position.x, this.rings[i].position.y, this.rings[i].collisionRadius)) {
+                        this.rings[i].cleared = true;
+                        this.multiplier++;
+                        this.score += this.multiplier * constants.POINTS;
+                        this.missedRings = 0;
+                    }
+                }
+
+                if (!this.rings[i].removed &&
+                    this.rings[i].position.z > player.camera.position.z) {
+                    this.rings[i].removed = true;
+                    scene.remove(this.rings[i]);
+                    if (!this.rings[i].cleared) {
+                        this.missedRings++;
+                        this.multiplier = 0;
+                    }
+                }
             }
 
-            console.log(this.currentAltitude + ' ' + this.altitude);
-            if (this.currentAltitude < this.altitude) {
-                this.scaleX = this.currentAltitude; //this.currentAltitude;
-                this.scaleY = this.currentAltitude; //this.currentAltitude;
+            if (this.rings[constants.LEVEL_END_RING].cleared && !this.levelCompleted) {
+                console.log("level finished");
+                console.log("score: " + this.score + " multiplier: " + this.multiplier + " missed Rings: " + this.missedRings);
+                this.levelCompleted = true;
             }
 
-            player.gotoAndPlay('falling');
-            var motion = 0.1;
-            var moveX = 0;
-            var moveY = 0;
-            if (input.isKeyDown(constants.UP)) {
-                player.gotoAndPlay('forward');
-                this.y += motion;
-                this.regY -= motion;
-                moveY = motion;
+            if (this.missedRings > 3 && !this.gameover) {
+                console.log("you died");
+                this.gameover = true;
             }
-            else if(input.isKeyDown(constants.DOWN)) {
-                player.gotoAndPlay('backward');
-                this.y -= motion;
-                this.regY += motion;
-                moveY = -motion;
-            }
-            
-            if(input.isKeyDown(constants.RIGHT)) {
-                this.x -= motion;
-                this.regX += motion;
-                moveX = -motion;
-            }
-            else if(input.isKeyDown(constants.LEFT)) {
-                this.x += motion;
-                this.regX -= motion;
-                moveX = motion;
-            }
-
-            this.smokeRings.update(this.currentAltitude, moveX, moveY);
         }
         destroy() {
-            for (var i = 0; i < this.objectIndex.length; i++) {
-                game.removeChildAt(this.objectIndex[i]);
-            }
+            scene.remove(this);
         }
-        */
     }
 }
  

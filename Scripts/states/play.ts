@@ -1,8 +1,8 @@
 ﻿/// <reference path="../objects/label.ts" />
 /// <reference path="../objects/skydiverlevel.ts" />
 /// <reference path="../objects/skydiverplayer.ts" />
-/// <reference path="../objects/sideScrollinglevel.ts" />
-/// <reference path="../objects/sidescrollingplayer.ts" />
+/// <reference path="../objects/createjs/sideScrollinglevel.ts" />
+/// <reference path="../objects/createjs/sidescrollingplayer.ts" />
 module states {
     var player;//: objects.sideScrollingPlayer;
     var level;//: objects.sideScrollingLevel;
@@ -13,6 +13,7 @@ module states {
         //THREEJS
         input.update();
         player.update();
+        level.update(player);
         renderer.render(scene, player.camera);
 
         //CreateJS

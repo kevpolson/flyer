@@ -47,10 +47,12 @@
     export var ANIMATION_COUNT: number = 10;
 
     //SkyDiving Level Constants
-    export var PLANE_HEIGHT: number = 150;
-    export var FEET_PER_UPDATE_HIGH: number = 0.001; 
-    export var FEET_PER_UPDATE_MID: number = 0.001; 
-    export var FEET_PER_UPDATE_LOW: number = 0.001; 
+    export var PLANE_HEIGHT: number = 994.01;
+    export var FEET_PER_UPDATE: number = 0.1; 
+    export var LEVEL_END_RING: number = 18;
+    export var LEVEL_END_RING_BONUS: number = 19;
+    export var GROUND = 1.01;
+    export var POINTS = 100;
 
     export var INVALID: number = -1;
 }

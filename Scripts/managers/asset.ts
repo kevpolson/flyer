@@ -3,7 +3,6 @@ module managers {
     // Image and Sound Manifest;
     var assetManifest = [
         { id: "bgMusic", src: "assets/sounds/UnderTheClouds.mp3" },
-        { id: "ground", src: "assets/images/ground.png" },
         { id: "background", src: "assets/images/background.png" }
     ];
 

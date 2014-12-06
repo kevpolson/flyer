@@ -24,7 +24,7 @@ function preload(): void {
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setClearColor(0x002F59, 1);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(854, 480);//window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     stage = new createjs.Stage(document.getElementById("canvas"));
     

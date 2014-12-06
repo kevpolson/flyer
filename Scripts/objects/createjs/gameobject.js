@@ -4,7 +4,7 @@
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-/// <reference path="../managers/asset.ts" />
+/// <reference path="../../managers/asset.ts" />
 var objects;
 (function (objects) {
     var GameObject = (function (_super) {

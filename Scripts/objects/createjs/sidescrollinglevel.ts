@@ -1,5 +1,5 @@
-﻿/// <reference path="../managers/input.ts" />
-/// <reference path="../managers/asset.ts" />
+﻿/// <reference path="../../managers/input.ts" />
+/// <reference path="../../managers/asset.ts" />
 module objects {
     // Background Class
     export class sideScrollingLevel {

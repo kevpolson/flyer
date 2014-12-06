@@ -1,4 +1,4 @@
-﻿/// <reference path="../managers/asset.ts" />
+﻿/// <reference path="../../managers/asset.ts" />
 module objects {
     export class GameObject extends createjs.Sprite {
         width: number;

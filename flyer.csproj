@@ -60,10 +60,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\background.png" />
-    <Content Include="assets\images\ground.png" />
-    <Content Include="assets\images\player.png" />
+    <Content Include="assets\images\threejs\ground.png" />
+    <Content Include="assets\images\threejs\landing.png" />
+    <Content Include="assets\images\threejs\landingbonus.png" />
+    <Content Include="assets\images\threejs\player.png" />
     <Content Include="assets\images\sidescrollingplayer.png" />
     <Content Include="assets\images\skydivingplayer.png" />
+    <Content Include="assets\images\threejs\ring.png" />
     <Content Include="assets\sounds\UnderTheClouds.mp3" />
     <Content Include="css\app.css" />
     <Content Include="css\normalize.css" />
@@ -110,13 +113,13 @@
     <TypeScriptCompile Include="scripts\managers\asset.ts" />
     <TypeScriptCompile Include="scripts\managers\collision.ts" />
     <TypeScriptCompile Include="scripts\managers\input.ts" />
-    <TypeScriptCompile Include="scripts\objects\sidescrollinglevel.ts" />
-    <TypeScriptCompile Include="scripts\objects\gameobject.ts" />
+    <TypeScriptCompile Include="scripts\objects\createjs\sidescrollinglevel.ts" />
+    <TypeScriptCompile Include="scripts\objects\createjs\gameobject.ts" />
     <TypeScriptCompile Include="scripts\objects\label.ts" />
-    <TypeScriptCompile Include="scripts\objects\sidescrollingplayer.ts" />
+    <TypeScriptCompile Include="scripts\objects\createjs\sidescrollingplayer.ts" />
     <TypeScriptCompile Include="scripts\objects\skydiverlevel.ts" />
     <TypeScriptCompile Include="scripts\objects\skydiverplayer.ts" />
-    <TypeScriptCompile Include="scripts\objects\smokering.ts" />
+    <TypeScriptCompile Include="scripts\objects\ring.ts" />
     <TypeScriptCompile Include="scripts\states\loading.ts" />
     <TypeScriptCompile Include="scripts\states\play.ts" />
     <TypeScriptCompile Include="scripts\lib\threejs\detector.d.ts" />

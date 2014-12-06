@@ -1,28 +1,24 @@
-﻿/// <reference path="../managers/asset.ts" />
+﻿/// <reference path="../../managers/asset.ts" />
 /// <reference path="gameobject.ts" />
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-var objects;
-(function (objects) {
-    // Player Class
-    var sideScrollingPlayer = (function (_super) {
-        __extends(sideScrollingPlayer, _super);
-        function sideScrollingPlayer(game) {
-            _super.call(this, game, managers.Assets.sidePlayer, "idle");
-            this.heights = [];
-            this.widths = [];
-            this.frames = [];
-            this.animationCounter = 0;
-            this.currentAnimationType = this.currentAnimation;
 
+module objects {
+    // Player Class
+    export class sideScrollingPlayer extends GameObject {
+        actualX: number;
+        lastMovement: number;
+        heights = [];
+        widths = [];
+        frames = [];
+        currentAnimationType: string;
+        animationCounter: number = 0;
+        constructor(game: createjs.Container) {
+            super(game, managers.Assets.sidePlayer, "idle");
+            this.currentAnimationType = this.currentAnimation;
+            
             var animations = managers.Assets.sidePlayer.getAnimations();
             for (var a = 0; a < animations.length; a++) {
-                this.heights[a] = new Array();
-                this.widths[a] = new Array();
+                this.heights[a] = new Array<number>();
+                this.widths[a] = new Array<number>();
                 this.frames[a] = managers.Assets.sidePlayer.getAnimation(animations[a]).frames;
                 console.log('frames: ' + this.frames[a]);
                 for (var f = 0; f < this.frames[a].length; f++) {
@@ -38,7 +34,8 @@ var objects;
             this.actualX = this.x;
             this.y = constants.GROUND_HEIGHT - this.regY;
         }
-        sideScrollingPlayer.prototype.update = function () {
+
+        update() { //input: managers.Input) {
             this.animationCounter++;
             this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
 
@@ -57,9 +54,9 @@ var objects;
 
             /*
             if (input.isKeyDown(constants.UP)) {
-            console.log('up');
+                console.log('up');
             } else if (input.isKeyDown(constants.DOWN)) {
-            console.log('down');
+                console.log('down');
             }
             */
             if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
@@ -67,36 +64,37 @@ var objects;
                     this.movement(1);
                 } else if (input.isKeyDown(constants.LEFT)) {
                     this.movement(-1);
-                } else {
+                }
+                else {
                     this.idle();
                 }
             }
 
-            if (input.hasKeyBeenUp(constants.SPACE)) {
+            if(input.hasKeyBeenUp(constants.SPACE)) {
                 this.changeAnimation("attack", false);
             }
             if (input.hasKeyBeenUp(constants.ENTER)) {
                 this.changeAnimation("victory", false);
             }
-        };
+        }
 
-        //move player based on scale
-        sideScrollingPlayer.prototype.movement = function (scale) {
+        //move player based on scale    
+        movement(scale: number) {
             this.scaleX = scale;
             this.x += scale * this.speed;
             this.actualX += scale * this.speed;
             this.lastMovement = scale * this.speed;
 
             this.changeAnimation("dash", false);
-        };
-
+        }
+        
         //set idle animation
-        sideScrollingPlayer.prototype.idle = function () {
+        idle() {
             this.lastMovement = 0;
             this.changeAnimation("idle", false);
-        };
+        }
 
-        sideScrollingPlayer.prototype.changeAnimation = function (animationName, forceChange) {
+        changeAnimation(animationName: string, forceChange: boolean) {
             if (this.currentAnimationType != animationName || forceChange) {
                 this.currentAnimationType = animationName;
                 this.gotoAndPlay(animationName);
@@ -104,9 +102,6 @@ var objects;
                 this.currentAnimationFrame = 0;
                 this.animationCounter = 0;
             }
-        };
-        return sideScrollingPlayer;
-    })(objects.GameObject);
-    objects.sideScrollingPlayer = sideScrollingPlayer;
-})(objects || (objects = {}));
-//# sourceMappingURL=sidescrollingplayer.js.map
+        }
+    }
+} 
