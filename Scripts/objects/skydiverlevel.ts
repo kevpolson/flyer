@@ -4,8 +4,9 @@
 /// <reference path="skydiverplayer.ts" />
 /// <reference path="smokering.ts" />
 module objects {
-    export class skyDiverLevel extends createjs.Bitmap {
+    export class skyDiverLevel {
         //ground: createjs.Bitmap;
+        /*
         objectIndex: number[] = [];
         width: number;
         height: number;
@@ -13,12 +14,23 @@ module objects {
         altitude: number;
         currentAltitude: number;
         smokeRings: objects.smokeRing;
-        constructor(game: createjs.Container, screenWidth: number, screenHeight: number) {
-            super(managers.Assets.loader.getResult("ground"));
-            //this.ground = new createjs.Bitmap(managers.Assets.loader.getResult("ground"));
-            this.objectIndex[0] = game.children.length;
-            game.addChildAt(this, this.objectIndex[0]);
+        */
+        constructor(currentScene: THREE.Scene) {//game: createjs.Container, screenWidth: number, screenHeight: number) {
+            //var keyboard = new THREE.KeyboardState();
+            //var clock = new THREE.Clock();
 
+            var groundSprite = THREE.ImageUtils.loadTexture("assets/images/ground.png");
+            groundSprite.wrapT = THREE.ClampToEdgeWrapping;
+            var groundMaterial = new THREE.MeshBasicMaterial({ map: groundSprite, transparent: true });
+            var groundGeometry = new THREE.BoxGeometry(1280, 960, 0);//1024, 768, 0);
+            var ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            currentScene.add(ground);
+
+            //this.ground = new createjs.Bitmap(managers.Assets.loader.getResult("ground"));
+            //this.objectIndex[0] = game.children.length;
+            //game.addChildAt(this, this.objectIndex[0]);
+
+            /*
             this.x = screenWidth * 0.5;
             this.y = screenHeight * 0.5;
 
@@ -40,9 +52,11 @@ module objects {
             this.scaleY = initialScale; //this.currentAltitude;
 
             this.objectIndex[1] = game.children.length;
-            this.smokeRings = new objects.smokeRing(this.objectIndex[1]);
+            this.smokeRings = new objects.smokeRing(this.objectIndex[1], 1.2, 2.5);
+            */
         }
 
+        /*
         update(player: objects.skyDiverPlayer) {
             if (this.currentAltitude < 3) {
                 this.currentAltitude += constants.FEET_PER_UPDATE_HIGH;
@@ -54,7 +68,7 @@ module objects {
                 this.currentAltitude += constants.FEET_PER_UPDATE_LOW;
             }
 
-            //console.log(this.currentAltitude + ' ' + this.altitude);
+            console.log(this.currentAltitude + ' ' + this.altitude);
             if (this.currentAltitude < this.altitude) {
                 this.scaleX = this.currentAltitude; //this.currentAltitude;
                 this.scaleY = this.currentAltitude; //this.currentAltitude;
@@ -62,33 +76,40 @@ module objects {
 
             player.gotoAndPlay('falling');
             var motion = 0.1;
-            console.log(this.y + ' ' + this.x);
+            var moveX = 0;
+            var moveY = 0;
             if (input.isKeyDown(constants.UP)) {
                 player.gotoAndPlay('forward');
                 this.y += motion;
                 this.regY -= motion;
+                moveY = motion;
             }
             else if(input.isKeyDown(constants.DOWN)) {
                 player.gotoAndPlay('backward');
                 this.y -= motion;
                 this.regY += motion;
+                moveY = -motion;
             }
             
             if(input.isKeyDown(constants.RIGHT)) {
                 this.x -= motion;
                 this.regX += motion;
+                moveX = -motion;
             }
             else if(input.isKeyDown(constants.LEFT)) {
                 this.x += motion;
                 this.regX -= motion;
+                moveX = motion;
             }
-        }
 
+            this.smokeRings.update(this.currentAltitude, moveX, moveY);
+        }
         destroy() {
             for (var i = 0; i < this.objectIndex.length; i++) {
                 game.removeChildAt(this.objectIndex[i]);
             }
         }
+        */
     }
 }
  

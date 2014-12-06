@@ -8,17 +8,28 @@ var objects;
 (function (objects) {
     var skyDiverPlayer = (function (_super) {
         __extends(skyDiverPlayer, _super);
-        function skyDiverPlayer(game, screenWidth, screenHeight) {
-            _super.call(this, game, managers.Assets.skyPlayer, "falling");
-            this.scaleX = 3;
-            this.scaleY = 3;
-            this.x = screenWidth * 0.5 - this.regX;
-            this.y = screenHeight * 0.5 - this.regY;
+        function skyDiverPlayer(currentScene) {
+            var playerSprite = THREE.ImageUtils.loadTexture("assets/images/player.png");
+            playerSprite.wrapT = THREE.ClampToEdgeWrapping;
+            var playerMaterial = new THREE.MeshBasicMaterial({ map: playerSprite, transparent: true });
+            var playerGeometry = new THREE.BoxGeometry(2, 2, 0);
+
+            //var player = new THREE.Mesh(playerGeometry, playerMaterial);
+            _super.call(this, playerGeometry, playerMaterial);
+            currentScene.add(this);
+
+            this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            this.camera.position.z = 1000;
+            this.position.z = this.camera.position.z - 5;
         }
-        skyDiverPlayer.prototype.update = function (player) {
+        skyDiverPlayer.prototype.update = function () {
+            if (this.position.z > 1) {
+                this.position.z -= 1;
+                this.camera.position.z -= 1;
+            }
         };
         return skyDiverPlayer;
-    })(objects.GameObject);
+    })(THREE.Mesh);
     objects.skyDiverPlayer = skyDiverPlayer;
 })(objects || (objects = {}));
 //# sourceMappingURL=skydiverplayer.js.map

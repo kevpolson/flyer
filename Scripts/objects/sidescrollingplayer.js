@@ -38,7 +38,7 @@ var objects;
             this.actualX = this.x;
             this.y = constants.GROUND_HEIGHT - this.regY;
         }
-        sideScrollingPlayer.prototype.update = function (input) {
+        sideScrollingPlayer.prototype.update = function () {
             this.animationCounter++;
             this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
 

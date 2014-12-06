@@ -48,9 +48,9 @@
 
     //SkyDiving Level Constants
     export var PLANE_HEIGHT: number = 150;
-    export var FEET_PER_UPDATE_HIGH: number = 0.005; 
-    export var FEET_PER_UPDATE_MID: number = 0.01; 
-    export var FEET_PER_UPDATE_LOW: number = 0.05; 
+    export var FEET_PER_UPDATE_HIGH: number = 0.001; 
+    export var FEET_PER_UPDATE_MID: number = 0.001; 
+    export var FEET_PER_UPDATE_LOW: number = 0.001; 
 
     export var INVALID: number = -1;
 }

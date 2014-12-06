@@ -8,11 +8,25 @@ var objects;
 (function (objects) {
     var smokeRing = (function (_super) {
         __extends(smokeRing, _super);
-        function smokeRing(gameIndex) {
+        function smokeRing(gameIndex, newAltitude, newRadius) {
             _super.call(this);
-            this.graphics.setStrokeStyle(5).beginStroke("yellow").drawCircle(0, 0, 50);
+            this.radius = newRadius;
+            this.altitude = newAltitude;
+            this.graphics.setStrokeStyle(0.25).beginStroke("yellow").drawCircle(0, 0, this.radius);
+            this.x = 200;
+            this.y = 200;
+
+            //this.regX =
             game.addChildAt(this, gameIndex);
         }
+        smokeRing.prototype.update = function (currentAlitude, motionX, motionY) {
+            if (currentAlitude <= this.altitude) {
+                this.scaleX += 0.25;
+                this.scaleY += 0.25;
+            }
+            this.x += motionX;
+            this.y += motionY;
+        };
         return smokeRing;
     })(createjs.Shape);
     objects.smokeRing = smokeRing;

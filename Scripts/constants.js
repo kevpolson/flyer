@@ -66,9 +66,9 @@
 
     //SkyDiving Level Constants
     constants.PLANE_HEIGHT = 150;
-    constants.FEET_PER_UPDATE_HIGH = 0.005;
-    constants.FEET_PER_UPDATE_MID = 0.01;
-    constants.FEET_PER_UPDATE_LOW = 0.05;
+    constants.FEET_PER_UPDATE_HIGH = 0.001;
+    constants.FEET_PER_UPDATE_MID = 0.001;
+    constants.FEET_PER_UPDATE_LOW = 0.001;
 
     constants.INVALID = -1;
 })(constants || (constants = {}));

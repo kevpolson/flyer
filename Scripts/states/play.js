@@ -10,27 +10,29 @@ var states;
 
     function playUpdate() {
         //update all elements of the play state
+        //THREEJS
         input.update();
-
-        player.update(input);
-
-        //console.log(player.y + ' ' + player.regY + ' ' + player.currentFrame);
-        level.update(player, stage.canvas.width);
+        player.update();
+        renderer.render(scene, player.camera);
+        //CreateJS
+        //player.update(input);
+        //level.update(player, stage.canvas.width);
     }
     states.playUpdate = playUpdate;
 
     // play state Function
     function play() {
+        //THREEJS
+        document.getElementById("canvas").style.display = "none";
+        level = new objects.skyDiverLevel(scene);
+        player = new objects.skyDiverPlayer(scene);
+        //CreateJS
         // Declare new Game Container
-        game = new createjs.Container();
-
+        //game = new createjs.Container();
         // Instantiate Game Objects
-        level = new objects.skyDiverLevel(game, stage.canvas.width, stage.canvas.height);
-        player = new objects.skyDiverPlayer(game, stage.canvas.width, stage.canvas.height);
-
         //level = new objects.sideScrollingLevel(game);
         //player = new objects.sideScrollingPlayer(game);
-        stage.addChild(game);
+        //stage.addChild(game);
     }
     states.play = play;
 })(states || (states = {}));

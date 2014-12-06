@@ -35,7 +35,7 @@ module objects {
             this.y = constants.GROUND_HEIGHT - this.regY;
         }
 
-        update(input: managers.Input) {
+        update() { //input: managers.Input) {
             this.animationCounter++;
             this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
 

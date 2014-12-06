@@ -4,6 +4,12 @@
 /// <reference path="states/loading.ts" />
 /// <reference path="states/play.ts" />
 
+//three.js
+var scene: THREE.Scene; 
+
+var renderer: THREE.WebGLRenderer;
+
+//create.js
 var stage: createjs.Stage;
 var game: createjs.Container;
 var input: managers.Input;
@@ -15,8 +21,13 @@ var currentStateFunction;
 
 // Preload function - Loads Assets and initializes game;
 function preload(): void {
+    scene = new THREE.Scene();
+    renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setClearColor(0x002F59, 1);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
     stage = new createjs.Stage(document.getElementById("canvas"));
-
+    
     currentState = constants.LOADING_STATE;
     changeState(currentState);
 
@@ -45,7 +56,7 @@ function optimizeForMobile() {
 
 // Game Loop
 function gameLoop(event): void {
-    stage.update();
+    //stage.update();
     currentStateFunction();
 
     //console.log("objects: " + stage.children.length);

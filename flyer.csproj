@@ -61,6 +61,7 @@
   <ItemGroup>
     <Content Include="assets\images\background.png" />
     <Content Include="assets\images\ground.png" />
+    <Content Include="assets\images\player.png" />
     <Content Include="assets\images\sidescrollingplayer.png" />
     <Content Include="assets\images\skydivingplayer.png" />
     <Content Include="assets\sounds\UnderTheClouds.mp3" />
@@ -74,13 +75,15 @@
     <Content Include="scripts\filters\ColorMatrix.js" />
     <Content Include="scripts\filters\ColorMatrixFilter.js" />
     <Content Include="scripts\filters\Filter.js" />
-    <Content Include="scripts\lib\easeljs-0.7.1.min.js" />
-    <Content Include="scripts\lib\preloadjs-0.4.1.min.js" />
-    <Content Include="scripts\lib\r.js" />
-    <Content Include="scripts\lib\require.js" />
-    <Content Include="scripts\lib\soundjs-0.5.2.min.js" />
-    <Content Include="scripts\lib\tweenjs-0.5.1.min.js" />
+    <Content Include="scripts\lib\createjs\easeljs-0.7.1.min.js" />
+    <Content Include="scripts\lib\createjs\preloadjs-0.4.1.min.js" />
+    <Content Include="scripts\lib\createjs\r.js" />
+    <Content Include="scripts\lib\createjs\require.js" />
+    <Content Include="scripts\lib\createjs\soundjs-0.5.2.min.js" />
+    <Content Include="scripts\lib\threejs\three.min.js" />
+    <Content Include="scripts\lib\createjs\tweenjs-0.5.1.min.js" />
     <None Include="scripts\_references.js" />
+    <Content Include="test.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -98,12 +101,12 @@
   <ItemGroup>
     <TypeScriptCompile Include="scripts\constants.ts" />
     <TypeScriptCompile Include="scripts\game.ts" />
-    <TypeScriptCompile Include="scripts\lib\createjs-lib.d.ts" />
-    <TypeScriptCompile Include="scripts\lib\easeljs.d.ts" />
-    <TypeScriptCompile Include="scripts\lib\preloadjs.d.ts" />
-    <TypeScriptCompile Include="scripts\lib\require.d.ts" />
-    <TypeScriptCompile Include="scripts\lib\soundjs.d.ts" />
-    <TypeScriptCompile Include="scripts\lib\tweenjs.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\createjs\createjs-lib.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\createjs\easeljs.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\createjs\preloadjs.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\createjs\require.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\createjs\soundjs.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\createjs\tweenjs.d.ts" />
     <TypeScriptCompile Include="scripts\managers\asset.ts" />
     <TypeScriptCompile Include="scripts\managers\collision.ts" />
     <TypeScriptCompile Include="scripts\managers\input.ts" />
@@ -116,6 +119,19 @@
     <TypeScriptCompile Include="scripts\objects\smokering.ts" />
     <TypeScriptCompile Include="scripts\states\loading.ts" />
     <TypeScriptCompile Include="scripts\states\play.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\detector.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-canvasrenderer.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-copyshader.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-css3drenderer.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-effectcomposer.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-maskpass.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-orbitcontrols.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-projector.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-renderpass.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-shaderpass.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three-trackballcontrols.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\three.d.ts" />
+    <TypeScriptCompile Include="scripts\lib\threejs\waa.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
