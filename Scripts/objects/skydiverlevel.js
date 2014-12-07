@@ -43,8 +43,8 @@ var objects;
             this.rings[16] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 150, radius, -125, 145);
             this.rings[17] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 100, radius, -175, 175);
 
-            this.rings[18] = new objects.ring(currentScene, "assets/images/threejs/landing.png", 1, 20, -225, 130);
-            this.rings[19] = new objects.ring(currentScene, "assets/images/threejs/landingbonus.png", 1, 5, -225, 130);
+            this.rings[18] = new objects.ring(currentScene, "assets/images/threejs/landingpad.png", 1, 20, -225, 130);
+            this.rings[19] = new objects.ring(currentScene, "assets/images/threejs/landingpadbonus.png", 1, 5, -225, 130);
 
             this.missedRings = 0;
             this.multiplier = 0;
@@ -75,19 +75,26 @@ var objects;
             }
 
             if (player.position.z <= constants.GROUND) {
-                if (player.parachuteOpen && !this.levelCompleted && this.rings[constants.LEVEL_END_RING].cleared) {
-                    player.rotation.x = 0;
-                    player.rotation.y = 0;
-                    player.position.z = constants.GROUND;
+                player.rotation.y = 0;
+                if (player.parachuteOpen) {
+                    if (!this.levelCompleted && this.rings[constants.LEVEL_END_RING].cleared) {
+                        player.rotation.x = 0;
+                        player.position.z = constants.GROUND;
 
-                    console.log("level finished");
-                    console.log("score: " + this.score + " multiplier: " + this.multiplier + " missed Rings: " + this.missedRings);
-                    this.levelCompleted = true;
+                        console.log("level finished");
+                        console.log("score: " + this.score + " multiplier: " + this.multiplier + " missed Rings: " + this.missedRings);
+                        this.levelCompleted = true;
+                    }
+                    player.animateLanding();
                 } else if (!this.levelCompleted) {
                     console.log("level failed");
-                    player.position.z = 0;
-                    player.rotation.x = -0.65;
-                    player.rotation.y = 0;
+                    if (!player.parachuteOpen) {
+                        player.rotation.x = -0.65;
+                        player.position.z = 0;
+                    } else {
+                        player.position.z = constants.GROUND;
+                        player.rotation.x = 0;
+                    }
                 }
             }
 

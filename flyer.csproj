@@ -61,8 +61,15 @@
   <ItemGroup>
     <Content Include="assets\images\background.png" />
     <Content Include="assets\images\threejs\ground.png" />
-    <Content Include="assets\images\threejs\landing.png" />
-    <Content Include="assets\images\threejs\landingbonus.png" />
+    <Content Include="assets\images\threejs\landingpad.png" />
+    <Content Include="assets\images\threejs\landing1.png" />
+    <Content Include="assets\images\threejs\landing2.png" />
+    <Content Include="assets\images\threejs\landing3.png" />
+    <Content Include="assets\images\threejs\landing4.png" />
+    <Content Include="assets\images\threejs\landing5.png" />
+    <Content Include="assets\images\threejs\landing6.png" />
+    <Content Include="assets\images\threejs\landingpadbonus.png" />
+    <Content Include="assets\images\threejs\parachute.png" />
     <Content Include="assets\images\threejs\player.png" />
     <Content Include="assets\images\sidescrollingplayer.png" />
     <Content Include="assets\images\skydivingplayer.png" />
