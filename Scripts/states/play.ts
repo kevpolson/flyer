@@ -12,8 +12,8 @@ module states {
 
         //THREEJS
         input.update();
-        player.update();
-        level.update(player);
+        //player.update();
+        level.update(scene, player);
         renderer.render(scene, player.camera);
 
         //CreateJS

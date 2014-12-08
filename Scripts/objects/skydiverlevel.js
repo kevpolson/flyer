@@ -46,13 +46,18 @@ var objects;
             this.rings[18] = new objects.ring(currentScene, "assets/images/threejs/landingpad.png", 1, 20, -225, 130);
             this.rings[19] = new objects.ring(currentScene, "assets/images/threejs/landingpadbonus.png", 1, 5, -225, 130);
 
+            this.attackDino = new objects.attack();
+
             this.missedRings = 0;
             this.multiplier = 0;
             this.score = 0;
             this.gameover = false;
             this.levelCompleted = false;
         }
-        skyDiverLevel.prototype.update = function (player) {
+        skyDiverLevel.prototype.update = function (currentScene, player) {
+            this.attackDino.update(player);
+            player.update(this.attackDino);
+
             var buffer = 2.5;
             for (var i = 0; i < this.rings.length; i++) {
                 if (!this.rings[i].cleared && player.position.z <= (this.rings[i].position.z + 0.01) && player.position.z >= (this.rings[i].position.z - buffer)) {
@@ -100,9 +105,15 @@ var objects;
 
             if (this.missedRings > 3 && !this.gameover) {
                 console.log("you died");
+                this.queueAttack(currentScene, player);
                 this.gameover = true;
             }
         };
+
+        skyDiverLevel.prototype.queueAttack = function (currentScene, player) {
+            this.attackDino.startAttack(currentScene, player);
+        };
+
         skyDiverLevel.prototype.destroy = function () {
             scene.remove(this);
         };

@@ -43,69 +43,88 @@
             this.motion = new THREE.Vector3(0.2, 0.2, constants.DESCEND_PER_UPDATE);
         }
 
-        update() {
-            if (this.position.z > constants.GROUND) {
-                this.position.z -= this.motion.z;
-                this.camera.position.z -= this.motion.z;
+        update(dino: objects.attack) {
+            if (!dino.caughtPrey) {
+                if (this.position.z > constants.GROUND) {
+                    this.position.z -= this.motion.z;
+                    this.camera.position.z -= this.motion.z;
 
-                //reset rotation
-                this.rotation.x = 0;
-                this.rotation.y = 0;
+                    //reset rotation
+                    this.rotation.x = 0;
+                    this.rotation.y = 0;
 
-                //start descend again
-                if (this.parachuteOpen && this.position.z >= this.ascendLevel) {
-                    this.motion = new THREE.Vector3(0.1, 0.1, constants.DESCEND_PER_UPDATE * 0.5);
-                    this.ascending = false;
-                }
-                else if (this.ascending) {
-                    this.rotation.x = 0.25;
-                    this.position.y -= 0.5;
-                    this.camera.position.y -= 0.5;
-                }
-
-                if (!this.parachuteOpen && input.isKeyDown(constants.ENTER)) {
-                    this.rotation.x = -0.45;
-                    this.position.z -= this.motion.z * 3;
-                    this.camera.position.z -= this.motion.z * 3;
-                }
-                else if (!this.parachuteOpen && this.position.z <= constants.PARACHUTE_HEIGHT && input.isKeyDown(constants.SPACE)) {
-                    this.parachuteOpen = true;
-                    this.ascending = true;
-
-                    this.changeSprite(this.currentSprite++);
-                    this.geometry = new THREE.BoxGeometry(this.width * 3, this.height * 3, 0);
-
-                    this.ascendLevel = this.position.z + constants.MAX_ASCEND;
-                    this.motion = new THREE.Vector3(0.1, 0.1, -constants.ASCEND_PER_UPDATE);
-                }
-                else {
-                    if (input.isKeyDown(constants.UP)) {
-                        this.rotation.x = -0.25;
-                        this.position.y += this.motion.y;
-                        this.camera.position.y += this.motion.y;
+                    //start descend again
+                    if (this.parachuteOpen && this.position.z >= this.ascendLevel) {
+                        this.motion = new THREE.Vector3(0.1, 0.1, constants.DESCEND_PER_UPDATE * 0.5);
+                        this.ascending = false;
                     }
-                    else if (input.isKeyDown(constants.DOWN)) {
+                    else if (this.ascending) {
                         this.rotation.x = 0.25;
-                        this.position.y -= this.motion.y;
-                        this.camera.position.y -= this.motion.y;
+                        this.position.y -= 0.5;
+                        this.camera.position.y -= 0.5;
                     }
 
-                    if (input.isKeyDown(constants.RIGHT)) {
-                        this.rotation.y = 0.5;
-                        this.position.x += this.motion.x;
-                        this.camera.position.x += this.motion.x;
+                    if (!this.parachuteOpen && input.isKeyDown(constants.ENTER)) {
+                        this.rotation.x = -0.45;
+                        this.position.z -= this.motion.z * 3;
+                        this.camera.position.z -= this.motion.z * 3;
                     }
-                    else if (input.isKeyDown(constants.LEFT)) {
-                        this.rotation.y = -0.5;
-                        this.position.x -= this.motion.x;
-                        this.camera.position.x -= this.motion.x;
+                    else if (!this.parachuteOpen && this.position.z <= constants.PARACHUTE_HEIGHT && input.isKeyDown(constants.SPACE)) {
+                        this.parachuteOpen = true;
+                        this.ascending = true;
+
+                        this.changeSprite(this.currentSprite++);
+
+                        this.ascendLevel = this.position.z + constants.MAX_ASCEND;
+                        this.motion = new THREE.Vector3(0.1, 0.1, -constants.ASCEND_PER_UPDATE);
                     }
+                    else {
+                        if (input.isKeyDown(constants.UP)) {
+                            this.rotation.x = -0.25;
+                            this.position.y += this.motion.y;
+                            this.camera.position.y += this.motion.y;
+                        }
+                        else if (input.isKeyDown(constants.DOWN)) {
+                            this.rotation.x = 0.25;
+                            this.position.y -= this.motion.y;
+                            this.camera.position.y -= this.motion.y;
+                        }
+
+                        if (input.isKeyDown(constants.RIGHT)) {
+                            this.rotation.y = 0.5;
+                            this.position.x += this.motion.x;
+                            this.camera.position.x += this.motion.x;
+                        }
+                        else if (input.isKeyDown(constants.LEFT)) {
+                            this.rotation.y = -0.5;
+                            this.position.x -= this.motion.x;
+                            this.camera.position.x -= this.motion.x;
+                        }
+                    }
+                }
+            }
+            else {
+                this.position.x = dino.position.x;
+                if (this.currentSprite != 0) {
+                    if (this.parachuteOpen) {
+                        this.position.y = dino.position.y - 2;
+                    }
+                    this.rotation.x = 0;
+                    this.rotation.y = 0;
+                    this.currentSprite = 0;
+                    this.changeSprite(this.currentSprite);
                 }
             }
         }
 
         changeSprite(index: number) {
             this.material = new THREE.MeshBasicMaterial({ map: this.sprites[index], transparent: true });
+            if (this.currentSprite > 0) {
+                this.geometry = new THREE.BoxGeometry(this.width * 3, this.height * 3, 0);
+            }
+            else {
+                this.geometry = new THREE.BoxGeometry(this.width, this.height, 0);
+            }
         }
 
         animateLanding() {

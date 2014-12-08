@@ -65,7 +65,7 @@
     constants.ANIMATION_COUNT = 10;
 
     //SkyDiving Level Constants
-    constants.PLANE_HEIGHT = 100;
+    constants.PLANE_HEIGHT = 994.01;
     constants.PARACHUTE_HEIGHT = 100;
     constants.DESCEND_PER_UPDATE = 0.1;
     constants.ASCEND_PER_UPDATE = 1;

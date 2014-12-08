@@ -11,6 +11,7 @@ module objects {
         score: number;
         gameover: boolean;
         levelCompleted: boolean;
+        attackDino: objects.attack;
         constructor(currentScene: THREE.Scene) {
             var groundSprite = THREE.ImageUtils.loadTexture("assets/images/threejs/ground.png");
             groundSprite.wrapT = THREE.ClampToEdgeWrapping;
@@ -44,6 +45,8 @@ module objects {
             this.rings[18] = new objects.ring(currentScene, "assets/images/threejs/landingpad.png", 1, 20, -225, 130);
             this.rings[19] = new objects.ring(currentScene, "assets/images/threejs/landingpadbonus.png", 1, 5, -225, 130);
 
+            this.attackDino = new objects.attack();
+
             this.missedRings = 0;
             this.multiplier = 0;
             this.score = 0;
@@ -51,7 +54,10 @@ module objects {
             this.levelCompleted = false;
         }
 
-        update(player: objects.skyDiverPlayer) {
+        update(currentScene, player: objects.skyDiverPlayer) {
+            this.attackDino.update(player);
+            player.update(this.attackDino);
+
             var buffer = 2.5;
             for (var i = 0; i < this.rings.length; i++) {
                 if (!this.rings[i].cleared &&
@@ -104,9 +110,15 @@ module objects {
 
             if (this.missedRings > 3 && !this.gameover) {
                 console.log("you died");
+                this.queueAttack(currentScene, player);
                 this.gameover = true;
             }
         }
+
+        queueAttack(currentScene, player: objects.skyDiverPlayer) {
+            this.attackDino.startAttack(currentScene, player);
+        }
+
         destroy() {
             scene.remove(this);
         }

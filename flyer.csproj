@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\background.png" />
+    <Content Include="assets\images\threejs\attackDino.png" />
     <Content Include="assets\images\threejs\ground.png" />
     <Content Include="assets\images\threejs\landingpad.png" />
     <Content Include="assets\images\threejs\landing1.png" />
@@ -120,6 +121,7 @@
     <TypeScriptCompile Include="scripts\managers\asset.ts" />
     <TypeScriptCompile Include="scripts\managers\collision.ts" />
     <TypeScriptCompile Include="scripts\managers\input.ts" />
+    <TypeScriptCompile Include="scripts\objects\attack.ts" />
     <TypeScriptCompile Include="scripts\objects\createjs\sidescrollinglevel.ts" />
     <TypeScriptCompile Include="scripts\objects\createjs\gameobject.ts" />
     <TypeScriptCompile Include="scripts\objects\label.ts" />
