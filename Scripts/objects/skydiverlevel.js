@@ -13,7 +13,7 @@ var objects;
 (function (objects) {
     var skyDiverLevel = (function (_super) {
         __extends(skyDiverLevel, _super);
-        function skyDiverLevel(currentScene) {
+        function skyDiverLevel(currentScene, player, ringMisses) {
             var groundSprite = THREE.ImageUtils.loadTexture("assets/images/threejs/ground.png");
             groundSprite.wrapT = THREE.ClampToEdgeWrapping;
             var groundMaterial = new THREE.MeshBasicMaterial({ map: groundSprite });
@@ -49,10 +49,13 @@ var objects;
             this.attackDino = new objects.attack();
 
             this.missedRings = 0;
+            this.maxScent = ringMisses;
             this.multiplier = 0;
             this.score = 0;
             this.gameover = false;
             this.levelCompleted = false;
+
+            this.createHUD(player);
         }
         skyDiverLevel.prototype.update = function (currentScene, player) {
             this.attackDino.update(player);
@@ -65,7 +68,10 @@ var objects;
                         this.rings[i].cleared = true;
                         this.multiplier++;
                         this.score += this.multiplier * constants.POINTS;
-                        this.missedRings = 0;
+                        this.missedRings--;
+                        if (this.missedRings <= 0) {
+                            this.missedRings = 0;
+                        }
                     }
                 }
 
@@ -108,6 +114,8 @@ var objects;
                 this.queueAttack(currentScene, player);
                 this.gameover = true;
             }
+
+            this.updateHUD(player);
         };
 
         skyDiverLevel.prototype.queueAttack = function (currentScene, player) {
@@ -116,6 +124,96 @@ var objects;
 
         skyDiverLevel.prototype.destroy = function () {
             scene.remove(this);
+        };
+
+        skyDiverLevel.prototype.updateHUD = function (player) {
+            var score = document.getElementById("score");
+            var lives = document.getElementById("lives");
+            var altitude = document.getElementById("altitude");
+
+            if (this.maxScent - this.missedRings < 0) {
+                lives.innerHTML = "0";
+            } else {
+                lives.innerHTML = (this.maxScent - this.missedRings).toString();
+            }
+            var height = Math.floor(player.position.z);
+            altitude.innerHTML = height + " ft";
+            score.innerHTML = this.score + " (" + this.multiplier + "x)";
+        };
+
+        skyDiverLevel.prototype.createHUD = function (player) {
+            var hud = document.createElement('div');
+            var scoreLabel = document.createElement('div');
+            var score = document.createElement('div');
+            var livesLabel = document.createElement('div');
+            var lives = document.createElement('div');
+            var altitudeLabel = document.createElement('div');
+            var altitude = document.createElement('div');
+
+            hud.style.position = 'absolute';
+            hud.id = "hud";
+            hud.style.width = "900px";
+            hud.style.height = "200px";
+            hud.style.color = "#F6CEE3";
+            hud.style.fontSize = "35px";
+            hud.style.top = "10px";
+            hud.style.left = "10px";
+
+            livesLabel.style.width = "115px";
+            livesLabel.style.height = "150px";
+            livesLabel.style.position = 'absolute';
+            livesLabel.style.top = "15px";
+            livesLabel.style.left = "15px";
+            livesLabel.innerHTML = "Scent: ";
+
+            lives.id = "lives";
+            lives.style.width = "100";
+            lives.style.height = "150";
+            lives.style.position = 'absolute';
+            lives.style.top = "15px";
+            lives.style.left = "120px";
+            lives.innerHTML = (this.maxScent - this.missedRings).toString();
+
+            altitudeLabel.style.width = "150px";
+            altitudeLabel.style.height = "150px";
+            altitudeLabel.style.position = 'absolute';
+            altitudeLabel.style.top = "15px";
+            altitudeLabel.style.left = "175px";
+            altitudeLabel.innerHTML = "Altitude: ";
+
+            altitude.id = "altitude";
+            altitude.style.width = "300px";
+            altitude.style.height = "150px";
+            altitude.style.position = 'absolute';
+            altitude.style.top = "15px";
+            altitude.style.left = "310px";
+            score.style.whiteSpace = "nowrap";
+            altitude.innerHTML = Math.floor(player.position.z) + " ft";
+
+            scoreLabel.style.width = "150";
+            scoreLabel.style.height = "150";
+            scoreLabel.style.position = 'absolute';
+            scoreLabel.style.top = "15px";
+            scoreLabel.style.left = "430px";
+            scoreLabel.innerHTML = "Score: ";
+
+            score.id = "score";
+            score.style.width = "550px";
+            score.style.height = "150px";
+            score.style.position = 'absolute';
+            score.style.top = "15px";
+            score.style.left = "540px";
+            score.style.whiteSpace = "nowrap";
+            score.innerHTML = this.score + " (" + this.multiplier + "x)";
+
+            hud.appendChild(livesLabel);
+            hud.appendChild(lives);
+            hud.appendChild(altitudeLabel);
+            hud.appendChild(altitude);
+            hud.appendChild(scoreLabel);
+            hud.appendChild(score);
+
+            document.body.appendChild(hud);
         };
         return skyDiverLevel;
     })(THREE.Mesh);

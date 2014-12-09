@@ -48,6 +48,10 @@
     constants.ENTER = 'Enter';
     constants.ESCAPE = 'Escape';
 
+    constants.EASY = "Easy";
+    constants.NORMAL = "Normal";
+    constants.HARD = "Hard";
+
     //Player Animation Constants
     (function (Animations) {
         Animations[Animations["idle"] = 0] = "idle";
@@ -65,6 +69,13 @@
     constants.ANIMATION_COUNT = 10;
 
     //SkyDiving Level Constants
+    (function (ringMisses) {
+        ringMisses[ringMisses["Easy"] = 3] = "Easy";
+        ringMisses[ringMisses["Normal"] = 2] = "Normal";
+        ringMisses[ringMisses["Hard"] = 1] = "Hard";
+    })(constants.ringMisses || (constants.ringMisses = {}));
+    var ringMisses = constants.ringMisses;
+    ;
     constants.PLANE_HEIGHT = 994.01;
     constants.PARACHUTE_HEIGHT = 100;
     constants.DESCEND_PER_UPDATE = 0.1;

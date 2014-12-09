@@ -37,6 +37,10 @@
     export var ENTER: string = 'Enter';
     export var ESCAPE: string = 'Escape';
 
+    export var EASY: string = "Easy";
+    export var NORMAL: string = "Normal";
+    export var HARD: string = "Hard";
+
     //Player Animation Constants
     export enum Animations { idle = 0, dash = 1, attack = 2, victory = 3 };
     export var IDLE_WIDTH: number = 35;
@@ -47,6 +51,7 @@
     export var ANIMATION_COUNT: number = 10;
 
     //SkyDiving Level Constants
+    export enum ringMisses { Easy = 3, Normal = 2, Hard = 1 };
     export var PLANE_HEIGHT: number = 994.01;
     export var PARACHUTE_HEIGHT: number = 100;
     export var DESCEND_PER_UPDATE: number = 0.1; 

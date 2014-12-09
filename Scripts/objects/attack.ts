@@ -22,7 +22,7 @@
 
         update(player: objects.skyDiverPlayer) {
             if (this.attack) {
-                this.position.z = player.position.z;
+                this.position.z = player.position.z + 0.01;
                 if (!player.parachuteOpen && !this.caughtPrey) {
                     this.position.y = player.position.y + 2;
                 }
@@ -42,8 +42,10 @@
 
         show(currentScene, player: objects.skyDiverPlayer) {
             this.position.z = player.position.z;
-            this.position.y = player.position.z;
-            this.position.x += 25;
+            this.position.y = player.position.y;
+
+            this.position.x = player.position.x + 25;
+            //console.log(this.position.x + ' ' + pl
             currentScene.add(this);
         }
 

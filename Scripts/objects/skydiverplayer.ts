@@ -129,7 +129,6 @@
 
         animateLanding() {
             this.landingCounter++;
-            console.log(this.landingCounter + ' ' + constants.ANIMATION_COUNT + ' ' + this.currentSprite);
             if (this.currentSprite <= constants.MAX_SPIRTES && this.landingCounter > constants.ANIMATION_COUNT) {
                 this.changeSprite(this.currentSprite++);
                 this.landingCounter = 0;

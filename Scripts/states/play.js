@@ -26,8 +26,8 @@ var states;
     function play() {
         //THREEJS
         document.getElementById("canvas").style.display = "none";
-        level = new objects.skyDiverLevel(scene);
         player = new objects.skyDiverPlayer(scene);
+        level = new objects.skyDiverLevel(scene, player, constants.ringMisses[constants.EASY]);
         //CreateJS
         // Declare new Game Container
         //game = new createjs.Container();
