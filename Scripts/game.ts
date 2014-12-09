@@ -1,6 +1,5 @@
 ﻿/// <reference path="constants.ts" />
 /// <reference path="managers/asset.ts" />
-/// <reference path="objects/label.ts" />
 /// <reference path="states/loading.ts" />
 /// <reference path="states/level1.ts" />
 /// <reference path="states/level1.ts" />
@@ -28,7 +27,8 @@ function preload(): void {
     difficulty = constants.NORMAL;
 
     renderer.setClearColor(0x002F59, 1);
-    renderer.setSize(854, 480);//window.innerWidth, window.innerHeight);
+    renderer.setSize(854, 480);
+    renderer.domElement.style.display = "none";
     document.body.appendChild(renderer.domElement);
     stage = new createjs.Stage(document.getElementById("canvas"));
     
@@ -72,7 +72,7 @@ function changeState(state: number): void {
         case constants.LOADING_STATE:
             // instantiate play screen
             currentStateFunction = states.loadingUpdate;
-            states.loading();
+            states.loading(stage);
             break;
         case constants.LEVEL1:
             // instantiate play screen

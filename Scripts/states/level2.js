@@ -1,8 +1,5 @@
-﻿/// <reference path="../objects/label.ts" />
-/// <reference path="../objects/skydiverlevel.ts" />
-/// <reference path="../objects/skydiverplayer.ts" />
-/// <reference path="../objects/createjs/sideScrollinglevel.ts" />
-/// <reference path="../objects/createjs/sidescrollingplayer.ts" />
+﻿/// <reference path="../objects/level2/sideScrollinglevel.ts" />
+/// <reference path="../objects/level2/sidescrollingplayer.ts" />
 var states;
 (function (states) {
     var player;

@@ -1,29 +1,32 @@
-﻿var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-/// <reference path="../managers/input.ts" />
-/// <reference path="../managers/collision.ts" />
-/// <reference path="../managers/asset.ts" />
+﻿/// <reference path="../../managers/input.ts" />
+/// <reference path="../../managers/collision.ts" />
+/// <reference path="../../managers/asset.ts" />
 /// <reference path="skydiverplayer.ts" />
 /// <reference path="ring.ts" />
-var objects;
-(function (objects) {
-    var skyDiverLevel = (function (_super) {
-        __extends(skyDiverLevel, _super);
-        function skyDiverLevel(currentScene, ringMisses) {
+module objects {
+    export class skyDiverLevel extends THREE.Mesh {
+        rings: objects.ring[];
+        missedRings: number;
+        multiplier: number;
+        score: number;
+        gameover: boolean;
+        levelCompleted: boolean;
+        attackDino: objects.attack;
+        maxScent: number;
+        warningCounter: number;
+        warningDisplay: string;
+        player: objects.skyDiverPlayer;
+        constructor(currentScene: THREE.Scene, ringMisses: number) {
             var groundSprite = THREE.ImageUtils.loadTexture("assets/images/threejs/ground.png");
             groundSprite.wrapT = THREE.ClampToEdgeWrapping;
             var groundMaterial = new THREE.MeshBasicMaterial({ map: groundSprite });
             var groundGeometry = new THREE.BoxGeometry(1280, 960, 0);
 
-            _super.call(this, groundGeometry, groundMaterial);
+            super(groundGeometry, groundMaterial);
             currentScene.add(this);
 
             var radius = 10;
-            this.rings = new Array();
+            this.rings = new Array<objects.ring>();
             this.rings[0] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 900, radius, 50, 0);
             this.rings[1] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 850, radius, 100, -55);
             this.rings[2] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 800, radius, 150, -75);
@@ -61,13 +64,16 @@ var objects;
             this.warningCounter = 0;
             this.warningDisplay = "inline";
         }
-        skyDiverLevel.prototype.update = function (currentScene) {
+
+        update(currentScene) {
             this.attackDino.update(this.player);
             this.player.update(this.attackDino);
 
             var buffer = 2.5;
             for (var i = 0; i < this.rings.length; i++) {
-                if (!this.rings[i].cleared && this.player.position.z <= (this.rings[i].position.z + 0.01) && this.player.position.z >= (this.rings[i].position.z - buffer)) {
+                if (!this.rings[i].cleared &&
+                    this.player.position.z <= (this.rings[i].position.z + 0.01 ) &&
+                    this.player.position.z >= (this.rings[i].position.z - buffer)) {
                     if (managers.Collision.inCircle(this.player.position.x, this.player.position.y, this.rings[i].position.x, this.rings[i].position.y, this.rings[i].collisionRadius)) {
                         this.rings[i].cleared = true;
                         this.multiplier++;
@@ -79,7 +85,8 @@ var objects;
                     }
                 }
 
-                if (!this.rings[i].removed && this.rings[i].position.z > this.player.camera.position.z) {
+                if (!this.rings[i].removed &&
+                    this.rings[i].position.z > this.player.camera.position.z) {
                     this.rings[i].removed = true;
                     scene.remove(this.rings[i]);
                     if (!this.rings[i].cleared) {
@@ -101,13 +108,15 @@ var objects;
                         this.levelCompleted = true;
                     }
                     this.player.animateLanding();
-                } else if (!this.levelCompleted) {
+                }
+                else if (!this.levelCompleted) {
                     console.log("level failed");
                     this.gameover = true;
                     if (!this.player.parachuteOpen) {
                         this.player.rotation.x = -0.65;
                         this.player.position.z = 0;
-                    } else {
+                    }
+                    else {
                         this.player.position.z = constants.GROUND;
                         this.player.rotation.x = 0;
                     }
@@ -121,25 +130,33 @@ var objects;
             }
 
             this.updateHUD();
-        };
+        }
 
-        skyDiverLevel.prototype.queueAttack = function (currentScene) {
+        queueAttack(currentScene) {
             this.attackDino.startAttack(currentScene, this.player);
-        };
+        }
 
-        skyDiverLevel.prototype.destroy = function () {
-            scene.remove(this);
-        };
+        destroy(currentScene) {
+            currentScene.remove(this);
+            currentScene.remove(this.player);
+            currentScene.remove(this.attackDino);
+            for (var i = 0; i < this.rings.length; i++) {
+                if (!this.rings[i].removed) {
+                    currentScene.remove(this.rings[i]);
+                }
+            }
+        }
 
-        skyDiverLevel.prototype.updateHUD = function () {
+        updateHUD() {
             var score = document.getElementById("score");
             var lives = document.getElementById("lives");
             var altitude = document.getElementById("altitude");
             var warning = document.getElementById("warning");
 
-            if (this.maxScent - this.missedRings < 0) {
+            if (this.maxScent - this.missedRings  < 0) {
                 lives.innerHTML = ": 0";
-            } else {
+            }
+            else {
                 lives.innerHTML = ": " + (this.maxScent - this.missedRings);
             }
             var height = Math.floor(this.player.position.z);
@@ -153,16 +170,19 @@ var objects;
                     this.warningCounter = 0;
                     if (this.warningDisplay === "inline") {
                         this.warningDisplay = "none";
-                    } else {
+                    }
+                    else {
                         this.warningDisplay = "inline";
                     }
                 }
-            } else {
+            }
+            else {
                 warning.style.display = "none";
             }
-        };
 
-        skyDiverLevel.prototype.createHUD = function () {
+        }
+
+        createHUD() {
             var hud = document.createElement('div');
             var scoreLabel = document.createElement('div');
             var score = document.createElement('div');
@@ -172,6 +192,7 @@ var objects;
             var altitude = document.createElement('div');
 
             var warning = document.createElement('div');
+
 
             hud.style.position = 'absolute';
             hud.id = "hud";
@@ -230,9 +251,10 @@ var objects;
             score.innerHTML = this.score + " (" + this.multiplier + "x)";
 
             warning.id = "warning";
+            warning.style.display = "none";
             warning.style.color = "#FE2E2E";
-            warning.style.width = "100";
-            warning.style.height = "150";
+            warning.style.width = "100px";
+            warning.style.height = "150px";
             warning.style.position = 'absolute';
             warning.style.top = "280px";
             warning.style.left = "50px";
@@ -245,11 +267,13 @@ var objects;
             hud.appendChild(scoreLabel);
             hud.appendChild(score);
             hud.appendChild(warning);
-
+           
             document.body.appendChild(hud);
-        };
-        return skyDiverLevel;
-    })(THREE.Mesh);
-    objects.skyDiverLevel = skyDiverLevel;
-})(objects || (objects = {}));
-//# sourceMappingURL=skydiverlevel.js.map
+        }
+
+        destroyHUD() {
+            document.body.removeChild(document.getElementById("hud"));
+        }
+    }
+}
+ 

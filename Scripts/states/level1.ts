@@ -1,11 +1,7 @@
-﻿/// <reference path="../objects/label.ts" />
-/// <reference path="../objects/skydiverlevel.ts" />
-/// <reference path="../objects/skydiverplayer.ts" />
-/// <reference path="../objects/createjs/sideScrollinglevel.ts" />
-/// <reference path="../objects/createjs/sidescrollingplayer.ts" />
+﻿/// <reference path="../objects/level1/skydiverlevel.ts" />
+/// <reference path="../objects/level1/skydiverplayer.ts" />
 module states {
-    var player;//: objects.sideScrollingPlayer;
-    var level;//: objects.sideScrollingLevel;
+    var level: objects.skyDiverLevel;
 
     export function level1Update() {
         //update all elements of the play state
@@ -20,6 +16,7 @@ module states {
     export function level1(): void {
         //Hide canvas because it isn't used by THREEJS
         document.getElementById("canvas").style.display = "none";
+        renderer.domElement.style.display = "inline";
         level = new objects.skyDiverLevel(scene, constants.ringMisses[difficulty]);
     }
 }
