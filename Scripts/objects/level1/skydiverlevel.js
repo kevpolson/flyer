@@ -184,7 +184,7 @@ var objects;
             hud.id = "hud";
             hud.style.width = "900px";
             hud.style.height = "200px";
-            hud.style.color = "#F2F5A9";
+            hud.style.color = constants.COLOR_CREAM;
             hud.style.fontSize = "35px";
             hud.style.top = "10px";
             hud.style.left = "10px";
@@ -238,7 +238,7 @@ var objects;
 
             warning.id = "warning";
             warning.style.display = "none";
-            warning.style.color = "#FE2E2E";
+            warning.style.color = constants.COLOR_LIGHT_RED;
             warning.style.width = "100px";
             warning.style.height = "150px";
             warning.style.position = 'absolute';

@@ -4,7 +4,7 @@ var states;
 (function (states) {
     function loadingUnload() {
         destroyHUD();
-        currentState = constants.LEVEL2;
+        currentState = constants.CUTSCENE1;
         changeState(currentState);
     }
     states.loadingUnload = loadingUnload;

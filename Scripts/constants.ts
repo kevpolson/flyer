@@ -67,5 +67,9 @@
     export var POINTS = 100;
     export var MAX_SPIRTES = 7;
 
+    //Colors
+    export var COLOR_CREAM: string = "#F2F5A9";
+    export var COLOR_LIGHT_RED: string = "#FE2E2E";
+
     export var INVALID: number = -1;
 }

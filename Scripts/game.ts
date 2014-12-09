@@ -74,6 +74,11 @@ function changeState(state: number): void {
             currentStateFunction = states.loadingUpdate;
             states.loading(stage);
             break;
+        case constants.CUTSCENE1:
+            // instantiate play screen
+            currentStateFunction = states.cutsceneUpdate1;
+            states.cutscene1();
+            break;
         case constants.LEVEL1:
             // instantiate play screen
             currentStateFunction = states.level1Update;

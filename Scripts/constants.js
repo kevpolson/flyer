@@ -91,6 +91,10 @@
     constants.POINTS = 100;
     constants.MAX_SPIRTES = 7;
 
+    //Colors
+    constants.COLOR_CREAM = "#F2F5A9";
+    constants.COLOR_LIGHT_RED = "#FE2E2E";
+
     constants.INVALID = -1;
 })(constants || (constants = {}));
 //# sourceMappingURL=constants.js.map

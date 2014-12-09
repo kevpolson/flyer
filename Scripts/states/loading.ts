@@ -4,7 +4,7 @@
 module states {
     export function loadingUnload() {
         destroyHUD();
-        currentState = constants.LEVEL2;
+        currentState = constants.CUTSCENE1;
         changeState(currentState);
     }
 
