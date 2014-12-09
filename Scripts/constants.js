@@ -11,6 +11,13 @@
     constants.GAME_OVER_STATE = 7;
 
     //Game Constants
+    (function (enemyLife) {
+        enemyLife[enemyLife["Easy"] = 0.5] = "Easy";
+        enemyLife[enemyLife["Normal"] = 1] = "Normal";
+        enemyLife[enemyLife["Hard"] = 1.5] = "Hard";
+    })(constants.enemyLife || (constants.enemyLife = {}));
+    var enemyLife = constants.enemyLife;
+    ;
     constants.MISSILE_NUM = 2;
     constants.LABEL_FONT = "40px Consolas";
     constants.LABEL_COLOUR = "#FF8000";

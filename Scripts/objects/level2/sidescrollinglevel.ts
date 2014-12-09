@@ -12,7 +12,8 @@ module objects {
         screenCount: number;
         maxScreens: number;
         enemy: objects.GameObject;
-        constructor(game: createjs.Container) {
+        enemyLifeModifier: number;
+        constructor(game: createjs.Container,  player: objects.sideScrollingPlayer, currentEnemyModifier: number) {
             for (var i = 0; i < 2; i++) {
                 this.background[i] = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
                 this.backgroundWidth = this.background[i].getBounds().width;
@@ -27,13 +28,25 @@ module objects {
             this.height = this.background[0].getBounds().height;
 
             this.speed = constants.GAME_SPEED;
-
-            this.enemy = new objects.triceratops(game);
+            this.enemyLifeModifier = currentEnemyModifier;
+            this.enemy = null;
         }
 
         update(player: objects.sideScrollingPlayer, screenWidth: number) {
+            if (this.enemy === null) {
+                this.enemy = new objects.triceratops(game, this.enemyLifeModifier, player);
+            }
             this.camera(player, screenWidth);
             this.enemy.update();
+            for (var i = 0; i < player.bullets.length; i++) {
+                if (this.enemy.life > 0 &&
+                    !player.bullets[i].destroyed &&
+                    managers.Collision.bulletGameObject(player.bullets[i], this.enemy)) {
+                    //this causes a memory leak because the bullets are never removed from the array
+                    player.bullets[i].destroy();
+                    this.enemy.hit();
+                }
+            }
         }
     
 

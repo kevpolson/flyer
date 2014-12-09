@@ -4,6 +4,7 @@
         objectIndex: number;
         timer: number;
         life: number;
+        destroyed: boolean;
         constructor(game: createjs.Container, newX, newY, currentDirection: number) {
             super();
             this.direction = currentDirection;
@@ -27,6 +28,7 @@
 
             this.objectIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
+            this.destroyed = false;
         }
 
         update() {
@@ -38,6 +40,7 @@
 
         destroy() {
             game.removeChild(this);
+            this.destroyed = true;
         }
     }
 } 

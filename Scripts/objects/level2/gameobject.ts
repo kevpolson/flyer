@@ -5,6 +5,7 @@ module objects {
         height: number;
         speed: number;
         objectIndex: number;
+        life: number;
         constructor(game: createjs.Container, spriteSheet: createjs.SpriteSheet, newAnimation: string) {
             super(spriteSheet, newAnimation);
             this.width = this.getBounds().width;
@@ -13,12 +14,16 @@ module objects {
             this.regY = this.height * 0.5;
 
             this.speed = constants.GAME_SPEED;
+            this.life = constants.PLAYER_LIVES;
 
             this.objectIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
         }
 
         update() {
+        }
+
+        hit() {
         }
 
         destroy() {

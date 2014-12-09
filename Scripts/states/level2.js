@@ -22,7 +22,7 @@ var states;
         game = new createjs.Container();
 
         // Instantiate Game Objects
-        level = new objects.sideScrollingLevel(game);
+        level = new objects.sideScrollingLevel(game, player, constants.enemyLife[difficulty]);
         player = new objects.sideScrollingPlayer(game);
 
         stage.addChild(game);

@@ -31,6 +31,7 @@ var objects;
 
             this.objectIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
+            this.destroyed = false;
         }
         punchBullet.prototype.update = function () {
             this.x += this.direction * constants.GAME_SPEED * 3;
@@ -41,6 +42,7 @@ var objects;
 
         punchBullet.prototype.destroy = function () {
             game.removeChild(this);
+            this.destroyed = true;
         };
         return punchBullet;
     })(createjs.Shape);

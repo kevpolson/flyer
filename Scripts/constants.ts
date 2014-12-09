@@ -10,6 +10,7 @@
     export var GAME_OVER_STATE: number = 7;
 
     //Game Constants
+    export enum enemyLife { Easy = 0.5, Normal = 1, Hard = 1.5 };
     export var MISSILE_NUM: number = 2;
     export var LABEL_FONT = "40px Consolas";
     export var LABEL_COLOUR = "#FF8000";

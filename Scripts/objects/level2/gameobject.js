@@ -17,11 +17,15 @@ var objects;
             this.regY = this.height * 0.5;
 
             this.speed = constants.GAME_SPEED;
+            this.life = constants.PLAYER_LIVES;
 
             this.objectIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
         }
         GameObject.prototype.update = function () {
+        };
+
+        GameObject.prototype.hit = function () {
         };
 
         GameObject.prototype.destroy = function () {

@@ -26,9 +26,13 @@ var managers;
                 frames: [0, 1, 2, 3, 4, 5],
                 speed: constants.ANIMATION_TIME
             },
-            "dead": {
+            "dieing": {
                 frames: [6, 7, 8, 9],
+                next: "dead",
                 speed: constants.ANIMATION_TIME
+            },
+            "dead": {
+                frames: [9]
             }
         }
     };
