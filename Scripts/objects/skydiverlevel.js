@@ -136,9 +136,9 @@ var objects;
             var warning = document.getElementById("warning");
 
             if (this.maxScent - this.missedRings < 0) {
-                lives.innerHTML = "0";
+                lives.innerHTML = ": 0";
             } else {
-                lives.innerHTML = (this.maxScent - this.missedRings).toString();
+                lives.innerHTML = ": " + (this.maxScent - this.missedRings);
             }
             var height = Math.floor(player.position.z);
             altitude.innerHTML = height + " ft";
@@ -180,26 +180,26 @@ var objects;
             hud.style.top = "10px";
             hud.style.left = "10px";
 
-            livesLabel.style.width = "115px";
+            livesLabel.style.width = "150px";
             livesLabel.style.height = "150px";
             livesLabel.style.position = 'absolute';
-            livesLabel.style.top = "15px";
-            livesLabel.style.left = "15px";
-            livesLabel.innerHTML = "Scent: ";
+            livesLabel.style.top = "14px";
+            livesLabel.style.left = "14px";
+            livesLabel.innerHTML = "<img src='assets/images/threejs/ring.png' width='40' height='40' />";
 
             lives.id = "lives";
             lives.style.width = "100";
             lives.style.height = "150";
             lives.style.position = 'absolute';
             lives.style.top = "15px";
-            lives.style.left = "120px";
-            lives.innerHTML = (this.maxScent - this.missedRings).toString();
+            lives.style.left = "60px";
+            lives.innerHTML = " : " + (this.maxScent - this.missedRings);
 
             altitudeLabel.style.width = "150px";
             altitudeLabel.style.height = "150px";
             altitudeLabel.style.position = 'absolute';
             altitudeLabel.style.top = "15px";
-            altitudeLabel.style.left = "175px";
+            altitudeLabel.style.left = "125px";
             altitudeLabel.innerHTML = "Altitude: ";
 
             altitude.id = "altitude";
@@ -207,7 +207,7 @@ var objects;
             altitude.style.height = "150px";
             altitude.style.position = 'absolute';
             altitude.style.top = "15px";
-            altitude.style.left = "310px";
+            altitude.style.left = "260px";
             score.style.whiteSpace = "nowrap";
             altitude.innerHTML = Math.floor(player.position.z) + " ft";
 
@@ -215,7 +215,7 @@ var objects;
             scoreLabel.style.height = "150";
             scoreLabel.style.position = 'absolute';
             scoreLabel.style.top = "15px";
-            scoreLabel.style.left = "430px";
+            scoreLabel.style.left = "380px";
             scoreLabel.innerHTML = "Score: ";
 
             score.id = "score";
@@ -223,7 +223,7 @@ var objects;
             score.style.height = "150px";
             score.style.position = 'absolute';
             score.style.top = "15px";
-            score.style.left = "540px";
+            score.style.left = "490px";
             score.style.whiteSpace = "nowrap";
             score.innerHTML = this.score + " (" + this.multiplier + "x)";
 
