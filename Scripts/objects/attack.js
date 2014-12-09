@@ -26,10 +26,12 @@ var objects;
         attack.prototype.update = function (player) {
             if (this.attack) {
                 this.position.z = player.position.z + 0.01;
-                if (!player.parachuteOpen && !this.caughtPrey) {
-                    this.position.y = player.position.y + 2;
-                } else if (!this.caughtPrey) {
-                    this.position.y = player.position.y;
+                if (!this.caughtPrey) {
+                    if (!player.parachuteOpen) {
+                        this.position.y = player.position.y + 2;
+                    } else {
+                        this.position.y = player.position.y;
+                    }
                 }
 
                 if (this.position.x >= player.position.x) {
@@ -46,8 +48,6 @@ var objects;
             this.position.y = player.position.y;
 
             this.position.x = player.position.x + 25;
-
-            //console.log(this.position.x + ' ' + pl
             currentScene.add(this);
         };
 

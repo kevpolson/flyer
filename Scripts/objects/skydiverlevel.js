@@ -24,24 +24,24 @@ var objects;
 
             var radius = 10;
             this.rings = new Array();
-            this.rings[0] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 950, radius, 50, 0);
-            this.rings[1] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 900, radius, 100, -55);
-            this.rings[2] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 850, radius, 150, -75);
-            this.rings[3] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 800, radius, 160, -25);
-            this.rings[4] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 750, radius, 215, 0);
-            this.rings[5] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 700, radius, 305, 50);
-            this.rings[6] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 650, radius, 400, 80);
-            this.rings[7] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 600, radius, 465, 110);
-            this.rings[8] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 550, radius, 375, 130);
-            this.rings[9] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 500, radius, 295, 155);
-            this.rings[10] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 450, radius, 205, 125);
-            this.rings[11] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 400, radius, 155, 65);
-            this.rings[12] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 350, radius, 75, 30);
-            this.rings[13] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 300, radius, 0, 0);
-            this.rings[14] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 250, radius, -50, 50);
-            this.rings[15] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 200, radius, -85, 95);
-            this.rings[16] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 150, radius, -125, 145);
-            this.rings[17] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 100, radius, -175, 175);
+            this.rings[0] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 900, radius, 50, 0);
+            this.rings[1] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 850, radius, 100, -55);
+            this.rings[2] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 800, radius, 150, -75);
+            this.rings[3] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 750, radius, 160, -25);
+            this.rings[4] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 700, radius, 215, 0);
+            this.rings[5] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 650, radius, 305, 50);
+            this.rings[6] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 600, radius, 400, 80);
+            this.rings[7] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 550, radius, 465, 110);
+            this.rings[8] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 500, radius, 375, 130);
+            this.rings[9] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 450, radius, 295, 155);
+            this.rings[10] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 400, radius, 205, 125);
+            this.rings[11] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 350, radius, 155, 65);
+            this.rings[12] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 300, radius, 75, 30);
+            this.rings[13] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 250, radius, 0, 0);
+            this.rings[14] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 200, radius, -50, 50);
+            this.rings[15] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 150, radius, -85, 95);
+            this.rings[16] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 100, radius, -125, 145);
+            this.rings[17] = new objects.ring(currentScene, "assets/images/threejs/ring.png", 50, radius, -175, 175);
 
             this.rings[18] = new objects.ring(currentScene, "assets/images/threejs/landingpad.png", 1, 20, -225, 130);
             this.rings[19] = new objects.ring(currentScene, "assets/images/threejs/landingpadbonus.png", 1, 5, -225, 130);
@@ -56,6 +56,8 @@ var objects;
             this.levelCompleted = false;
 
             this.createHUD(player);
+            this.warningCounter = 0;
+            this.warningDisplay = "inline";
         }
         skyDiverLevel.prototype.update = function (currentScene, player) {
             this.attackDino.update(player);
@@ -99,6 +101,7 @@ var objects;
                     player.animateLanding();
                 } else if (!this.levelCompleted) {
                     console.log("level failed");
+                    this.gameover = true;
                     if (!player.parachuteOpen) {
                         player.rotation.x = -0.65;
                         player.position.z = 0;
@@ -130,6 +133,7 @@ var objects;
             var score = document.getElementById("score");
             var lives = document.getElementById("lives");
             var altitude = document.getElementById("altitude");
+            var warning = document.getElementById("warning");
 
             if (this.maxScent - this.missedRings < 0) {
                 lives.innerHTML = "0";
@@ -139,6 +143,21 @@ var objects;
             var height = Math.floor(player.position.z);
             altitude.innerHTML = height + " ft";
             score.innerHTML = this.score + " (" + this.multiplier + "x)";
+
+            if (!player.parachuteOpen && player.position.z <= constants.PARACHUTE_HEIGHT) {
+                warning.style.display = this.warningDisplay;
+                this.warningCounter++;
+                if (this.warningCounter > constants.ANIMATION_COUNT * 4) {
+                    this.warningCounter = 0;
+                    if (this.warningDisplay === "inline") {
+                        this.warningDisplay = "none";
+                    } else {
+                        this.warningDisplay = "inline";
+                    }
+                }
+            } else {
+                warning.style.display = "none";
+            }
         };
 
         skyDiverLevel.prototype.createHUD = function (player) {
@@ -150,11 +169,13 @@ var objects;
             var altitudeLabel = document.createElement('div');
             var altitude = document.createElement('div');
 
+            var warning = document.createElement('div');
+
             hud.style.position = 'absolute';
             hud.id = "hud";
             hud.style.width = "900px";
             hud.style.height = "200px";
-            hud.style.color = "#F6CEE3";
+            hud.style.color = "#F2F5A9";
             hud.style.fontSize = "35px";
             hud.style.top = "10px";
             hud.style.left = "10px";
@@ -206,12 +227,22 @@ var objects;
             score.style.whiteSpace = "nowrap";
             score.innerHTML = this.score + " (" + this.multiplier + "x)";
 
+            warning.id = "warning";
+            warning.style.color = "#FE2E2E";
+            warning.style.width = "100";
+            warning.style.height = "150";
+            warning.style.position = 'absolute';
+            warning.style.top = "280px";
+            warning.style.left = "50px";
+            warning.innerHTML = "Warning: Alitude LOW Open Your Parachute!";
+
             hud.appendChild(livesLabel);
             hud.appendChild(lives);
             hud.appendChild(altitudeLabel);
             hud.appendChild(altitude);
             hud.appendChild(scoreLabel);
             hud.appendChild(score);
+            hud.appendChild(warning);
 
             document.body.appendChild(hud);
         };
