@@ -21,9 +21,12 @@ var objects;
             this.height = this.background[0].getBounds().height;
 
             this.speed = constants.GAME_SPEED;
+
+            this.enemy = new objects.triceratops(game);
         }
         sideScrollingLevel.prototype.update = function (player, screenWidth) {
             this.camera(player, screenWidth);
+            this.enemy.update();
         };
 
         sideScrollingLevel.prototype.resetImageRight = function (index) {

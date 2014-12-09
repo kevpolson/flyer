@@ -6,6 +6,32 @@ module managers {
         { id: "background", src: "assets/images/background.png" }
     ];
 
+    var triceratopsSheetData = {
+        "images": ["assets/images/level2/tri.png"],
+        "frames": [
+            [1, 1, 217, 76],    //charging  [0]
+            [219, 1, 217, 76],  //charging  [1]
+            [437, 1, 217, 76],  //charging  [2]
+            [656, 1, 217, 76],  //charging  [3]
+            [874, 1, 217, 76],  //charging  [4]
+            [1092, 1, 217, 76], //charging  [5]
+            [1, 78, 220, 76],   //dead      [6]
+            [222, 78, 217, 76], //dead      [7]
+            [440, 78, 217, 76], //dead      [8]
+            [658, 78, 213, 76]  //dead      [9]
+        ],
+        "animations": {
+            "charging": {
+                frames: [0, 1, 2, 3, 4, 5],
+                speed: constants.ANIMATION_TIME
+            },
+            "dead": {
+                frames: [6, 7, 8, 9],
+                speed: constants.ANIMATION_TIME
+            }
+        }
+    }
+
     var sideScrollingPlayerSheetData = {
         "images": ["assets/images/sideScrollingPlayer.png"],
         "frames": [
@@ -43,7 +69,6 @@ module managers {
         "animations": {
             "idle": {
                 frames: [0, 1, 2, 3, 4, 5, 6, 7],
-                //next: "victory",
                 speed: constants.ANIMATION_TIME
             },
             "dash": {
@@ -71,6 +96,7 @@ module managers {
         public static loader;
         public static buttons: createjs.SpriteSheet;
         public static player: createjs.SpriteSheet;
+        public static triceratops: createjs.SpriteSheet;
         public static energytank: createjs.SpriteSheet;
         public static missile: createjs.SpriteSheet;
 
@@ -85,6 +111,7 @@ module managers {
             this.loader.loadManifest(assetManifest);
             
             this.player = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
+            this.triceratops = new createjs.SpriteSheet(triceratopsSheetData);
         }
     }
 } 

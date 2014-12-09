@@ -17,7 +17,10 @@
     export var PLAYER_LIVES = 5;
     export var EXPLOSION_TIME = 1000;
     export var GAME_SPEED = 2.5;
-    export var GROUND_HEIGHT = 425;
+    export var GROUND_HEIGHT = 430;
+    export var FACING_RIGHT = 1;
+    export var FACING_LEFT = -1;
+    export var BULLET_LIFE = 100;
 
     //Input Constants
     export var KEYCODE_UP: number = 38;
@@ -70,6 +73,7 @@
     //Colors
     export var COLOR_CREAM: string = "#F2F5A9";
     export var COLOR_LIGHT_RED: string = "#FE2E2E";
+    export var COLOR_ORANGE: string = "#FF8000";
 
     export var INVALID: number = -1;
 }

@@ -21,6 +21,9 @@ var objects;
             this.objectIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
         }
+        GameObject.prototype.update = function () {
+        };
+
         GameObject.prototype.destroy = function () {
             game.removeChildAt(this.objectIndex);
         };

@@ -7,6 +7,32 @@ var managers;
         { id: "background", src: "assets/images/background.png" }
     ];
 
+    var triceratopsSheetData = {
+        "images": ["assets/images/level2/tri.png"],
+        "frames": [
+            [1, 1, 217, 76],
+            [219, 1, 217, 76],
+            [437, 1, 217, 76],
+            [656, 1, 217, 76],
+            [874, 1, 217, 76],
+            [1092, 1, 217, 76],
+            [1, 78, 220, 76],
+            [222, 78, 217, 76],
+            [440, 78, 217, 76],
+            [658, 78, 213, 76]
+        ],
+        "animations": {
+            "charging": {
+                frames: [0, 1, 2, 3, 4, 5],
+                speed: constants.ANIMATION_TIME
+            },
+            "dead": {
+                frames: [6, 7, 8, 9],
+                speed: constants.ANIMATION_TIME
+            }
+        }
+    };
+
     var sideScrollingPlayerSheetData = {
         "images": ["assets/images/sideScrollingPlayer.png"],
         "frames": [
@@ -44,7 +70,6 @@ var managers;
         "animations": {
             "idle": {
                 frames: [0, 1, 2, 3, 4, 5, 6, 7],
-                //next: "victory",
                 speed: constants.ANIMATION_TIME
             },
             "dash": {
@@ -79,6 +104,7 @@ var managers;
             this.loader.loadManifest(assetManifest);
 
             this.player = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
+            this.triceratops = new createjs.SpriteSheet(triceratopsSheetData);
         };
         return Assets;
     })();

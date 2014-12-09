@@ -11,6 +11,7 @@ module objects {
         speed: number;
         screenCount: number;
         maxScreens: number;
+        enemy: objects.GameObject;
         constructor(game: createjs.Container) {
             for (var i = 0; i < 2; i++) {
                 this.background[i] = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
@@ -26,10 +27,13 @@ module objects {
             this.height = this.background[0].getBounds().height;
 
             this.speed = constants.GAME_SPEED;
+
+            this.enemy = new objects.triceratops(game);
         }
 
         update(player: objects.sideScrollingPlayer, screenWidth: number) {
             this.camera(player, screenWidth);
+            this.enemy.update();
         }
     
 

@@ -18,6 +18,9 @@ module objects {
             game.addChildAt(this, this.objectIndex);
         }
 
+        update() {
+        }
+
         destroy() {
             game.removeChildAt(this.objectIndex);
         }

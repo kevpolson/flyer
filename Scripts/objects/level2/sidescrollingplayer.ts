@@ -11,6 +11,12 @@ module objects {
         frames = [];
         currentAnimationType: string;
         animationCounter: number = 0;
+        bullets: objects.punchBullet[];
+        punching: boolean;
+        punchOffset: THREE.Vector2[];
+        punchFrames: number[];
+        bulletCount: number;
+        direction: number;
         constructor(game: createjs.Container) {
             super(game, managers.Assets.player, "idle");
             this.currentAnimationType = this.currentAnimation;
@@ -33,6 +39,19 @@ module objects {
             this.x = 100;
             this.actualX = this.x;
             this.y = constants.GROUND_HEIGHT - this.regY;
+            this.direction = constants.FACING_RIGHT;
+
+            this.bullets = new Array<objects.punchBullet>();
+            this.punching = false;
+            this.punchOffset = new Array<THREE.Vector2>(3);
+            this.punchOffset[0] = new THREE.Vector2(59, 28);
+            this.punchOffset[1] = new THREE.Vector2(69, 26);
+            this.punchOffset[2] = new THREE.Vector2(64, 25);
+
+            this.punchFrames = new Array<number>(3);
+            this.punchFrames[0] = 0;
+            this.punchFrames[1] = 2;
+            this.punchFrames[2] = 5;
         }
 
         update() { 
@@ -60,26 +79,55 @@ module objects {
             }
             */
             if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
+                this.punching = false;
                 if (input.isKeyDown(constants.RIGHT)) {
-                    this.movement(1);
+                    this.movement(constants.FACING_RIGHT);
                 } else if (input.isKeyDown(constants.LEFT)) {
-                    this.movement(-1);
+                    this.movement(constants.FACING_LEFT);
                 }
                 else {
                     this.idle();
                 }
             }
 
-            if(input.hasKeyBeenUp(constants.SPACE)) {
+            if (!this.punching && input.hasKeyBeenUp(constants.SPACE)) {
+                this.punching = true;
+                this.bulletCount = 0;
                 this.changeAnimation("attack", false);
             }
             if (input.hasKeyBeenUp(constants.ENTER)) {
                 this.changeAnimation("victory", false);
             }
+
+
+            if (this.punching) {
+                if (this.currentAnimationFrame === this.punchFrames[this.bulletCount]) {
+                    if(this.direction === constants.FACING_LEFT) {
+                        this.bullets[this.bullets.length] =
+                        new objects.punchBullet(game,
+                            this.x - (this.regX * 3) + this.punchOffset[this.bulletCount].x,
+                            this.y - this.regY + this.punchOffset[this.bulletCount].y,
+                            this.direction);
+                    }
+                    else {
+                        this.bullets[this.bullets.length] =
+                        new objects.punchBullet(game,
+                            this.x - this.regX + this.punchOffset[this.bulletCount].x,
+                            this.y - this.regY + this.punchOffset[this.bulletCount].y,
+                            this.direction);
+                    }
+                    this.bulletCount++;
+                }
+            }
+
+            for (var i = 0; i < this.bullets.length; i++) {
+                this.bullets[i].update();
+            }
         }
 
         //move player based on scale    
         movement(scale: number) {
+            this.direction = scale;
             this.scaleX = scale;
             this.x += scale * this.speed;
             this.actualX += scale * this.speed;

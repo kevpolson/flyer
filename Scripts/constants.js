@@ -18,7 +18,10 @@
     constants.PLAYER_LIVES = 5;
     constants.EXPLOSION_TIME = 1000;
     constants.GAME_SPEED = 2.5;
-    constants.GROUND_HEIGHT = 425;
+    constants.GROUND_HEIGHT = 430;
+    constants.FACING_RIGHT = 1;
+    constants.FACING_LEFT = -1;
+    constants.BULLET_LIFE = 100;
 
     //Input Constants
     constants.KEYCODE_UP = 38;
@@ -94,6 +97,7 @@
     //Colors
     constants.COLOR_CREAM = "#F2F5A9";
     constants.COLOR_LIGHT_RED = "#FE2E2E";
+    constants.COLOR_ORANGE = "#FF8000";
 
     constants.INVALID = -1;
 })(constants || (constants = {}));

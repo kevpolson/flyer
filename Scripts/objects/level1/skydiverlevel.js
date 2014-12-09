@@ -239,12 +239,12 @@ var objects;
             warning.id = "warning";
             warning.style.display = "none";
             warning.style.color = constants.COLOR_LIGHT_RED;
-            warning.style.width = "100px";
+            warning.style.width = "800px";
             warning.style.height = "150px";
             warning.style.position = 'absolute';
-            warning.style.top = "280px";
+            warning.style.top = "320px";
             warning.style.left = "50px";
-            warning.innerHTML = "Warning: Alitude LOW Open Your Parachute!";
+            warning.innerHTML = "Warning: Altitude LOW Open Your Parachute!";
 
             hud.appendChild(livesLabel);
             hud.appendChild(lives);
