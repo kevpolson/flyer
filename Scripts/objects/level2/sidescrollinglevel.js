@@ -23,20 +23,16 @@ var objects;
             this.speed = constants.GAME_SPEED;
             this.enemyLifeModifier = currentEnemyModifier;
             this.enemy = null;
+            this.cameraLocked = false;
         }
         sideScrollingLevel.prototype.update = function (player, screenWidth) {
             if (this.enemy === null) {
                 this.enemy = new objects.triceratops(game, this.enemyLifeModifier, player);
             }
             this.camera(player, screenWidth);
-            this.enemy.update();
-            for (var i = 0; i < player.bullets.length; i++) {
-                if (this.enemy.life > 0 && !player.bullets[i].destroyed && managers.Collision.bulletGameObject(player.bullets[i], this.enemy)) {
-                    //this causes a memory leak because the bullets are never removed from the array
-                    player.bullets[i].destroy();
-                    this.enemy.hit();
-                }
-            }
+
+            //memory leak in enemy update
+            this.enemy.update(player, this.cameraLocked);
         };
 
         sideScrollingLevel.prototype.resetImageRight = function (index) {
@@ -49,6 +45,7 @@ var objects;
         };
 
         sideScrollingLevel.prototype.camera = function (player, screenWidth) {
+            this.cameraLocked = false;
             if (player.lastMovement > 0) {
                 //locks player to the centre of the screen
                 if (player.actualX < this.width - screenWidth * 0.5) {
@@ -57,6 +54,7 @@ var objects;
                             this.background[i].x -= player.lastMovement;
                         }
                         player.x = screenWidth * 0.5;
+                        this.cameraLocked = true;
                     }
                 } else if (player.actualX + player.regX > this.width) {
                     player.x = screenWidth - player.regX;
@@ -75,6 +73,7 @@ var objects;
                             this.background[i].x -= player.lastMovement;
                         }
                         player.x = screenWidth * 0.5;
+                        this.cameraLocked = true;
                     }
                 } else if (player.actualX - player.regX < 0) {
                     player.x = 0 + player.regX;

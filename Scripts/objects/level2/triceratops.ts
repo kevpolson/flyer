@@ -3,7 +3,7 @@
 
 module objects {
     // Triceratops Class
-    export class triceratops extends GameObject {
+    export class triceratops extends enemy {
         direction: number;
         constructor(game: createjs.Container, enemyLifeModifier: number, player: objects.sideScrollingPlayer) {
             super(game, managers.Assets.triceratops, "charging");
@@ -15,9 +15,21 @@ module objects {
             this.life = 6 * enemyLifeModifier;
         }
 
-        update() {
+        update(player: objects.sideScrollingPlayer, cameraStatus: boolean) {
             if (this.life > 0) {
                 this.x += this.direction * constants.GAME_SPEED;
+                for (var i = 0; i < player.bullets.length; i++) {
+                    if (this.life > 0 &&
+                        !player.bullets[i].destroyed &&
+                        managers.Collision.bulletEnemy(player.bullets[i], this)) {
+                        //this causes a memory leak because the bullets are never removed from the array
+                        player.bullets[i].destroy();
+                        this.hit();
+                    }
+                }
+            }
+            else if (cameraStatus) {
+                this.x -= player.lastMovement;
             }
         }
 

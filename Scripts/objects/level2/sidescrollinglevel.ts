@@ -11,8 +11,9 @@ module objects {
         speed: number;
         screenCount: number;
         maxScreens: number;
-        enemy: objects.GameObject;
+        enemy: objects.enemy;
         enemyLifeModifier: number;
+        cameraLocked: boolean;
         constructor(game: createjs.Container,  player: objects.sideScrollingPlayer, currentEnemyModifier: number) {
             for (var i = 0; i < 2; i++) {
                 this.background[i] = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
@@ -30,6 +31,7 @@ module objects {
             this.speed = constants.GAME_SPEED;
             this.enemyLifeModifier = currentEnemyModifier;
             this.enemy = null;
+            this.cameraLocked = false;
         }
 
         update(player: objects.sideScrollingPlayer, screenWidth: number) {
@@ -37,16 +39,8 @@ module objects {
                 this.enemy = new objects.triceratops(game, this.enemyLifeModifier, player);
             }
             this.camera(player, screenWidth);
-            this.enemy.update();
-            for (var i = 0; i < player.bullets.length; i++) {
-                if (this.enemy.life > 0 &&
-                    !player.bullets[i].destroyed &&
-                    managers.Collision.bulletGameObject(player.bullets[i], this.enemy)) {
-                    //this causes a memory leak because the bullets are never removed from the array
-                    player.bullets[i].destroy();
-                    this.enemy.hit();
-                }
-            }
+            //memory leak in enemy update
+            this.enemy.update(player, this.cameraLocked);
         }
     
 
@@ -60,6 +54,7 @@ module objects {
         }
 
         private camera(player: objects.sideScrollingPlayer, screenWidth: number) {
+            this.cameraLocked = false;
             if (player.lastMovement > 0) {
                 //locks player to the centre of the screen
                 if (player.actualX < this.width - screenWidth * 0.5) {
@@ -68,6 +63,7 @@ module objects {
                             this.background[i].x -= player.lastMovement;
                         }
                         player.x = screenWidth * 0.5;
+                        this.cameraLocked = true;
                     }
                 }
                 //locks player to the level
@@ -89,6 +85,7 @@ module objects {
                             this.background[i].x -= player.lastMovement;
                         }
                         player.x = screenWidth * 0.5;
+                        this.cameraLocked = true;
                     }
                 }
                 //locks player to the level

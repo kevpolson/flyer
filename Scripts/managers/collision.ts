@@ -8,7 +8,7 @@
             return Math.sqrt(Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2));
         }
 
-        static bulletGameObject(bullet: objects.punchBullet, enemy: objects.GameObject) {
+        static bulletEnemy(bullet: objects.punchBullet, enemy: objects.enemy) {
             return this.distance(new THREE.Vector2(bullet.x, bullet.y), new THREE.Vector2(enemy.x, enemy.y)) <
                 (bullet.regX + enemy.regX);
         }
