@@ -2,8 +2,12 @@
     //State Machine Constants
     export var LOADING_STATE: number = 0;
     export var MENU_STATE: number = 1;
-    export var PLAY_STATE: number = 2;
-    export var GAME_OVER_STATE: number = 3;
+    export var CUTSCENE1: number = 2;
+    export var LEVEL1: number = 3;
+    export var CUTSCENE2: number = 4;
+    export var LEVEL2: number = 5;
+    export var CUTSCENE3: number = 6;
+    export var GAME_OVER_STATE: number = 7;
 
     //Game Constants
     export var MISSILE_NUM: number = 2;

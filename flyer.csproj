@@ -73,7 +73,6 @@
     <Content Include="assets\images\threejs\parachute.png" />
     <Content Include="assets\images\threejs\player.png" />
     <Content Include="assets\images\sidescrollingplayer.png" />
-    <Content Include="assets\images\skydivingplayer.png" />
     <Content Include="assets\images\threejs\ring.png" />
     <Content Include="assets\sounds\UnderTheClouds.mp3" />
     <Content Include="css\app.css" />
@@ -129,8 +128,10 @@
     <TypeScriptCompile Include="scripts\objects\skydiverlevel.ts" />
     <TypeScriptCompile Include="scripts\objects\skydiverplayer.ts" />
     <TypeScriptCompile Include="scripts\objects\ring.ts" />
+    <TypeScriptCompile Include="scripts\states\cutscene.ts" />
+    <TypeScriptCompile Include="scripts\states\level2.ts" />
     <TypeScriptCompile Include="scripts\states\loading.ts" />
-    <TypeScriptCompile Include="scripts\states\play.ts" />
+    <TypeScriptCompile Include="scripts\states\level1.ts" />
     <TypeScriptCompile Include="scripts\lib\threejs\detector.d.ts" />
     <TypeScriptCompile Include="scripts\lib\threejs\three-canvasrenderer.d.ts" />
     <TypeScriptCompile Include="scripts\lib\threejs\three-copyshader.d.ts" />

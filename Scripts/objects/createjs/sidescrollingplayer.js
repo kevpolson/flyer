@@ -12,23 +12,23 @@ var objects;
     var sideScrollingPlayer = (function (_super) {
         __extends(sideScrollingPlayer, _super);
         function sideScrollingPlayer(game) {
-            _super.call(this, game, managers.Assets.sidePlayer, "idle");
+            _super.call(this, game, managers.Assets.player, "idle");
             this.heights = [];
             this.widths = [];
             this.frames = [];
             this.animationCounter = 0;
             this.currentAnimationType = this.currentAnimation;
 
-            var animations = managers.Assets.sidePlayer.getAnimations();
+            var animations = managers.Assets.player.getAnimations();
             for (var a = 0; a < animations.length; a++) {
                 this.heights[a] = new Array();
                 this.widths[a] = new Array();
-                this.frames[a] = managers.Assets.sidePlayer.getAnimation(animations[a]).frames;
+                this.frames[a] = managers.Assets.player.getAnimation(animations[a]).frames;
                 console.log('frames: ' + this.frames[a]);
                 for (var f = 0; f < this.frames[a].length; f++) {
-                    console.log('height (' + a + ':' + this.frames[a][f] + '): ' + managers.Assets.sidePlayer.getFrame(this.frames[a][f]).rect.height);
-                    this.heights[a][f] = managers.Assets.sidePlayer.getFrame(this.frames[a][f]).rect.height;
-                    this.widths[a][f] = managers.Assets.sidePlayer.getFrame(this.frames[a][f]).rect.width;
+                    console.log('height (' + a + ':' + this.frames[a][f] + '): ' + managers.Assets.player.getFrame(this.frames[a][f]).rect.height);
+                    this.heights[a][f] = managers.Assets.player.getFrame(this.frames[a][f]).rect.height;
+                    this.widths[a][f] = managers.Assets.player.getFrame(this.frames[a][f]).rect.width;
                 }
             }
 
@@ -45,8 +45,8 @@ var objects;
             if (this.animationCounter > constants.ANIMATION_COUNT) {
                 this.animationCounter = 0;
                 this.currentAnimationFrame++;
-                if (this.currentAnimationFrame >= managers.Assets.sidePlayer.getNumFrames(this.currentAnimationType)) {
-                    this.changeAnimation(managers.Assets.sidePlayer.getAnimation(this.currentAnimationType).next, true);
+                if (this.currentAnimationFrame >= managers.Assets.player.getNumFrames(this.currentAnimationType)) {
+                    this.changeAnimation(managers.Assets.player.getAnimation(this.currentAnimationType).next, true);
                 }
             }
 

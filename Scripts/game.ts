@@ -2,7 +2,8 @@
 /// <reference path="managers/asset.ts" />
 /// <reference path="objects/label.ts" />
 /// <reference path="states/loading.ts" />
-/// <reference path="states/play.ts" />
+/// <reference path="states/level1.ts" />
+/// <reference path="states/level1.ts" />
 
 //three.js
 var scene: THREE.Scene; 
@@ -13,6 +14,7 @@ var renderer: THREE.WebGLRenderer;
 var stage: createjs.Stage;
 var game: createjs.Container;
 var input: managers.Input;
+var difficulty: string;
 
 var bgMusic: createjs.SoundInstance;
 
@@ -23,6 +25,8 @@ var currentStateFunction;
 function preload(): void {
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer({ alpha: true });
+    difficulty = constants.NORMAL;
+
     renderer.setClearColor(0x002F59, 1);
     renderer.setSize(854, 480);//window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
@@ -43,7 +47,7 @@ function init(): void {
 
     optimizeForMobile();
     input = new managers.Input();
-
+    difficulty = constants.NORMAL;
     //bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
 }
 
@@ -56,7 +60,7 @@ function optimizeForMobile() {
 
 // Game Loop
 function gameLoop(event): void {
-    //stage.update();
+    stage.update();
     currentStateFunction();
 
     //console.log("objects: " + stage.children.length);
@@ -70,10 +74,15 @@ function changeState(state: number): void {
             currentStateFunction = states.loadingUpdate;
             states.loading();
             break;
-        case constants.PLAY_STATE:
+        case constants.LEVEL1:
             // instantiate play screen
-            currentStateFunction = states.playUpdate;
-            states.play();
+            currentStateFunction = states.level1Update;
+            states.level1();
+            break;
+        case constants.LEVEL2:
+            // instantiate play screen
+            currentStateFunction = states.level2Update;
+            states.level2();
             break;
     }
 }

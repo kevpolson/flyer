@@ -6,32 +6,6 @@ module managers {
         { id: "background", src: "assets/images/background.png" }
     ];
 
-    var skydivingPlayerSheetData = {
-        "images": ["assets/images/skydivingPlayer.png"],
-        "frames": [
-            [1, 1, 28, 32],   //falling  [0]
-            [38, 2, 36, 38],  //falling  [1] not used
-            [1, 34, 26, 28],  //forward  [2]
-            [36, 42, 32, 36], //forward  [3] not used
-            [1, 63, 26, 25],  //backward [4]
-            [36, 83, 36, 25], //backward [5] not used
-        ],
-        "animations": {
-            "falling": {
-                frames: [0],
-                speed: constants.ANIMATION_TIME
-            },
-            "forward": {
-                frames: [4],
-                speed: constants.ANIMATION_TIME
-            },
-            "backward": {
-                frames: [2],
-                speed: constants.ANIMATION_TIME
-            }
-        }
-    }
-
     var sideScrollingPlayerSheetData = {
         "images": ["assets/images/sideScrollingPlayer.png"],
         "frames": [
@@ -96,8 +70,7 @@ module managers {
 
         public static loader;
         public static buttons: createjs.SpriteSheet;
-        public static sidePlayer: createjs.SpriteSheet;
-        public static skyPlayer: createjs.SpriteSheet;
+        public static player: createjs.SpriteSheet;
         public static energytank: createjs.SpriteSheet;
         public static missile: createjs.SpriteSheet;
 
@@ -111,8 +84,7 @@ module managers {
             this.loader.installPlugin(createjs.Sound);
             this.loader.loadManifest(assetManifest);
             
-            this.sidePlayer = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
-            this.skyPlayer = new createjs.SpriteSheet(skydivingPlayerSheetData);
+            this.player = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
         }
     }
 } 

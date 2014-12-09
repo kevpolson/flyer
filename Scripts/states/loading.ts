@@ -9,7 +9,7 @@ module states {
         game.removeAllChildren();
         game.removeAllEventListeners();
 
-        currentState = constants.PLAY_STATE;
+        currentState = constants.LEVEL1;
         changeState(currentState);
     }
 

@@ -7,32 +7,6 @@ var managers;
         { id: "background", src: "assets/images/background.png" }
     ];
 
-    var skydivingPlayerSheetData = {
-        "images": ["assets/images/skydivingPlayer.png"],
-        "frames": [
-            [1, 1, 28, 32],
-            [38, 2, 36, 38],
-            [1, 34, 26, 28],
-            [36, 42, 32, 36],
-            [1, 63, 26, 25],
-            [36, 83, 36, 25]
-        ],
-        "animations": {
-            "falling": {
-                frames: [0],
-                speed: constants.ANIMATION_TIME
-            },
-            "forward": {
-                frames: [4],
-                speed: constants.ANIMATION_TIME
-            },
-            "backward": {
-                frames: [2],
-                speed: constants.ANIMATION_TIME
-            }
-        }
-    };
-
     var sideScrollingPlayerSheetData = {
         "images": ["assets/images/sideScrollingPlayer.png"],
         "frames": [
@@ -104,8 +78,7 @@ var managers;
             this.loader.installPlugin(createjs.Sound);
             this.loader.loadManifest(assetManifest);
 
-            this.sidePlayer = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
-            this.skyPlayer = new createjs.SpriteSheet(skydivingPlayerSheetData);
+            this.player = new createjs.SpriteSheet(sideScrollingPlayerSheetData);
         };
         return Assets;
     })();

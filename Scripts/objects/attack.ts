@@ -9,7 +9,6 @@
             this.width = 8;
             this.height = 4;
             var attackSprite = THREE.ImageUtils.loadTexture("assets/images/threejs/attackDino.png");
-            //ringSprite.wrapT = THREE.ClampToEdgeWrapping;
             var attackMaterial = new THREE.MeshBasicMaterial({ map: attackSprite, transparent: true });
             var attackGeometry = new THREE.BoxGeometry(this.width, this.height, 0);
 
@@ -46,7 +45,7 @@
             this.position.z = player.position.z;
             this.position.y = player.position.y;
 
-            this.position.x = player.position.x + 25;
+            this.position.x = player.position.x + 45;
             currentScene.add(this);
         }
 

@@ -3,8 +3,12 @@
     //State Machine Constants
     constants.LOADING_STATE = 0;
     constants.MENU_STATE = 1;
-    constants.PLAY_STATE = 2;
-    constants.GAME_OVER_STATE = 3;
+    constants.CUTSCENE1 = 2;
+    constants.LEVEL1 = 3;
+    constants.CUTSCENE2 = 4;
+    constants.LEVEL2 = 5;
+    constants.CUTSCENE3 = 6;
+    constants.GAME_OVER_STATE = 7;
 
     //Game Constants
     constants.MISSILE_NUM = 2;

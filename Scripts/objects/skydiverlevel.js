@@ -13,7 +13,7 @@ var objects;
 (function (objects) {
     var skyDiverLevel = (function (_super) {
         __extends(skyDiverLevel, _super);
-        function skyDiverLevel(currentScene, player, ringMisses) {
+        function skyDiverLevel(currentScene, ringMisses) {
             var groundSprite = THREE.ImageUtils.loadTexture("assets/images/threejs/ground.png");
             groundSprite.wrapT = THREE.ClampToEdgeWrapping;
             var groundMaterial = new THREE.MeshBasicMaterial({ map: groundSprite });
@@ -48,6 +48,8 @@ var objects;
 
             this.attackDino = new objects.attack();
 
+            this.player = new objects.skyDiverPlayer(currentScene);
+
             this.missedRings = 0;
             this.maxScent = ringMisses;
             this.multiplier = 0;
@@ -55,18 +57,18 @@ var objects;
             this.gameover = false;
             this.levelCompleted = false;
 
-            this.createHUD(player);
+            this.createHUD();
             this.warningCounter = 0;
             this.warningDisplay = "inline";
         }
-        skyDiverLevel.prototype.update = function (currentScene, player) {
-            this.attackDino.update(player);
-            player.update(this.attackDino);
+        skyDiverLevel.prototype.update = function (currentScene) {
+            this.attackDino.update(this.player);
+            this.player.update(this.attackDino);
 
             var buffer = 2.5;
             for (var i = 0; i < this.rings.length; i++) {
-                if (!this.rings[i].cleared && player.position.z <= (this.rings[i].position.z + 0.01) && player.position.z >= (this.rings[i].position.z - buffer)) {
-                    if (managers.Collision.inCircle(player.position.x, player.position.y, this.rings[i].position.x, this.rings[i].position.y, this.rings[i].collisionRadius)) {
+                if (!this.rings[i].cleared && this.player.position.z <= (this.rings[i].position.z + 0.01) && this.player.position.z >= (this.rings[i].position.z - buffer)) {
+                    if (managers.Collision.inCircle(this.player.position.x, this.player.position.y, this.rings[i].position.x, this.rings[i].position.y, this.rings[i].collisionRadius)) {
                         this.rings[i].cleared = true;
                         this.multiplier++;
                         this.score += this.multiplier * constants.POINTS;
@@ -77,7 +79,7 @@ var objects;
                     }
                 }
 
-                if (!this.rings[i].removed && this.rings[i].position.z > player.camera.position.z) {
+                if (!this.rings[i].removed && this.rings[i].position.z > this.player.camera.position.z) {
                     this.rings[i].removed = true;
                     scene.remove(this.rings[i]);
                     if (!this.rings[i].cleared) {
@@ -87,49 +89,49 @@ var objects;
                 }
             }
 
-            if (player.position.z <= constants.GROUND) {
-                player.rotation.y = 0;
-                if (player.parachuteOpen) {
+            if (this.player.position.z <= constants.GROUND) {
+                this.player.rotation.y = 0;
+                if (this.player.parachuteOpen) {
                     if (!this.levelCompleted && this.rings[constants.LEVEL_END_RING].cleared) {
-                        player.rotation.x = 0;
-                        player.position.z = constants.GROUND;
+                        this.player.rotation.x = 0;
+                        this.player.position.z = constants.GROUND;
 
                         console.log("level finished");
                         console.log("score: " + this.score + " multiplier: " + this.multiplier + " missed Rings: " + this.missedRings);
                         this.levelCompleted = true;
                     }
-                    player.animateLanding();
+                    this.player.animateLanding();
                 } else if (!this.levelCompleted) {
                     console.log("level failed");
                     this.gameover = true;
-                    if (!player.parachuteOpen) {
-                        player.rotation.x = -0.65;
-                        player.position.z = 0;
+                    if (!this.player.parachuteOpen) {
+                        this.player.rotation.x = -0.65;
+                        this.player.position.z = 0;
                     } else {
-                        player.position.z = constants.GROUND;
-                        player.rotation.x = 0;
+                        this.player.position.z = constants.GROUND;
+                        this.player.rotation.x = 0;
                     }
                 }
             }
 
-            if (this.missedRings > 3 && !this.gameover) {
+            if (this.missedRings >= this.maxScent && !this.gameover) {
                 console.log("you died");
-                this.queueAttack(currentScene, player);
+                this.queueAttack(currentScene);
                 this.gameover = true;
             }
 
-            this.updateHUD(player);
+            this.updateHUD();
         };
 
-        skyDiverLevel.prototype.queueAttack = function (currentScene, player) {
-            this.attackDino.startAttack(currentScene, player);
+        skyDiverLevel.prototype.queueAttack = function (currentScene) {
+            this.attackDino.startAttack(currentScene, this.player);
         };
 
         skyDiverLevel.prototype.destroy = function () {
             scene.remove(this);
         };
 
-        skyDiverLevel.prototype.updateHUD = function (player) {
+        skyDiverLevel.prototype.updateHUD = function () {
             var score = document.getElementById("score");
             var lives = document.getElementById("lives");
             var altitude = document.getElementById("altitude");
@@ -140,11 +142,11 @@ var objects;
             } else {
                 lives.innerHTML = ": " + (this.maxScent - this.missedRings);
             }
-            var height = Math.floor(player.position.z);
+            var height = Math.floor(this.player.position.z);
             altitude.innerHTML = height + " ft";
             score.innerHTML = this.score + " (" + this.multiplier + "x)";
 
-            if (!player.parachuteOpen && player.position.z <= constants.PARACHUTE_HEIGHT) {
+            if (!this.player.parachuteOpen && this.player.position.z <= constants.PARACHUTE_HEIGHT) {
                 warning.style.display = this.warningDisplay;
                 this.warningCounter++;
                 if (this.warningCounter > constants.ANIMATION_COUNT * 4) {
@@ -160,7 +162,7 @@ var objects;
             }
         };
 
-        skyDiverLevel.prototype.createHUD = function (player) {
+        skyDiverLevel.prototype.createHUD = function () {
             var hud = document.createElement('div');
             var scoreLabel = document.createElement('div');
             var score = document.createElement('div');
@@ -209,7 +211,7 @@ var objects;
             altitude.style.top = "15px";
             altitude.style.left = "260px";
             score.style.whiteSpace = "nowrap";
-            altitude.innerHTML = Math.floor(player.position.z) + " ft";
+            altitude.innerHTML = Math.floor(this.player.position.z) + " ft";
 
             scoreLabel.style.width = "150";
             scoreLabel.style.height = "150";
