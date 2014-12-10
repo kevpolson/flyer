@@ -2,7 +2,7 @@
 (function (states) {
     var image;
 
-    function cutscene1Update() {
+    function cutscene2Update() {
         //update all elements of the cutscene state
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
@@ -13,12 +13,11 @@
             destroyHUD();
         }
     }
-    states.cutscene1Update = cutscene1Update;
+    states.cutscene2Update = cutscene2Update;
 
     // cutscene state Function
-    function cutscene1() {
+    function cutscene2() {
         document.getElementById("canvas").style.display = "inline";
-        input = new managers.Input();
 
         // Declare new Game Container
         game = new createjs.Container();
@@ -27,7 +26,7 @@
         createHUD(stage);
         stage.addChild(game);
     }
-    states.cutscene1 = cutscene1;
+    states.cutscene2 = cutscene2;
 
     function updateHUD() {
     }
@@ -62,4 +61,4 @@
         document.body.removeChild(document.getElementById("hud"));
     }
 })(states || (states = {}));
-//# sourceMappingURL=cutscene1.js.map
+//# sourceMappingURL=cutscene2.js.map

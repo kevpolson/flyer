@@ -120,6 +120,7 @@
     <TypeScriptCompile Include="scripts\lib\createjs\tweenjs.d.ts" />
     <TypeScriptCompile Include="scripts\managers\asset.ts" />
     <TypeScriptCompile Include="scripts\managers\collision.ts" />
+    <TypeScriptCompile Include="scripts\managers\menuinput.ts" />
     <TypeScriptCompile Include="scripts\managers\input.ts" />
     <TypeScriptCompile Include="scripts\objects\level1\attack.ts" />
     <TypeScriptCompile Include="scripts\objects\level2\enemy.ts" />
@@ -132,6 +133,10 @@
     <TypeScriptCompile Include="scripts\objects\level1\ring.ts" />
     <TypeScriptCompile Include="scripts\objects\level2\triceratops.ts" />
     <TypeScriptCompile Include="scripts\objects\staticImage.ts" />
+    <TypeScriptCompile Include="scripts\states\cutscene3.ts" />
+    <TypeScriptCompile Include="scripts\states\cutscene2.ts" />
+    <TypeScriptCompile Include="scripts\states\gameover.ts" />
+    <TypeScriptCompile Include="scripts\states\startmenu.ts" />
     <TypeScriptCompile Include="scripts\states\cutscene1.ts" />
     <TypeScriptCompile Include="scripts\states\level2.ts" />
     <TypeScriptCompile Include="scripts\states\loading.ts" />

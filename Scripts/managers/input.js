@@ -4,6 +4,8 @@
         function Input() {
             this.currentKeyDown = [false, false, false, false, false, false, false];
             this.previousKeyDown = [false, false, false, false, false, false, false];
+            window.onkeyup = null;
+            window.onkeydown = null;
             window.onkeyup = this.onKeyReleased;
             window.onkeydown = this.onKeyPressed;
         }

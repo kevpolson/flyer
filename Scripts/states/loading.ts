@@ -4,7 +4,7 @@
 module states {
     export function loadingUnload() {
         destroyHUD();
-        currentState = constants.CUTSCENE1;
+        currentState = constants.STARTMENU_STATE;//constants.CUTSCENE1;//
         changeState(currentState);
     }
 

@@ -1,7 +1,7 @@
 ﻿module states {
     var image: createjs.Bitmap;
 
-    export function cutsceneUpdate1() {
+    export function cutscene1Update() {
         //update all elements of the cutscene state
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
@@ -16,6 +16,8 @@
     // cutscene state Function
     export function cutscene1(): void {
         document.getElementById("canvas").style.display = "inline";
+        input = new managers.Input();
+
         // Declare new Game Container
         game = new createjs.Container();
         image = new createjs.Bitmap("");

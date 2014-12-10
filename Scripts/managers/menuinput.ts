@@ -1,5 +1,5 @@
 ﻿module managers {
-    export class Input {
+    export class MenuInput {
         specialKeyPressed: number;
         specialKeyReleased: number;
         currentKeyDown: boolean[] = [false, false, false, false, false, false, false];
@@ -28,21 +28,35 @@
         }
 
         private onKeyPressed(event) {
-            input.specialKeyPressed = event.keyCode;
-            if (input.specialKeyPressed != constants.KEYCODE_SPACE &&
-                input.specialKeyPressed != constants.KEYCODE_ENTER &&
-                input.specialKeyPressed != constants.KEYCODE_ESCAPE) {
-                input.checkKeyDown(event.keyCode);
+            menuInput.specialKeyPressed = event.keyCode;
+            /*
+            if (menuInput.specialKeyPressed != constants.KEYCODE_SPACE &&
+                menuInput.specialKeyPressed != constants.KEYCODE_ENTER &&
+                menuInput.specialKeyPressed != constants.KEYCODE_ESCAPE) {
+                menuInput.checkKeyDown(event.keyCode);
             }
+            */
         }
 
         private onKeyReleased(event) {
-            input.specialKeyReleased = event.keyCode;
-            input.checkKeyUp(event.keyCode);
+            menuInput.specialKeyReleased = event.keyCode;
+            //menuInput.checkKeyUp(event.keyCode);
         }
 
         private checkSpecialKeyDown() {
             if (this.specialKeyPressed != constants.INVALID) {
+                if (this.specialKeyPressed === constants.KEYCODE_UP) {
+                    this.currentKeyDown[constants.Keys[constants.UP]] = true;
+                }
+                if (this.specialKeyPressed === constants.KEYCODE_DOWN) {
+                    this.currentKeyDown[constants.Keys[constants.DOWN]] = true;
+                }
+                if (this.specialKeyPressed === constants.KEYCODE_LEFT) {
+                    this.currentKeyDown[constants.Keys[constants.LEFT]] = true;
+                }
+                if (this.specialKeyPressed === constants.KEYCODE_RIGHT) {
+                    this.currentKeyDown[constants.Keys[constants.RIGHT]] = true;
+                }
                 if (this.specialKeyPressed === constants.KEYCODE_SPACE) {
                     this.currentKeyDown[constants.Keys[constants.SPACE]] = true;
                 }
@@ -58,6 +72,18 @@
 
         private checkSpecialKeyUp() {
             if (this.specialKeyReleased != constants.INVALID) {
+                if (this.specialKeyReleased === constants.KEYCODE_UP) {
+                    this.currentKeyDown[constants.Keys[constants.UP]] = false;
+                }
+                if (this.specialKeyReleased === constants.KEYCODE_DOWN) {
+                    this.currentKeyDown[constants.Keys[constants.DOWN]] = false;
+                }
+                if (this.specialKeyReleased === constants.KEYCODE_LEFT) {
+                    this.currentKeyDown[constants.Keys[constants.LEFT]] = false;
+                }
+                if (this.specialKeyReleased === constants.KEYCODE_RIGHT) {
+                    this.currentKeyDown[constants.Keys[constants.RIGHT]] = false;
+                }
                 if (this.specialKeyReleased === constants.KEYCODE_SPACE) {
                     this.currentKeyDown[constants.Keys[constants.SPACE]] = false;
                 }
@@ -73,31 +99,31 @@
 
         checkKeyDown(keyPressed: number) {
             if (keyPressed === constants.KEYCODE_W || keyPressed === constants.KEYCODE_UP) {
-                input.currentKeyDown[constants.Keys[constants.UP]] = true;
+                menuInput.currentKeyDown[constants.Keys[constants.UP]] = true;
             }
             if (keyPressed === constants.KEYCODE_S || keyPressed === constants.KEYCODE_DOWN) {
-                input.currentKeyDown[constants.Keys[constants.DOWN]] = true;
+                menuInput.currentKeyDown[constants.Keys[constants.DOWN]] = true;
             }
             if (keyPressed === constants.KEYCODE_A || keyPressed === constants.KEYCODE_LEFT) {
-                input.currentKeyDown[constants.Keys[constants.LEFT]] = true;
+                menuInput.currentKeyDown[constants.Keys[constants.LEFT]] = true;
             }
             if (keyPressed === constants.KEYCODE_D || keyPressed === constants.KEYCODE_RIGHT) {
-                input.currentKeyDown[constants.Keys[constants.RIGHT]] = true;
+                menuInput.currentKeyDown[constants.Keys[constants.RIGHT]] = true;
             }
         }
 
         checkKeyUp(keyReleased: number) {
             if (keyReleased === constants.KEYCODE_W || keyReleased === constants.KEYCODE_UP) {
-                input.currentKeyDown[constants.Keys[constants.UP]] = false;
+                menuInput.currentKeyDown[constants.Keys[constants.UP]] = false;
             }
             if (keyReleased === constants.KEYCODE_S || keyReleased === constants.KEYCODE_DOWN) {
-                input.currentKeyDown[constants.Keys[constants.DOWN]] = false;
+                menuInput.currentKeyDown[constants.Keys[constants.DOWN]] = false;
             }
             if (keyReleased === constants.KEYCODE_A || keyReleased === constants.KEYCODE_LEFT) {
-                input.currentKeyDown[constants.Keys[constants.LEFT]] = false;
+                menuInput.currentKeyDown[constants.Keys[constants.LEFT]] = false;
             }
             if (keyReleased === constants.KEYCODE_D || keyReleased === constants.KEYCODE_RIGHT) {
-                input.currentKeyDown[constants.Keys[constants.RIGHT]] = false;
+                menuInput.currentKeyDown[constants.Keys[constants.RIGHT]] = false;
             }
         }
     }

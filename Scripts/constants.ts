@@ -1,20 +1,19 @@
 ﻿module constants {
     //State Machine Constants
     export var LOADING_STATE: number = 0;
-    export var MENU_STATE: number = 1;
+    export var STARTMENU_STATE: number = 1;
     export var CUTSCENE1: number = 2;
     export var LEVEL1: number = 3;
     export var CUTSCENE2: number = 4;
     export var LEVEL2: number = 5;
     export var CUTSCENE3: number = 6;
-    export var GAME_OVER_STATE: number = 7;
+    export var GAMEOVER_STATE: number = 7;
 
     //Game Constants
     export enum enemyLife { Easy = 0.5, Normal = 1, Hard = 1.5 };
+    export enum startOptions { Difficulty = 0, Start = 1 };
+    export enum difficultyOptions { Easy = 1, Normal = 2, Hard = 3 };
     export var MISSILE_NUM: number = 2;
-    export var LABEL_FONT = "40px Consolas";
-    export var LABEL_COLOUR = "#FF8000";
-    export var SCORE_COLOUR = "#000000";
     export var PLAYER_LIVES = 5;
     export var EXPLOSION_TIME = 1000;
     export var GAME_SPEED = 2.5;

@@ -13,6 +13,7 @@ var renderer: THREE.WebGLRenderer;
 var stage: createjs.Stage;
 var game: createjs.Container;
 var input: managers.Input;
+var menuInput: managers.MenuInput;
 var difficulty: string;
 
 var bgMusic: createjs.SoundInstance;
@@ -46,8 +47,8 @@ function init(): void {
     createjs.Ticker.addEventListener("tick", gameLoop);
 
     optimizeForMobile();
-    input = new managers.Input();
-    difficulty = constants.NORMAL;
+
+    //difficulty = constants.NORMAL;
     //bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
 }
 
@@ -74,10 +75,25 @@ function changeState(state: number): void {
             currentStateFunction = states.loadingUpdate;
             states.loading(stage);
             break;
+        case constants.STARTMENU_STATE:
+            // instantiate play screen
+            currentStateFunction = states.startMenuUpdate;
+            states.startMenu();
+            break;
         case constants.CUTSCENE1:
             // instantiate play screen
-            currentStateFunction = states.cutsceneUpdate1;
+            currentStateFunction = states.cutscene1Update;
             states.cutscene1();
+            break;
+        case constants.CUTSCENE2:
+            // instantiate play screen
+            currentStateFunction = states.cutscene2Update;
+            states.cutscene2();
+            break;
+        case constants.CUTSCENE3:
+            // instantiate play screen
+            currentStateFunction = states.cutscene3Update;
+            states.cutscene3();
             break;
         case constants.LEVEL1:
             // instantiate play screen
@@ -88,6 +104,11 @@ function changeState(state: number): void {
             // instantiate play screen
             currentStateFunction = states.level2Update;
             states.level2();
+            break;
+        case constants.GAMEOVER_STATE:
+            // instantiate play screen
+            currentStateFunction = states.gameoverUpdate;
+            states.gameover();
             break;
     }
 }

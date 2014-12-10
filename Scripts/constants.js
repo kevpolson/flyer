@@ -2,13 +2,13 @@
 (function (constants) {
     //State Machine Constants
     constants.LOADING_STATE = 0;
-    constants.MENU_STATE = 1;
+    constants.STARTMENU_STATE = 1;
     constants.CUTSCENE1 = 2;
     constants.LEVEL1 = 3;
     constants.CUTSCENE2 = 4;
     constants.LEVEL2 = 5;
     constants.CUTSCENE3 = 6;
-    constants.GAME_OVER_STATE = 7;
+    constants.GAMEOVER_STATE = 7;
 
     //Game Constants
     (function (enemyLife) {
@@ -18,10 +18,20 @@
     })(constants.enemyLife || (constants.enemyLife = {}));
     var enemyLife = constants.enemyLife;
     ;
+    (function (startOptions) {
+        startOptions[startOptions["Difficulty"] = 0] = "Difficulty";
+        startOptions[startOptions["Start"] = 1] = "Start";
+    })(constants.startOptions || (constants.startOptions = {}));
+    var startOptions = constants.startOptions;
+    ;
+    (function (difficultyOptions) {
+        difficultyOptions[difficultyOptions["Easy"] = 1] = "Easy";
+        difficultyOptions[difficultyOptions["Normal"] = 2] = "Normal";
+        difficultyOptions[difficultyOptions["Hard"] = 3] = "Hard";
+    })(constants.difficultyOptions || (constants.difficultyOptions = {}));
+    var difficultyOptions = constants.difficultyOptions;
+    ;
     constants.MISSILE_NUM = 2;
-    constants.LABEL_FONT = "40px Consolas";
-    constants.LABEL_COLOUR = "#FF8000";
-    constants.SCORE_COLOUR = "#000000";
     constants.PLAYER_LIVES = 5;
     constants.EXPLOSION_TIME = 1000;
     constants.GAME_SPEED = 2.5;
