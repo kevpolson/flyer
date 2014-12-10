@@ -10,6 +10,8 @@
         sprites: THREE.Texture[];
         currentSprite: number;
         landingCounter: number;
+        transitionCounter: number;
+        transition: boolean;
         constructor(currentScene: THREE.Scene) { 
             this.width = 2;
             this.height = 2;
@@ -38,6 +40,8 @@
             this.camera.position.z = this.position.z + 6;
 
             this.landingCounter = 0;
+            this.transitionCounter = 0;
+            this.transition = false;
             this.parachuteOpen = false;
             this.ascending = false;
             this.motion = new THREE.Vector3(0.2, 0.2, constants.DESCEND_PER_UPDATE);
@@ -105,14 +109,18 @@
             }
             else {
                 this.position.x = dino.position.x;
-                if (this.currentSprite != 0) {
-                    if (this.parachuteOpen) {
-                        this.position.y = dino.position.y - 2;
-                    }
-                    this.rotation.x = 0;
-                    this.rotation.y = 0;
+                if (this.parachuteOpen) {
+                    this.position.y = dino.position.y - 2;
+                }
+                this.rotation.x = 0;
+                this.rotation.y = 0;
+                if (this.currentSprite > 1) {
                     this.currentSprite = 0;
                     this.changeSprite(this.currentSprite);
+                }
+                this.transitionCounter++;
+                if (this.transitionCounter > constants.ANIMATION_COUNT * 15) {
+                    this.transition = true;
                 }
             }
         }
@@ -133,8 +141,17 @@
                 this.changeSprite(this.currentSprite++);
                 this.landingCounter = 0;
             }
+            else if (this.currentSprite > constants.MAX_SPIRTES) {
+                this.transitionState();
+            }
         }
 
+        transitionState() {
+            this.transitionCounter++;
+            if (this.transitionCounter > constants.ANIMATION_COUNT * 20) {
+                this.transition = true;
+            }
+        }
         destroy() {
             scene.remove(this);
         }

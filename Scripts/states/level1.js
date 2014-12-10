@@ -5,14 +5,16 @@ var states;
     var level;
 
     function level1Update() {
-        if (level.levelCompleted) {
-            level.destroy(scene);
-            currentState = constants.CUTSCENE2;
-            changeState(currentState);
-        } else if (level.gameover) {
-            level.destroy(scene);
-            currentState = constants.GAMEOVER_STATE;
-            changeState(currentState);
+        if (level.nextState) {
+            if (level.levelCompleted) {
+                level.destroy(scene);
+                currentState = constants.CUTSCENE2;
+                changeState(currentState);
+            } else if (level.gameover) {
+                level.destroy(scene);
+                currentState = constants.GAMEOVER_STATE;
+                changeState(currentState);
+            }
         }
 
         //update all elements of the play state

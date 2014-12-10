@@ -57,6 +57,7 @@ var objects;
             //score = 0;
             this.gameover = false;
             this.levelCompleted = false;
+            this.nextState = false;
 
             this.createHUD();
             this.warningCounter = 0;
@@ -113,6 +114,9 @@ var objects;
                         this.player.rotation.x = 0;
                     }
                 }
+                if (this.gameover) {
+                    this.player.transitionState();
+                }
             }
 
             if (this.missedRings >= this.maxScent && !this.gameover) {
@@ -121,6 +125,9 @@ var objects;
                 this.gameover = true;
             }
 
+            if (this.player.transition) {
+                this.nextState = true;
+            }
             this.updateHUD();
         };
 

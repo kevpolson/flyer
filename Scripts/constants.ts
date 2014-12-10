@@ -63,7 +63,7 @@
     //SkyDiving Level Constants
     export enum ringMisses { Easy = 3, Normal = 2, Hard = 1 };
     export var PLANE_HEIGHT: number = 994.01;
-    export var PARACHUTE_HEIGHT: number = 100;
+    export var PARACHUTE_HEIGHT: number = 50;
     export var DESCEND_PER_UPDATE: number = 0.1; 
     export var ASCEND_PER_UPDATE: number = 1;
     export var MAX_ASCEND: number = 75;

@@ -16,6 +16,7 @@ module objects {
         warningCounter: number;
         warningDisplay: string;
         player: objects.skyDiverPlayer;
+        nextState: boolean;
         constructor(currentScene: THREE.Scene, ringMisses: number) {
             var groundSprite = THREE.ImageUtils.loadTexture("assets/images/threejs/ground.png");
             groundSprite.wrapT = THREE.ClampToEdgeWrapping;
@@ -59,6 +60,7 @@ module objects {
             //score = 0;
             this.gameover = false;
             this.levelCompleted = false;
+            this.nextState = false;
 
             this.createHUD();
             this.warningCounter = 0;
@@ -121,6 +123,9 @@ module objects {
                         this.player.rotation.x = 0;
                     }
                 }
+                if (this.gameover) {
+                    this.player.transitionState();
+                }
             }
 
             if (this.missedRings >= this.maxScent && !this.gameover) {
@@ -129,6 +134,9 @@ module objects {
                 this.gameover = true;
             }
 
+            if (this.player.transition) {
+                this.nextState = true;
+            }
             this.updateHUD();
         }
 

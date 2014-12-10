@@ -58,7 +58,7 @@
         scoreDisplay.style.height = "50px";
         scoreDisplay.style.position = 'absolute';
         scoreDisplay.style.top = (currentStage.canvas.height * 0.4) + "px";
-        scoreDisplay.style.left = (currentStage.canvas.width * 0.5 - 50) + "px";
+        scoreDisplay.style.left = (currentStage.canvas.width * 0.5 - 55) + "px";
         scoreDisplay.innerHTML = "Score: " + score;
 
         inputStatement.id = "inputStatement";
