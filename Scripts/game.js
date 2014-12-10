@@ -14,6 +14,7 @@ var game;
 var input;
 var menuInput;
 var difficulty;
+var score;
 
 var bgMusic;
 

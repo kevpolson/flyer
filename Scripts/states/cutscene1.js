@@ -7,10 +7,10 @@
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
             //game.removeChild(image);
-            stage.removeChild(game);
-            currentState = constants.LEVEL2;
-            changeState(currentState);
             destroyHUD();
+            stage.removeChild(game);
+            currentState = constants.LEVEL1;
+            changeState(currentState);
         }
     }
     states.cutscene1Update = cutscene1Update;

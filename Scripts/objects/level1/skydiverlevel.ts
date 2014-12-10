@@ -8,7 +8,7 @@ module objects {
         rings: objects.ring[];
         missedRings: number;
         multiplier: number;
-        score: number;
+        //score: number;
         gameover: boolean;
         levelCompleted: boolean;
         attackDino: objects.attack;
@@ -56,7 +56,7 @@ module objects {
             this.missedRings = 0;
             this.maxScent = ringMisses;
             this.multiplier = 0;
-            this.score = 0;
+            //score = 0;
             this.gameover = false;
             this.levelCompleted = false;
 
@@ -77,7 +77,7 @@ module objects {
                     if (managers.Collision.inCircle(this.player.position.x, this.player.position.y, this.rings[i].position.x, this.rings[i].position.y, this.rings[i].collisionRadius)) {
                         this.rings[i].cleared = true;
                         this.multiplier++;
-                        this.score += this.multiplier * constants.POINTS;
+                        score += this.multiplier * constants.POINTS;
                         this.missedRings--;
                         if (this.missedRings <= 0) {
                             this.missedRings = 0;
@@ -104,7 +104,7 @@ module objects {
                         this.player.position.z = constants.GROUND;
 
                         console.log("level finished");
-                        console.log("score: " + this.score + " multiplier: " + this.multiplier + " missed Rings: " + this.missedRings);
+                        console.log("score: " + score + " multiplier: " + this.multiplier + " missed Rings: " + this.missedRings);
                         this.levelCompleted = true;
                     }
                     this.player.animateLanding();
@@ -137,6 +137,7 @@ module objects {
         }
 
         destroy(currentScene) {
+            this.destroyHUD();
             currentScene.remove(this);
             currentScene.remove(this.player);
             currentScene.remove(this.attackDino);
@@ -148,7 +149,7 @@ module objects {
         }
 
         updateHUD() {
-            var score = document.getElementById("score");
+            var scoreDisplay = document.getElementById("scoreDisplay");
             var lives = document.getElementById("lives");
             var altitude = document.getElementById("altitude");
             var warning = document.getElementById("warning");
@@ -161,7 +162,7 @@ module objects {
             }
             var height = Math.floor(this.player.position.z);
             altitude.innerHTML = height + " ft";
-            score.innerHTML = this.score + " (" + this.multiplier + "x)";
+            scoreDisplay.innerHTML = score + " (" + this.multiplier + "x)";
 
             if (!this.player.parachuteOpen && this.player.position.z <= constants.PARACHUTE_HEIGHT) {
                 warning.style.display = this.warningDisplay;
@@ -185,7 +186,7 @@ module objects {
         createHUD() {
             var hud = document.createElement('div');
             var scoreLabel = document.createElement('div');
-            var score = document.createElement('div');
+            var scoreDisplay = document.createElement('div');
             var livesLabel = document.createElement('div');
             var lives = document.createElement('div');
             var altitudeLabel = document.createElement('div');
@@ -231,7 +232,7 @@ module objects {
             altitude.style.position = 'absolute';
             altitude.style.top = "15px";
             altitude.style.left = "260px";
-            score.style.whiteSpace = "nowrap";
+            altitude.style.whiteSpace = "nowrap";
             altitude.innerHTML = Math.floor(this.player.position.z) + " ft";
 
             scoreLabel.style.width = "150";
@@ -241,14 +242,14 @@ module objects {
             scoreLabel.style.left = "380px";
             scoreLabel.innerHTML = "Score: ";
 
-            score.id = "score";
-            score.style.width = "550px";
-            score.style.height = "150px";
-            score.style.position = 'absolute';
-            score.style.top = "15px";
-            score.style.left = "490px";
-            score.style.whiteSpace = "nowrap";
-            score.innerHTML = this.score + " (" + this.multiplier + "x)";
+            scoreDisplay.id = "scoreDisplay";
+            scoreDisplay.style.width = "550px";
+            scoreDisplay.style.height = "150px";
+            scoreDisplay.style.position = 'absolute';
+            scoreDisplay.style.top = "15px";
+            scoreDisplay.style.left = "490px";
+            scoreDisplay.style.whiteSpace = "nowrap";
+            scoreDisplay.innerHTML = score + " (" + this.multiplier + "x)";
 
             warning.id = "warning";
             warning.style.display = "none";
@@ -265,7 +266,7 @@ module objects {
             hud.appendChild(altitudeLabel);
             hud.appendChild(altitude);
             hud.appendChild(scoreLabel);
-            hud.appendChild(score);
+            hud.appendChild(scoreDisplay);
             hud.appendChild(warning);
            
             document.body.appendChild(hud);

@@ -14,7 +14,7 @@ module objects {
         enemy: objects.enemy;
         enemyLifeModifier: number;
         cameraLocked: boolean;
-        score: number;
+        //score: number;
         constructor(game: createjs.Container,  player: objects.sideScrollingPlayer, currentEnemyModifier: number) {
             for (var i = 0; i < 2; i++) {
                 this.background[i] = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
@@ -33,7 +33,7 @@ module objects {
             this.enemyLifeModifier = currentEnemyModifier;
             this.enemy = null;
             this.cameraLocked = false;
-            this.score = 0;
+            //this.score = 0;
         }
 
         update(player: objects.sideScrollingPlayer, screenWidth: number) {
@@ -42,7 +42,7 @@ module objects {
             }
             this.camera(player, screenWidth);
             //memory leak in enemy update
-            this.score += this.enemy.update(player, this.cameraLocked);
+            score += this.enemy.update(player, this.cameraLocked);
             this.updateHUD(player);
         }
     
@@ -112,20 +112,20 @@ module objects {
         }
 
         updateHUD(player: objects.sideScrollingPlayer) {
-            var score = document.getElementById("score");
+            var scoreDisplay = document.getElementById("scoreDisplay");
             var lives = document.getElementById("lives");
             var energy = document.getElementById("energy");
 
             lives.innerHTML = ": " + player.life;
 
             energy.innerHTML = Math.floor(player.energy) + "%";
-            score.innerHTML = this.score.toString();// + " (" + this.multiplier + "x)";
+            scoreDisplay.innerHTML = score.toString();// + " (" + this.multiplier + "x)";
         }
 
         createHUD(player: objects.sideScrollingPlayer) {
             var hud = document.createElement('div');
             var scoreLabel = document.createElement('div');
-            var score = document.createElement('div');
+            var scoreDisplay = document.createElement('div');
             var livesLabel = document.createElement('div');
             var lives = document.createElement('div');
             var energyLabel = document.createElement('div');
@@ -168,7 +168,7 @@ module objects {
             energy.style.position = 'absolute';
             energy.style.top = "15px";
             energy.style.left = "250px";
-            score.style.whiteSpace = "nowrap";
+            energy.style.whiteSpace = "nowrap";
             energy.innerHTML = player.x + "%";
 
             scoreLabel.style.width = "150";
@@ -178,21 +178,21 @@ module objects {
             scoreLabel.style.left = "365px";
             scoreLabel.innerHTML = "Score: ";
 
-            score.id = "score";
-            score.style.width = "550px";
-            score.style.height = "150px";
-            score.style.position = 'absolute';
-            score.style.top = "15px";
-            score.style.left = "475px";
-            score.style.whiteSpace = "nowrap";
-            score.innerHTML = this.score.toString();// + " (" + this.multiplier + "x)";
+            scoreDisplay.id = "scoreDisplay";
+            scoreDisplay.style.width = "550px";
+            scoreDisplay.style.height = "150px";
+            scoreDisplay.style.position = 'absolute';
+            scoreDisplay.style.top = "15px";
+            scoreDisplay.style.left = "475px";
+            scoreDisplay.style.whiteSpace = "nowrap";
+            scoreDisplay.innerHTML = score.toString();// + " (" + this.multiplier + "x)";
 
             hud.appendChild(livesLabel);
             hud.appendChild(lives);
             hud.appendChild(energyLabel);
             hud.appendChild(energy);
             hud.appendChild(scoreLabel);
-            hud.appendChild(score);
+            hud.appendChild(scoreDisplay);
 
             document.body.appendChild(hud);
         }

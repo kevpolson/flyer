@@ -7,10 +7,10 @@
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
             //game.removeChild(image);
+            destroyHUD();
             stage.removeChild(game);
             currentState = constants.LEVEL2;
             changeState(currentState);
-            destroyHUD();
         }
     }
     states.cutscene2Update = cutscene2Update;
@@ -18,6 +18,7 @@
     // cutscene state Function
     function cutscene2() {
         document.getElementById("canvas").style.display = "inline";
+        renderer.domElement.style.display = "none";
 
         // Declare new Game Container
         game = new createjs.Container();

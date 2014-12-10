@@ -4,8 +4,13 @@ module states {
     var level: objects.skyDiverLevel;
 
     export function level1Update() {
-        //update all elements of the play state
+        if (level.levelCompleted || level.gameover) {
+            level.destroy(scene);
+            currentState = constants.CUTSCENE2;
+            changeState(currentState);
+        }
 
+        //update all elements of the play state
         input.update();
         level.update(scene);
         renderer.render(scene, level.player.camera);

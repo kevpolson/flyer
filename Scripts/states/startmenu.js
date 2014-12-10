@@ -11,6 +11,7 @@
             console.log("space");
             if (constants.startOptions[currentOption] === "Start") {
                 difficulty = constants.difficultyOptions[currentDifficulty];
+                score = 0;
 
                 stage.removeChild(game);
                 currentState = constants.CUTSCENE1;
@@ -62,7 +63,6 @@
         currentOption = 0 /* Difficulty */;
         currentDifficulty = 2 /* Normal */;
         menuInput = new managers.MenuInput();
-
         game = new createjs.Container();
         image = new createjs.Bitmap("");
         game.addChild(image);

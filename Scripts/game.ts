@@ -15,6 +15,7 @@ var game: createjs.Container;
 var input: managers.Input;
 var menuInput: managers.MenuInput;
 var difficulty: string;
+var score: number;
 
 var bgMusic: createjs.SoundInstance;
 

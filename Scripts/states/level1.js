@@ -5,6 +5,12 @@ var states;
     var level;
 
     function level1Update() {
+        if (level.levelCompleted || level.gameover) {
+            level.destroy(scene);
+            currentState = constants.CUTSCENE2;
+            changeState(currentState);
+        }
+
         //update all elements of the play state
         input.update();
         level.update(scene);

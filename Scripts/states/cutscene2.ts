@@ -6,16 +6,17 @@
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
             //game.removeChild(image);
+            destroyHUD();
             stage.removeChild(game);
             currentState = constants.LEVEL2;
             changeState(currentState);
-            destroyHUD();
         }
     }
 
     // cutscene state Function
     export function cutscene2(): void {
         document.getElementById("canvas").style.display = "inline";
+        renderer.domElement.style.display = "none";
         // Declare new Game Container
         game = new createjs.Container();
         image = new createjs.Bitmap("");

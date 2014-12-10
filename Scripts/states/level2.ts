@@ -6,7 +6,6 @@ module states {
 
     export function level2Update() {
         //update all elements of level2
-
         input.update();
         player.update();
         level.update(player, stage.canvas.width);
