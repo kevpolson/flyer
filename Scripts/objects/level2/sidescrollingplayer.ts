@@ -75,7 +75,7 @@ module objects {
 
             this.blinkCounter = 0;
             this.visble = true;
-            this.life = 1;
+
             this.gameover = false;
         }
 
@@ -132,7 +132,7 @@ module objects {
                     if (managers.Collision.playerKey(this, key)) {
                         this.keyCount++;
                         points += constants.POINTS;
-                        key.destroy();
+                        key.y += 1000;
                     }
                 }
 
@@ -219,6 +219,7 @@ module objects {
                 this.life--;
             }
             if (this.life <= 0) {
+                this.life = 0;
                 this.startTransition = true;
                 this.gameover = true;
             }

@@ -27,13 +27,13 @@ var objects;
 
             this.exit = new objects.exit(game);
             this.key = new objects.key(game);
+
+            this.enemy = new objects.triceratops(game, this.enemyLifeModifier);
         }
         sideScrollingLevel.prototype.update = function (player, screenWidth) {
             score += player.update(this.exit, this.key);
-            if (this.enemy === null) {
-                this.enemy = new objects.triceratops(game, this.enemyLifeModifier, player);
-            }
             this.camera(player, screenWidth);
+
             this.exit.update(player, this.cameraLocked);
             if (this.key != null) {
                 this.key.update(player, this.cameraLocked);
@@ -105,7 +105,7 @@ var objects;
             this.enemy.destroy();
             this.key.destroy();
             this.exit.destroy();
-            for (var i = 0; i < this.objectIndex.length; i++) {
+            for (var i = this.objectIndex.length - 1; i >= 0; i--) {
                 game.removeChildAt(this.objectIndex[i]);
             }
         };
@@ -116,11 +116,12 @@ var objects;
             var keys = document.getElementById("keys");
             var energy = document.getElementById("energy");
 
-            lives.innerHTML = ": " + player.life;
-
-            energy.innerHTML = Math.floor(player.energy) + "%";
-            keys.innerHTML = player.keyCount.toString();
-            scoreDisplay.innerHTML = score.toString(); // + " (" + this.multiplier + "x)";
+            if (scoreDisplay != null) {
+                lives.innerHTML = ": " + player.life;
+                energy.innerHTML = Math.floor(player.energy) + "%";
+                keys.innerHTML = player.keyCount.toString();
+                scoreDisplay.innerHTML = score.toString(); // + " (" + this.multiplier + "x)";
+            }
         };
 
         sideScrollingLevel.prototype.createHUD = function (player) {

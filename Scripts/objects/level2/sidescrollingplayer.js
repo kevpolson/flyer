@@ -63,7 +63,7 @@ var objects;
 
             this.blinkCounter = 0;
             this.visble = true;
-            this.life = 1;
+
             this.gameover = false;
         }
         sideScrollingPlayer.prototype.update = function (exit, key) {
@@ -118,7 +118,7 @@ var objects;
                     if (managers.Collision.playerKey(this, key)) {
                         this.keyCount++;
                         points += constants.POINTS;
-                        key.destroy();
+                        key.y += 1000;
                     }
                 }
 
@@ -192,6 +192,7 @@ var objects;
                 this.life--;
             }
             if (this.life <= 0) {
+                this.life = 0;
                 this.startTransition = true;
                 this.gameover = true;
             }
