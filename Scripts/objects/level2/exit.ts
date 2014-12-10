@@ -38,9 +38,6 @@ module objects {
             }
         }
 
-        hit() {
-        }
-
         destroy() {
             game.removeChildAt(this.objectIndex);
             game.removeChildAt(this.frameIndex);

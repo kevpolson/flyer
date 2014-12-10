@@ -29,6 +29,10 @@ module objects {
             return;
         }
 
+        alive(): boolean {
+            return this.life > 0;
+        }
+
         destroy() {
             game.removeChildAt(this.objectIndex);
         }

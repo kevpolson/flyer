@@ -57,6 +57,12 @@ var objects;
             this.transition = false;
             this.transitionCounter = 0;
             this.keyCount = 0;
+
+            this.damaged = false;
+            this.damagedCounter = 0;
+
+            this.blinkCounter = 0;
+            this.visble = true;
         }
         sideScrollingPlayer.prototype.update = function (exit, key) {
             this.energy += constants.ENERGY_CHARGE;
@@ -80,14 +86,7 @@ var objects;
 
             this.y = constants.GROUND_HEIGHT - this.regY;
 
-            /*
-            if (input.isKeyDown(constants.UP)) {
-            console.log('up');
-            } else if (input.isKeyDown(constants.DOWN)) {
-            console.log('down');
-            }
-            */
-            if (!this.startTransition) {
+            if (!this.damaged && !this.startTransition) {
                 if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
                     this.punching = false;
                     if (input.isKeyDown(constants.RIGHT)) {
@@ -131,12 +130,32 @@ var objects;
                         }
                     }
                 }
-
-                for (var i = 0; i < this.bullets.length; i++) {
-                    this.bullets[i].update();
+            } else if (this.damaged) {
+                this.damagedCounter++;
+                this.blinkCounter++;
+                console.log(this.blinkCounter + ' ' + constants.ANIMATION_COUNT + ' ' + this.visble);
+                if (this.blinkCounter > constants.ANIMATION_COUNT) {
+                    this.blinkCounter = 0;
+                    if (!this.visble) {
+                        game.addChildAt(this, this.objectIndex);
+                    } else {
+                        game.removeChildAt(this.objectIndex);
+                    }
+                    this.visble = !this.visble;
+                }
+                if (this.damagedCounter > constants.ANIMATION_COUNT * 20) {
+                    if (!this.visble) {
+                        game.addChildAt(this, this.objectIndex);
+                        this.visble = !this.visble;
+                    }
+                    this.damaged = false;
                 }
             } else {
                 this.transitionState();
+            }
+
+            for (var i = 0; i < this.bullets.length; i++) {
+                this.bullets[i].update();
             }
         };
 
@@ -155,6 +174,18 @@ var objects;
         sideScrollingPlayer.prototype.idle = function () {
             this.lastMovement = 0;
             this.changeAnimation("idle", false);
+        };
+
+        sideScrollingPlayer.prototype.hit = function () {
+            if (!this.damaged) {
+                this.damaged = true;
+                this.damagedCounter = 0;
+                this.blinkCounter = 0;
+                this.visble = true;
+                this.life--;
+            }
+
+            return;
         };
 
         sideScrollingPlayer.prototype.changeAnimation = function (animationName, forceChange) {

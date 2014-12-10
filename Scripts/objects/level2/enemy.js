@@ -30,6 +30,10 @@ var objects;
             return;
         };
 
+        enemy.prototype.alive = function () {
+            return this.life > 0;
+        };
+
         enemy.prototype.destroy = function () {
             game.removeChildAt(this.objectIndex);
         };

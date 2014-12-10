@@ -22,6 +22,10 @@ module objects {
         transitionCounter: number;
         startTransition: boolean;
         transition: boolean;
+        damaged: boolean;
+        damagedCounter: number;
+        blinkCounter: number;
+        visble: boolean;
         constructor(game: createjs.Container) {
             super(game, managers.Assets.player, "idle");
             this.currentAnimationType = this.currentAnimation;
@@ -64,6 +68,12 @@ module objects {
             this.transition = false;
             this.transitionCounter = 0;
             this.keyCount = 0;
+
+            this.damaged = false;
+            this.damagedCounter = 0;
+
+            this.blinkCounter = 0;
+            this.visble = true;
         }
 
         update(exit: objects.exit, key: objects.key) { 
@@ -88,14 +98,7 @@ module objects {
 
             this.y = constants.GROUND_HEIGHT - this.regY;
 
-            /*
-            if (input.isKeyDown(constants.UP)) {
-                console.log('up');
-            } else if (input.isKeyDown(constants.DOWN)) {
-                console.log('down');
-            }
-            */
-            if (!this.startTransition) {
+            if (!this.damaged && !this.startTransition) {
                 if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
                     this.punching = false;
                     if (input.isKeyDown(constants.RIGHT)) {
@@ -127,7 +130,6 @@ module objects {
                     }
                 }
 
-
                 if (this.punching) {
                     if (this.currentAnimationFrame === this.punchFrames[this.bulletCount]) {
                         if (this.energy - constants.ENERGY_DRAIN >= constants.ENERGY_DRAIN) {
@@ -151,12 +153,35 @@ module objects {
                     }
                 }
 
-                for (var i = 0; i < this.bullets.length; i++) {
-                    this.bullets[i].update();
+            }
+            else if (this.damaged) {
+                this.damagedCounter++;
+                this.blinkCounter++;
+                console.log(this.blinkCounter + ' ' + constants.ANIMATION_COUNT + ' ' + this.visble);
+                if (this.blinkCounter > constants.ANIMATION_COUNT) {
+                    this.blinkCounter = 0;
+                    if (!this.visble) {
+                        game.addChildAt(this, this.objectIndex);
+                    }
+                    else {
+                        game.removeChildAt(this.objectIndex);
+                    }
+                    this.visble = !this.visble;
+                }
+                if (this.damagedCounter > constants.ANIMATION_COUNT * 20) {
+                    if (!this.visble) {
+                        game.addChildAt(this, this.objectIndex);
+                        this.visble = !this.visble;
+                    }
+                    this.damaged = false;
                 }
             }
             else {
                 this.transitionState();
+            }
+
+            for (var i = 0; i < this.bullets.length; i++) {
+                this.bullets[i].update();
             }
         }
 
@@ -175,6 +200,18 @@ module objects {
         idle() {
             this.lastMovement = 0;
             this.changeAnimation("idle", false);
+        }
+
+        hit(): number {
+            if (!this.damaged) {
+                this.damaged = true;
+                this.damagedCounter = 0;
+                this.blinkCounter = 0;
+                this.visble = true;
+                this.life--;
+            }
+
+            return;
         }
 
         changeAnimation(animationName: string, forceChange: boolean) {

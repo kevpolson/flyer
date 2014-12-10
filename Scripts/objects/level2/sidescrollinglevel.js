@@ -42,6 +42,10 @@ var objects;
 
             //memory leak in enemy update
             score += this.enemy.update(player, this.cameraLocked);
+
+            if (this.enemy.alive() && managers.Collision.playerEnemy(player, this.enemy)) {
+                player.hit();
+            }
             this.updateHUD(player);
         };
 

@@ -40,9 +40,6 @@ var objects;
             }
         };
 
-        exit.prototype.hit = function () {
-        };
-
         exit.prototype.destroy = function () {
             game.removeChildAt(this.objectIndex);
             game.removeChildAt(this.frameIndex);
