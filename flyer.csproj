@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\background.png" />
+    <Content Include="assets\images\level2\playerLogo.png" />
     <Content Include="assets\images\level2\tri.png" />
     <Content Include="assets\images\threejs\attackDino.png" />
     <Content Include="assets\images\threejs\ground.png" />

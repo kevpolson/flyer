@@ -23,9 +23,11 @@ var objects;
             game.addChildAt(this, this.objectIndex);
         }
         enemy.prototype.update = function (player, cameraStatus) {
+            return;
         };
 
         enemy.prototype.hit = function () {
+            return;
         };
 
         enemy.prototype.destroy = function () {

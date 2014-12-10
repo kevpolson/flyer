@@ -20,10 +20,13 @@ module objects {
             game.addChildAt(this, this.objectIndex);
         }
 
-        update(player: objects.sideScrollingPlayer, cameraStatus: boolean) {
+        update(player: objects.sideScrollingPlayer, cameraStatus: boolean): number {
+            return;
+
         }
 
-        hit() {
+        hit(): number {
+            return;
         }
 
         destroy() {

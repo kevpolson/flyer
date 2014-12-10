@@ -1,8 +1,8 @@
 ﻿/// <reference path="../objects/level2/sideScrollinglevel.ts" />
 /// <reference path="../objects/level2/sidescrollingplayer.ts" />
 module states {
-    var player;//: objects.sideScrollingPlayer;
-    var level;//: objects.sideScrollingLevel;
+    var player: objects.sideScrollingPlayer;
+    var level: objects.sideScrollingLevel;
 
     export function level2Update() {
         //update all elements of level2
@@ -23,7 +23,8 @@ module states {
         // Instantiate Game Objects
         level = new objects.sideScrollingLevel(game, player, constants.enemyLife[difficulty]);
         player = new objects.sideScrollingPlayer(game);
-        
+        level.createHUD(player);
+
         stage.addChild(game);
     }
 }

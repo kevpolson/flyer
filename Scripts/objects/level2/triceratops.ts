@@ -15,7 +15,8 @@ module objects {
             this.life = 6 * enemyLifeModifier;
         }
 
-        update(player: objects.sideScrollingPlayer, cameraStatus: boolean) {
+        update(player: objects.sideScrollingPlayer, cameraStatus: boolean): number {
+            var points = 0;
             if (this.life > 0) {
                 this.x += this.direction * constants.GAME_SPEED;
                 for (var i = 0; i < player.bullets.length; i++) {
@@ -24,23 +25,30 @@ module objects {
                         managers.Collision.bulletEnemy(player.bullets[i], this)) {
                         //this causes a memory leak because the bullets are never removed from the array
                         player.bullets[i].destroy();
-                        this.hit();
+                        points = this.hit();
+                        console.log(points);
                     }
                 }
             }
             else if (cameraStatus) {
                 this.x -= player.lastMovement;
             }
+
+            return points;
         }
 
-        hit() {
+        hit(): number {
+            var points = 0;
             if (this.life > 0) {
                 this.life--;
                 console.log(this.life);
                 if (this.life <= 0) {
                     this.gotoAndPlay("dieing");
+                    points += constants.POINTS;
                 }
             }
+            console.log(points);
+            return points;
         }
     }
 }  

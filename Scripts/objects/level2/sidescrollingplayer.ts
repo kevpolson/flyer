@@ -17,6 +17,7 @@ module objects {
         punchFrames: number[];
         bulletCount: number;
         direction: number;
+        energy: number;
         constructor(game: createjs.Container) {
             super(game, managers.Assets.player, "idle");
             this.currentAnimationType = this.currentAnimation;
@@ -52,6 +53,8 @@ module objects {
             this.punchFrames[0] = 0;
             this.punchFrames[1] = 2;
             this.punchFrames[2] = 5;
+
+            this.energy = 100;
         }
 
         update() { 

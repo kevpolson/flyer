@@ -24,6 +24,7 @@ var states;
         // Instantiate Game Objects
         level = new objects.sideScrollingLevel(game, player, constants.enemyLife[difficulty]);
         player = new objects.sideScrollingPlayer(game);
+        level.createHUD(player);
 
         stage.addChild(game);
     }
