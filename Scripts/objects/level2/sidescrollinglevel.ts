@@ -16,7 +16,6 @@ module objects {
         cameraLocked: boolean;
         exit: objects.exit;
         key: objects.key;
-        gameover: boolean;
         constructor(game: createjs.Container,  player: objects.sideScrollingPlayer, currentEnemyModifier: number) {
             for (var i = 0; i < 2; i++) {
                 this.background[i] = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
@@ -36,13 +35,12 @@ module objects {
             this.enemy = null;
             this.cameraLocked = false;
 
-            this.gameover = false;
             this.exit = new objects.exit(game);
             this.key = new objects.key(game);
         }
 
         update(player: objects.sideScrollingPlayer, screenWidth: number) {
-            player.update(this.exit, this.key);
+            score += player.update(this.exit, this.key);
             if (this.enemy === null) {
                 this.enemy = new objects.triceratops(game, this.enemyLifeModifier, player);
             }

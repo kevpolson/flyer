@@ -26,6 +26,7 @@ module objects {
         damagedCounter: number;
         blinkCounter: number;
         visble: boolean;
+        gameover: boolean;
         constructor(game: createjs.Container) {
             super(game, managers.Assets.player, "idle");
             this.currentAnimationType = this.currentAnimation;
@@ -74,9 +75,13 @@ module objects {
 
             this.blinkCounter = 0;
             this.visble = true;
+            this.life = 1;
+            this.gameover = false;
         }
 
-        update(exit: objects.exit, key: objects.key) { 
+        update(exit: objects.exit, key: objects.key): number { 
+            var points = 0;
+
             this.energy += constants.ENERGY_CHARGE;
             if (this.energy > constants.ENERGY_MAX) {
                 this.energy = constants.ENERGY_MAX;
@@ -126,6 +131,7 @@ module objects {
                     }
                     if (managers.Collision.playerKey(this, key)) {
                         this.keyCount++;
+                        points += constants.POINTS;
                         key.destroy();
                     }
                 }
@@ -157,7 +163,6 @@ module objects {
             else if (this.damaged) {
                 this.damagedCounter++;
                 this.blinkCounter++;
-                console.log(this.blinkCounter + ' ' + constants.ANIMATION_COUNT + ' ' + this.visble);
                 if (this.blinkCounter > constants.ANIMATION_COUNT) {
                     this.blinkCounter = 0;
                     if (!this.visble) {
@@ -183,6 +188,8 @@ module objects {
             for (var i = 0; i < this.bullets.length; i++) {
                 this.bullets[i].update();
             }
+
+            return points;
         }
 
         //move player based on scale    
@@ -204,11 +211,16 @@ module objects {
 
         hit(): number {
             if (!this.damaged) {
+                this.idle();
                 this.damaged = true;
                 this.damagedCounter = 0;
                 this.blinkCounter = 0;
                 this.visble = true;
                 this.life--;
+            }
+            if (this.life <= 0) {
+                this.startTransition = true;
+                this.gameover = true;
             }
 
             return;
@@ -227,7 +239,6 @@ module objects {
         transitionState() {
             this.transitionCounter++;
             if (this.transitionCounter > constants.ANIMATION_COUNT * 20) {
-                console.log("true");
                 this.transition = true;
             }
         }

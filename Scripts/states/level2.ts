@@ -6,13 +6,13 @@ module states {
 
     export function level2Update() {
         if (player.transition) {
-            if (!level.gameover) {
+            if (!player.gameover) {
                 player.destroy();
                 level.destroy();
                 currentState = constants.CUTSCENE3;
                 changeState(currentState);
             }
-            else if (level.gameover) {
+            else if (player.gameover) {
                 player.destroy();
                 level.destroy();
                 currentState = constants.GAMEOVER_STATE;

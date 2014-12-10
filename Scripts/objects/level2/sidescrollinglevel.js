@@ -25,12 +25,11 @@ var objects;
             this.enemy = null;
             this.cameraLocked = false;
 
-            this.gameover = false;
             this.exit = new objects.exit(game);
             this.key = new objects.key(game);
         }
         sideScrollingLevel.prototype.update = function (player, screenWidth) {
-            player.update(this.exit, this.key);
+            score += player.update(this.exit, this.key);
             if (this.enemy === null) {
                 this.enemy = new objects.triceratops(game, this.enemyLifeModifier, player);
             }

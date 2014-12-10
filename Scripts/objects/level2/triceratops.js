@@ -29,7 +29,6 @@ var objects;
                         //this causes a memory leak because the bullets are never removed from the array
                         player.bullets[i].destroy();
                         points = this.hit();
-                        console.log(points);
                     }
                 }
             }
@@ -44,13 +43,11 @@ var objects;
             var points = 0;
             if (this.life > 0) {
                 this.life--;
-                console.log(this.life);
                 if (this.life <= 0) {
                     this.gotoAndPlay("dieing");
                     points += constants.POINTS;
                 }
             }
-            console.log(points);
             return points;
         };
         return triceratops;
