@@ -13,10 +13,19 @@
                 (bullet.regX + enemy.regX);
         }
 
-        static gameObjectGameObject(player: objects.GameObject, enemy: objects.GameObject) {
+        static playerEnemy(player: objects.sideScrollingPlayer, enemy: objects.enemy) {
             return this.distance(new THREE.Vector2(player.x, player.y), new THREE.Vector2(enemy.x, enemy.y)) <
                    (player.regY + enemy.regY);
         }
 
+        static playerExit(player: objects.sideScrollingPlayer, exit: objects.exit) {
+            return this.distance(new THREE.Vector2(player.x, player.y), new THREE.Vector2(exit.x, exit.y)) <
+                (player.regY + exit.regY);
+        }
+
+        static playerKey(player: objects.sideScrollingPlayer, key: objects.key) {
+            return this.distance(new THREE.Vector2(player.x, player.y), new THREE.Vector2(key.x, key.y)) <
+                (player.regY + key.regY);
+        }
     }
 } 

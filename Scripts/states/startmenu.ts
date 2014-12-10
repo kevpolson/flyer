@@ -7,7 +7,6 @@
         menuInput.update();
 
         if (menuInput.hasKeyBeenUp(constants.SPACE) || menuInput.hasKeyBeenUp(constants.ENTER)) {
-            console.log("space");
             if (constants.startOptions[currentOption] === "Start") {
                 difficulty = constants.difficultyOptions[currentDifficulty];
                 score = 0;
@@ -19,40 +18,32 @@
             }
         }
         else if (menuInput.hasKeyBeenUp(constants.RIGHT)) {
-            console.log("right");
             if (currentOption === constants.startOptions.Difficulty) {
                 currentDifficulty++;
                 if (currentDifficulty > constants.difficultyOptions.Hard) {
                     currentDifficulty = constants.difficultyOptions.Hard;
                 }
-                console.log(currentDifficulty);
             }
         }
         else if (menuInput.hasKeyBeenUp(constants.LEFT)) {
-            console.log("left");
             if (currentOption === constants.startOptions.Difficulty) {
                 currentDifficulty--;
                 if (currentDifficulty < constants.difficultyOptions.Easy) {
                     currentDifficulty = constants.difficultyOptions.Easy;
                 }
             }
-            console.log(currentDifficulty);
         }
         else if (menuInput.hasKeyBeenUp(constants.UP)) {
-            console.log("up");
             currentOption--;
             if (currentOption < constants.startOptions.Difficulty) {
                 currentOption = constants.startOptions.Difficulty;
             }
-            console.log(currentOption);
         }
         else if (menuInput.hasKeyBeenUp(constants.DOWN)) {
-            console.log("down");
             currentOption++;
             if (currentOption > constants.startOptions.Start) {
                 currentOption = constants.startOptions.Start;
             }
-            console.log(currentOption);
         }
         updateHUD();
     }

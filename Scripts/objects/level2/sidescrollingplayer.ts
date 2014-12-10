@@ -18,6 +18,10 @@ module objects {
         bulletCount: number;
         direction: number;
         energy: number;
+        keyCount: number;
+        transitionCounter: number;
+        startTransition: boolean;
+        transition: boolean;
         constructor(game: createjs.Container) {
             super(game, managers.Assets.player, "idle");
             this.currentAnimationType = this.currentAnimation;
@@ -55,9 +59,14 @@ module objects {
             this.punchFrames[2] = 5;
 
             this.energy = constants.ENERGY_MAX;
+
+            this.startTransition = false;
+            this.transition = false;
+            this.transitionCounter = 0;
+            this.keyCount = 0;
         }
 
-        update() { 
+        update(exit: objects.exit, key: objects.key) { 
             this.energy += constants.ENERGY_CHARGE;
             if (this.energy > constants.ENERGY_MAX) {
                 this.energy = constants.ENERGY_MAX;
@@ -86,53 +95,68 @@ module objects {
                 console.log('down');
             }
             */
-            if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
-                this.punching = false;
-                if (input.isKeyDown(constants.RIGHT)) {
-                    this.movement(constants.FACING_RIGHT);
-                } else if (input.isKeyDown(constants.LEFT)) {
-                    this.movement(constants.FACING_LEFT);
-                }
-                else {
-                    this.idle();
-                }
-            }
-
-            if (!this.punching && input.hasKeyBeenUp(constants.SPACE)) {
-                this.punching = true;
-                this.bulletCount = 0;
-                this.changeAnimation("attack", false);
-            }
-            if (input.hasKeyBeenUp(constants.ENTER)) {
-                this.changeAnimation("victory", false);
-            }
-
-
-            if (this.punching) {
-                if (this.currentAnimationFrame === this.punchFrames[this.bulletCount]) {
-                    if (this.energy - constants.ENERGY_DRAIN >= constants.ENERGY_DRAIN) {
-                        this.energy -= constants.ENERGY_DRAIN;
-                        if (this.direction === constants.FACING_LEFT) {
-                            this.bullets[this.bullets.length] =
-                            new objects.punchBullet(game,
-                                this.x - (this.regX * 3) + this.punchOffset[this.bulletCount].x,
-                                this.y - this.regY + this.punchOffset[this.bulletCount].y,
-                                this.direction);
-                        }
-                        else {
-                            this.bullets[this.bullets.length] =
-                            new objects.punchBullet(game,
-                                this.x - this.regX + this.punchOffset[this.bulletCount].x,
-                                this.y - this.regY + this.punchOffset[this.bulletCount].y,
-                                this.direction);
-                        }
-                        this.bulletCount++;
+            if (!this.startTransition) {
+                if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
+                    this.punching = false;
+                    if (input.isKeyDown(constants.RIGHT)) {
+                        this.movement(constants.FACING_RIGHT);
+                    } else if (input.isKeyDown(constants.LEFT)) {
+                        this.movement(constants.FACING_LEFT);
+                    }
+                    else {
+                        this.idle();
                     }
                 }
-            }
 
-            for (var i = 0; i < this.bullets.length; i++) {
-                this.bullets[i].update();
+                if (!this.punching && this.currentAnimationType != "victory" && input.hasKeyBeenUp(constants.SPACE)) {
+                    this.punching = true;
+                    this.bulletCount = 0;
+                    this.changeAnimation("attack", false);
+                }
+                if (!this.punching && input.hasKeyBeenUp(constants.ENTER)) {
+                    this.changeAnimation("victory", false);
+                    if (managers.Collision.playerExit(this, exit)) {
+                        if (this.keyCount > 0) {
+                            this.startTransition = true;
+                            this.keyCount--;
+                        }
+                    }
+                    if (managers.Collision.playerKey(this, key)) {
+                        this.keyCount++;
+                        key.destroy();
+                    }
+                }
+
+
+                if (this.punching) {
+                    if (this.currentAnimationFrame === this.punchFrames[this.bulletCount]) {
+                        if (this.energy - constants.ENERGY_DRAIN >= constants.ENERGY_DRAIN) {
+                            this.energy -= constants.ENERGY_DRAIN;
+                            if (this.direction === constants.FACING_LEFT) {
+                                this.bullets[this.bullets.length] =
+                                new objects.punchBullet(game,
+                                    this.x - (this.regX * 3) + this.punchOffset[this.bulletCount].x,
+                                    this.y - this.regY + this.punchOffset[this.bulletCount].y,
+                                    this.direction);
+                            }
+                            else {
+                                this.bullets[this.bullets.length] =
+                                new objects.punchBullet(game,
+                                    this.x - this.regX + this.punchOffset[this.bulletCount].x,
+                                    this.y - this.regY + this.punchOffset[this.bulletCount].y,
+                                    this.direction);
+                            }
+                            this.bulletCount++;
+                        }
+                    }
+                }
+
+                for (var i = 0; i < this.bullets.length; i++) {
+                    this.bullets[i].update();
+                }
+            }
+            else {
+                this.transitionState();
             }
         }
 
@@ -160,6 +184,14 @@ module objects {
 
                 this.currentAnimationFrame = 0;
                 this.animationCounter = 0;
+            }
+        }
+
+        transitionState() {
+            this.transitionCounter++;
+            if (this.transitionCounter > constants.ANIMATION_COUNT * 20) {
+                console.log("true");
+                this.transition = true;
             }
         }
     }

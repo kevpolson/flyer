@@ -118,6 +118,7 @@
     constants.COLOR_CREAM = "#F2F5A9";
     constants.COLOR_LIGHT_RED = "#FE2E2E";
     constants.COLOR_ORANGE = "#FF8000";
+    constants.COLOR_BLACK = "#000000";
 
     constants.INVALID = -1;
 })(constants || (constants = {}));

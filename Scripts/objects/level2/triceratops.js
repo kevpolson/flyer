@@ -32,7 +32,8 @@ var objects;
                         console.log(points);
                     }
                 }
-            } else if (cameraStatus) {
+            }
+            if (cameraStatus) {
                 this.x -= player.lastMovement;
             }
 

@@ -77,6 +77,7 @@
     export var COLOR_CREAM: string = "#F2F5A9";
     export var COLOR_LIGHT_RED: string = "#FE2E2E";
     export var COLOR_ORANGE: string = "#FF8000";
+    export var COLOR_BLACK: string = "#000000";
 
     export var INVALID: number = -1;
 }

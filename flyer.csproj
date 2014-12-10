@@ -124,6 +124,8 @@
     <TypeScriptCompile Include="scripts\managers\input.ts" />
     <TypeScriptCompile Include="scripts\objects\level1\attack.ts" />
     <TypeScriptCompile Include="scripts\objects\level2\enemy.ts" />
+    <TypeScriptCompile Include="scripts\objects\level2\exit.ts" />
+    <TypeScriptCompile Include="scripts\objects\level2\key.ts" />
     <TypeScriptCompile Include="scripts\objects\level2\punchbullet.ts" />
     <TypeScriptCompile Include="scripts\objects\level2\sidescrollinglevel.ts" />
     <TypeScriptCompile Include="scripts\objects\level2\gameobject.ts" />

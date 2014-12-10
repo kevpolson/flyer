@@ -22,9 +22,8 @@ var objects;
             this.objectIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
         }
-        GameObject.prototype.update = function () {
-        };
-
+        //update() {
+        //}
         GameObject.prototype.hit = function () {
         };
 

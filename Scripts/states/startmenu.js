@@ -8,7 +8,6 @@
         menuInput.update();
 
         if (menuInput.hasKeyBeenUp(constants.SPACE) || menuInput.hasKeyBeenUp(constants.ENTER)) {
-            console.log("space");
             if (constants.startOptions[currentOption] === "Start") {
                 difficulty = constants.difficultyOptions[currentDifficulty];
                 score = 0;
@@ -19,37 +18,29 @@
                 destroyHUD();
             }
         } else if (menuInput.hasKeyBeenUp(constants.RIGHT)) {
-            console.log("right");
             if (currentOption === 0 /* Difficulty */) {
                 currentDifficulty++;
                 if (currentDifficulty > 3 /* Hard */) {
                     currentDifficulty = 3 /* Hard */;
                 }
-                console.log(currentDifficulty);
             }
         } else if (menuInput.hasKeyBeenUp(constants.LEFT)) {
-            console.log("left");
             if (currentOption === 0 /* Difficulty */) {
                 currentDifficulty--;
                 if (currentDifficulty < 1 /* Easy */) {
                     currentDifficulty = 1 /* Easy */;
                 }
             }
-            console.log(currentDifficulty);
         } else if (menuInput.hasKeyBeenUp(constants.UP)) {
-            console.log("up");
             currentOption--;
             if (currentOption < 0 /* Difficulty */) {
                 currentOption = 0 /* Difficulty */;
             }
-            console.log(currentOption);
         } else if (menuInput.hasKeyBeenUp(constants.DOWN)) {
-            console.log("down");
             currentOption++;
             if (currentOption > 1 /* Start */) {
                 currentOption = 1 /* Start */;
             }
-            console.log(currentOption);
         }
         updateHUD();
     }

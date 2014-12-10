@@ -5,11 +5,10 @@
         //update all elements of the cutscene state
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
-            //game.removeChild(image);
-            stage.removeChild(game);
-            currentState = constants.LEVEL2;
-            changeState(currentState);
             destroyHUD();
+            stage.removeChild(game);
+            currentState = constants.GAMEOVER_STATE;
+            changeState(currentState);
         }
     }
 

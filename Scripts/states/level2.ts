@@ -5,9 +5,23 @@ module states {
     var level: objects.sideScrollingLevel;
 
     export function level2Update() {
+        if (player.transition) {
+            if (!level.gameover) {
+                player.destroy();
+                level.destroy();
+                currentState = constants.CUTSCENE3;
+                changeState(currentState);
+            }
+            else if (level.gameover) {
+                player.destroy();
+                level.destroy();
+                currentState = constants.GAMEOVER_STATE;
+                changeState(currentState);
+            }
+        }
+
         //update all elements of level2
         input.update();
-        player.update();
         level.update(player, stage.canvas.width);
     }
 

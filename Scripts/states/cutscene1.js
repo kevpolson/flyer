@@ -9,7 +9,7 @@
             //game.removeChild(image);
             destroyHUD();
             stage.removeChild(game);
-            currentState = constants.LEVEL1;
+            currentState = constants.LEVEL2;
             changeState(currentState);
         }
     }

@@ -14,7 +14,9 @@ module objects {
         enemy: objects.enemy;
         enemyLifeModifier: number;
         cameraLocked: boolean;
-        //score: number;
+        exit: objects.exit;
+        key: objects.key;
+        gameover: boolean;
         constructor(game: createjs.Container,  player: objects.sideScrollingPlayer, currentEnemyModifier: number) {
             for (var i = 0; i < 2; i++) {
                 this.background[i] = new createjs.Bitmap(managers.Assets.loader.getResult("background"));
@@ -33,14 +35,22 @@ module objects {
             this.enemyLifeModifier = currentEnemyModifier;
             this.enemy = null;
             this.cameraLocked = false;
-            //this.score = 0;
+
+            this.gameover = false;
+            this.exit = new objects.exit(game);
+            this.key = new objects.key(game);
         }
 
         update(player: objects.sideScrollingPlayer, screenWidth: number) {
+            player.update(this.exit, this.key);
             if (this.enemy === null) {
                 this.enemy = new objects.triceratops(game, this.enemyLifeModifier, player);
             }
             this.camera(player, screenWidth);
+            this.exit.update(player, this.cameraLocked);
+            if (this.key != null) {
+                this.key.update(player, this.cameraLocked);
+            }
             //memory leak in enemy update
             score += this.enemy.update(player, this.cameraLocked);
             this.updateHUD(player);
@@ -105,20 +115,25 @@ module objects {
         }
 
         destroy() {
+            this.destroyHUD();
+            this.enemy.destroy();
+            this.key.destroy();
+            this.exit.destroy();
             for (var i = 0; i < this.objectIndex.length; i++) {
                 game.removeChildAt(this.objectIndex[i]);
             }
-            this.destroyHUD();
         }
 
         updateHUD(player: objects.sideScrollingPlayer) {
             var scoreDisplay = document.getElementById("scoreDisplay");
             var lives = document.getElementById("lives");
+            var keys = document.getElementById("keys");
             var energy = document.getElementById("energy");
 
             lives.innerHTML = ": " + player.life;
 
             energy.innerHTML = Math.floor(player.energy) + "%";
+            keys.innerHTML = player.keyCount.toString();
             scoreDisplay.innerHTML = score.toString();// + " (" + this.multiplier + "x)";
         }
 
@@ -130,6 +145,8 @@ module objects {
             var lives = document.createElement('div');
             var energyLabel = document.createElement('div');
             var energy = document.createElement('div');
+            var keysLabel = document.createElement('div');
+            var keys = document.createElement('div');
 
             hud.style.position = 'absolute';
             hud.id = "hud";
@@ -171,19 +188,35 @@ module objects {
             energy.style.whiteSpace = "nowrap";
             energy.innerHTML = player.x + "%";
 
+            keysLabel.style.width = "150";
+            keysLabel.style.height = "150";
+            keysLabel.style.position = 'absolute';
+            keysLabel.style.top = "15px";
+            keysLabel.style.left = "365px";
+            keysLabel.innerHTML = "Keys: ";
+
+            keys.id = "keys";
+            keys.style.width = "550px";
+            keys.style.height = "150px";
+            keys.style.position = 'absolute';
+            keys.style.top = "15px";
+            keys.style.left = "460px";
+            keys.style.whiteSpace = "nowrap";
+            keys.innerHTML = player.keyCount.toString();
+
             scoreLabel.style.width = "150";
             scoreLabel.style.height = "150";
             scoreLabel.style.position = 'absolute';
             scoreLabel.style.top = "15px";
-            scoreLabel.style.left = "365px";
+            scoreLabel.style.left = "510px";
             scoreLabel.innerHTML = "Score: ";
 
             scoreDisplay.id = "scoreDisplay";
-            scoreDisplay.style.width = "550px";
+            scoreDisplay.style.width = "630px";
             scoreDisplay.style.height = "150px";
             scoreDisplay.style.position = 'absolute';
             scoreDisplay.style.top = "15px";
-            scoreDisplay.style.left = "475px";
+            scoreDisplay.style.left = "620px";
             scoreDisplay.style.whiteSpace = "nowrap";
             scoreDisplay.innerHTML = score.toString();// + " (" + this.multiplier + "x)";
 
@@ -191,6 +224,8 @@ module objects {
             hud.appendChild(lives);
             hud.appendChild(energyLabel);
             hud.appendChild(energy);
+            hud.appendChild(keysLabel);
+            hud.appendChild(keys);
             hud.appendChild(scoreLabel);
             hud.appendChild(scoreDisplay);
 

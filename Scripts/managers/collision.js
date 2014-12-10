@@ -15,8 +15,16 @@
             return this.distance(new THREE.Vector2(bullet.x, bullet.y), new THREE.Vector2(enemy.x, enemy.y)) < (bullet.regX + enemy.regX);
         };
 
-        Collision.gameObjectGameObject = function (player, enemy) {
+        Collision.playerEnemy = function (player, enemy) {
             return this.distance(new THREE.Vector2(player.x, player.y), new THREE.Vector2(enemy.x, enemy.y)) < (player.regY + enemy.regY);
+        };
+
+        Collision.playerExit = function (player, exit) {
+            return this.distance(new THREE.Vector2(player.x, player.y), new THREE.Vector2(exit.x, exit.y)) < (player.regY + exit.regY);
+        };
+
+        Collision.playerKey = function (player, key) {
+            return this.distance(new THREE.Vector2(player.x, player.y), new THREE.Vector2(key.x, key.y)) < (player.regY + key.regY);
         };
         return Collision;
     })();

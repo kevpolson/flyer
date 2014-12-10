@@ -30,7 +30,7 @@ module objects {
                     }
                 }
             }
-            else if (cameraStatus) {
+            if (cameraStatus) {
                 this.x -= player.lastMovement;
             }
 

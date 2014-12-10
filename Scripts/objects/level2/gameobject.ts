@@ -20,8 +20,8 @@ module objects {
             game.addChildAt(this, this.objectIndex);
         }
 
-        update() {
-        }
+        //update() {
+        //}
 
         hit() {
         }
