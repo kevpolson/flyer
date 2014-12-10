@@ -2,7 +2,7 @@
 /// <reference path="../../managers/asset.ts" />
 var objects;
 (function (objects) {
-    // Background Class
+    // sidescrolling Level Class
     var sideScrollingLevel = (function () {
         function sideScrollingLevel(game, player, currentEnemyModifier) {
             this.background = [];
@@ -103,7 +103,7 @@ var objects;
 
             lives.innerHTML = ": " + player.life;
 
-            energy.innerHTML = player.energy + "%";
+            energy.innerHTML = Math.floor(player.energy) + "%";
             score.innerHTML = this.score.toString(); // + " (" + this.multiplier + "x)";
         };
 

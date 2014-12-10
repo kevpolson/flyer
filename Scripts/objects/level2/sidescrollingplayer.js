@@ -51,9 +51,14 @@ var objects;
             this.punchFrames[1] = 2;
             this.punchFrames[2] = 5;
 
-            this.energy = 100;
+            this.energy = constants.ENERGY_MAX;
         }
         sideScrollingPlayer.prototype.update = function () {
+            this.energy += constants.ENERGY_CHARGE;
+            if (this.energy > constants.ENERGY_MAX) {
+                this.energy = constants.ENERGY_MAX;
+            }
+
             this.animationCounter++;
             this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
 
@@ -99,12 +104,15 @@ var objects;
 
             if (this.punching) {
                 if (this.currentAnimationFrame === this.punchFrames[this.bulletCount]) {
-                    if (this.direction === constants.FACING_LEFT) {
-                        this.bullets[this.bullets.length] = new objects.punchBullet(game, this.x - (this.regX * 3) + this.punchOffset[this.bulletCount].x, this.y - this.regY + this.punchOffset[this.bulletCount].y, this.direction);
-                    } else {
-                        this.bullets[this.bullets.length] = new objects.punchBullet(game, this.x - this.regX + this.punchOffset[this.bulletCount].x, this.y - this.regY + this.punchOffset[this.bulletCount].y, this.direction);
+                    if (this.energy - constants.ENERGY_DRAIN >= constants.ENERGY_DRAIN) {
+                        this.energy -= constants.ENERGY_DRAIN;
+                        if (this.direction === constants.FACING_LEFT) {
+                            this.bullets[this.bullets.length] = new objects.punchBullet(game, this.x - (this.regX * 3) + this.punchOffset[this.bulletCount].x, this.y - this.regY + this.punchOffset[this.bulletCount].y, this.direction);
+                        } else {
+                            this.bullets[this.bullets.length] = new objects.punchBullet(game, this.x - this.regX + this.punchOffset[this.bulletCount].x, this.y - this.regY + this.punchOffset[this.bulletCount].y, this.direction);
+                        }
+                        this.bulletCount++;
                     }
-                    this.bulletCount++;
                 }
             }
 

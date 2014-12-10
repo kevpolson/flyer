@@ -29,6 +29,9 @@
     constants.FACING_RIGHT = 1;
     constants.FACING_LEFT = -1;
     constants.BULLET_LIFE = 100;
+    constants.ENERGY_DRAIN = 10;
+    constants.ENERGY_CHARGE = 10 / 60;
+    constants.ENERGY_MAX = 100;
 
     //Input Constants
     constants.KEYCODE_UP = 38;

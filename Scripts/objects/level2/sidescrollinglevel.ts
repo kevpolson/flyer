@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../managers/input.ts" />
 /// <reference path="../../managers/asset.ts" />
 module objects {
-    // Background Class
+    // sidescrolling Level Class
     export class sideScrollingLevel {
         background: createjs.Bitmap[] = [];
         objectIndex: number[] = [];
@@ -118,7 +118,7 @@ module objects {
 
             lives.innerHTML = ": " + player.life;
 
-            energy.innerHTML = player.energy + "%";
+            energy.innerHTML = Math.floor(player.energy) + "%";
             score.innerHTML = this.score.toString();// + " (" + this.multiplier + "x)";
         }
 

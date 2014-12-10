@@ -22,6 +22,9 @@
     export var FACING_RIGHT = 1;
     export var FACING_LEFT = -1;
     export var BULLET_LIFE = 100;
+    export var ENERGY_DRAIN = 10;
+    export var ENERGY_CHARGE = 10/60;
+    export var ENERGY_MAX = 100;
 
     //Input Constants
     export var KEYCODE_UP: number = 38;
