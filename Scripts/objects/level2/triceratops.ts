@@ -14,11 +14,13 @@ module objects {
             this.reset(constants.FACING_LEFT);
         }
 
+        //update the enemy
         update(player: objects.sideScrollingPlayer, cameraStatus: boolean): number {
             console.log(this.x);
             var points = 0;
             if (this.life > 0) {
                 this.x += this.direction * constants.GAME_SPEED;
+                //check if hit by bullets
                 for (var i = 0; i < player.bullets.length; i++) {
                     if (this.life > 0 &&
                         !player.bullets[i].destroyed &&
@@ -29,10 +31,12 @@ module objects {
                     }
                 }
             }
+            //move based on camera
             if (cameraStatus) {
                 this.x -= player.lastMovement;
             }
 
+            //respawn based on player direction
             if (player.direction === constants.FACING_LEFT) {
                 if (this.x - this.regX > stage.canvas.width) {
                     var direction = constants.FACING_RIGHT;
@@ -55,6 +59,7 @@ module objects {
             return points;
         }
 
+        //respawn
         reset(direction: number) {
             this.gotoAndPlay("charging");
             if (direction === constants.FACING_LEFT) {
@@ -69,6 +74,7 @@ module objects {
             this.life = 6 * this.lifeModifier;
         }
 
+        //damage
         hit(): number {
             var points = 0;
             if (this.life > 0) {

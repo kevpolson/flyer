@@ -2,7 +2,7 @@
     var image: createjs.Bitmap;
 
     export function gameoverUpdate() {
-        //update all elements of the cutscene state
+        //update all elements of the game over state
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
             managers.Assets.killSounds();
@@ -13,7 +13,7 @@
         }
     }
 
-    // cutscene state Function
+    //game over state Function
     export function gameover(): void {
         document.getElementById("canvas").style.display = "inline";
         renderer.domElement.style.display = "none";
@@ -25,9 +25,11 @@
         stage.addChild(game);
     }
 
+    //update the HUD
     function updateHUD() {
     }
 
+    //create the HUD
     function createHUD(currentStage) {
         var hud = document.createElement('div');
         var gameover = document.createElement('div');
@@ -77,6 +79,7 @@
         document.body.appendChild(hud);
     }
 
+    //destroy the HUD
     function destroyHUD() {
         document.body.removeChild(document.getElementById("hud"));
     }

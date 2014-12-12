@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../managers/asset.ts" />
 module objects {
+    //enemy abstract class
     export class enemy extends createjs.Sprite {
         width: number;
         height: number;

@@ -4,6 +4,7 @@ var states;
 (function (states) {
     var level;
 
+    //update the level
     function level1Update() {
         if (level.nextState) {
             if (level.levelCompleted) {

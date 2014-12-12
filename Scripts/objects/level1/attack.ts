@@ -1,4 +1,5 @@
 ﻿module objects {
+    //the dino attack from the sky diving level
     export class attack extends THREE.Mesh {
         width: number;
         height: number;
@@ -19,6 +20,7 @@
             this.attack = false;
         }
 
+        //update the dino
         update(player: objects.skyDiverPlayer) {
             if (this.attack) {
                 this.position.z = player.position.z + 0.01;
@@ -41,6 +43,7 @@
             }
         }
 
+        //add the dino to the scene
         show(currentScene, player: objects.skyDiverPlayer) {
             this.position.z = player.position.z;
             this.position.y = player.position.y;
@@ -49,6 +52,7 @@
             currentScene.add(this);
         }
 
+        //start the attack
         startAttack(currentScene, player: objects.skyDiverPlayer) {
             this.attack = true;
             this.show(currentScene, player);

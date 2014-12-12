@@ -6,6 +6,7 @@
 };
 var objects;
 (function (objects) {
+    //smoke ring class
     var ring = (function (_super) {
         __extends(ring, _super);
         function ring(currentScene, sprite, newAltitude, newRadius, newX, newY) {

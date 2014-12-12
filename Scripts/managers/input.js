@@ -1,5 +1,6 @@
 ﻿var managers;
 (function (managers) {
+    //input manager for the games
     var Input = (function () {
         function Input() {
             this.currentKeyDown = [false, false, false, false, false, false, false];

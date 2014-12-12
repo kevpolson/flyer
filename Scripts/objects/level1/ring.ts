@@ -1,4 +1,5 @@
 ﻿module objects {
+    //smoke ring class
     export class ring extends THREE.Mesh {
         altitude: number;
         radius: number;

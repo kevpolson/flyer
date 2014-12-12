@@ -63,15 +63,19 @@ var objects;
             this.warningCounter = 0;
             this.warningDisplay = "inline";
         }
+        //update the level
         skyDiverLevel.prototype.update = function (currentScene) {
             this.attackDino.update(this.player);
             this.player.update(this.attackDino);
 
             var buffer = 2.5;
+
             for (var i = 0; i < this.rings.length; i++) {
                 if (!this.rings[i].cleared && this.player.position.z <= (this.rings[i].position.z + 0.01) && this.player.position.z >= (this.rings[i].position.z - buffer)) {
                     if (managers.Collision.inCircle(this.player.position.x, this.player.position.y, this.rings[i].position.x, this.rings[i].position.y, this.rings[i].collisionRadius)) {
-                        managers.Assets.playSound("assets/sounds/cough.mp3", 0.25, false);
+                        if (i < 17) {
+                            managers.Assets.playSound("assets/sounds/cough.mp3", 0.25, false);
+                        }
                         this.rings[i].cleared = true;
                         this.multiplier++;
                         score += this.multiplier * constants.POINTS;
@@ -92,13 +96,12 @@ var objects;
                 }
             }
 
+            //check to see if the player has cleared the level oe crashed
             if (this.player.position.z <= constants.GROUND) {
                 this.player.rotation.y = 0;
                 if (this.player.parachuteOpen) {
                     if (!this.levelCompleted && this.rings[constants.LEVEL_END_RING].cleared) {
-                        if (i < 17) {
-                            managers.Assets.playSound("assets/sounds/fanfare.mp3", 0.5, false);
-                        }
+                        managers.Assets.playSound("assets/sounds/fanfare.mp3", 0.5, false);
                         this.player.rotation.x = 0;
                         this.player.position.z = constants.GROUND;
 
@@ -123,23 +126,29 @@ var objects;
                 }
             }
 
+            //check to see if the player has missed to many rings
             if (this.missedRings >= this.maxScent && !this.gameover) {
                 console.log("you died");
                 this.queueAttack(currentScene);
                 this.gameover = true;
             }
 
+            //start the transition to the next state
             if (this.player.transition) {
                 this.nextState = true;
             }
+
+            //update the HUD
             this.updateHUD();
         };
 
+        //queue the dino attack
         skyDiverLevel.prototype.queueAttack = function (currentScene) {
             managers.Assets.playSound("assets/sounds/screech.mp3", 0.1, false);
             this.attackDino.startAttack(currentScene, this.player);
         };
 
+        //destroy the scene
         skyDiverLevel.prototype.destroy = function (currentScene) {
             this.destroyHUD();
             currentScene.remove(this);
@@ -152,6 +161,7 @@ var objects;
             }
         };
 
+        //uupdate the HUD
         skyDiverLevel.prototype.updateHUD = function () {
             var scoreDisplay = document.getElementById("scoreDisplay");
             var lives = document.getElementById("lives");
@@ -183,6 +193,7 @@ var objects;
             }
         };
 
+        //create the HUD
         skyDiverLevel.prototype.createHUD = function () {
             var hud = document.createElement('div');
             var scoreLabel = document.createElement('div');
@@ -271,6 +282,7 @@ var objects;
             document.body.appendChild(hud);
         };
 
+        //destroy the HUD
         skyDiverLevel.prototype.destroyHUD = function () {
             document.body.removeChild(document.getElementById("hud"));
         };

@@ -18,11 +18,13 @@ var objects;
 
             this.reset(constants.FACING_LEFT);
         }
+        //update the enemy
         triceratops.prototype.update = function (player, cameraStatus) {
             console.log(this.x);
             var points = 0;
             if (this.life > 0) {
                 this.x += this.direction * constants.GAME_SPEED;
+
                 for (var i = 0; i < player.bullets.length; i++) {
                     if (this.life > 0 && !player.bullets[i].destroyed && managers.Collision.bulletEnemy(player.bullets[i], this)) {
                         //this causes a memory leak because the bullets are never removed from the array
@@ -31,10 +33,13 @@ var objects;
                     }
                 }
             }
+
+            //move based on camera
             if (cameraStatus) {
                 this.x -= player.lastMovement;
             }
 
+            //respawn based on player direction
             if (player.direction === constants.FACING_LEFT) {
                 if (this.x - this.regX > stage.canvas.width) {
                     var direction = constants.FACING_RIGHT;
@@ -56,6 +61,7 @@ var objects;
             return points;
         };
 
+        //respawn
         triceratops.prototype.reset = function (direction) {
             this.gotoAndPlay("charging");
             if (direction === constants.FACING_LEFT) {
@@ -69,6 +75,7 @@ var objects;
             this.life = 6 * this.lifeModifier;
         };
 
+        //damage
         triceratops.prototype.hit = function () {
             var points = 0;
             if (this.life > 0) {

@@ -19,12 +19,14 @@ module objects {
             game.addChildAt(this, this.objectIndex);
         }
 
+        //update the key
         update(player: objects.sideScrollingPlayer, cameraStatus: boolean) {
             if (cameraStatus) {
                 this.x -= player.lastMovement;
             }
         }
 
+        //destroy the key
         destroy() {
             game.removeChildAt(this.objectIndex);
         }

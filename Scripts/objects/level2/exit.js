@@ -33,6 +33,7 @@ var objects;
             this.frameIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
         }
+        //update the exit
         exit.prototype.update = function (player, cameraStatus) {
             if (cameraStatus) {
                 this.x -= player.lastMovement;
@@ -40,6 +41,7 @@ var objects;
             }
         };
 
+        //destroy the exit
         exit.prototype.destroy = function () {
             game.removeChildAt(this.objectIndex);
             game.removeChildAt(this.frameIndex);

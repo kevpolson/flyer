@@ -79,14 +79,17 @@ module objects {
             this.gameover = false;
         }
 
+        //update the player
         update(exit: objects.exit, key: objects.key): number { 
             var points = 0;
 
+            //recharge gun
             this.energy += constants.ENERGY_CHARGE;
             if (this.energy > constants.ENERGY_MAX) {
                 this.energy = constants.ENERGY_MAX;
             }
 
+            //animate
             this.animationCounter++;
             this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
 
@@ -105,6 +108,7 @@ module objects {
 
             if (!this.damaged && !this.startTransition) {
                 if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
+                    //movement
                     this.punching = false;
                     if (input.isKeyDown(constants.RIGHT)) {
                         this.movement(constants.FACING_RIGHT);
@@ -116,11 +120,13 @@ module objects {
                     }
                 }
 
+                //shoot
                 if (!this.punching && this.currentAnimationType != "victory" && input.hasKeyBeenUp(constants.SPACE)) {
                     this.punching = true;
                     this.bulletCount = 0;
                     this.changeAnimation("attack", false);
                 }
+                //interact with object
                 if (!this.punching && input.hasKeyBeenUp(constants.ENTER)) {
                     this.changeAnimation("victory", false);
                     if (managers.Collision.playerExit(this, exit)) {
@@ -139,6 +145,7 @@ module objects {
                     }
                 }
 
+                //create a bullet
                 if (this.punching) {
                     if (this.currentAnimationFrame === this.punchFrames[this.bulletCount]) {
                         if (this.energy - constants.ENERGY_DRAIN >= constants.ENERGY_DRAIN) {
@@ -164,6 +171,7 @@ module objects {
                 }
 
             }
+            //make player invincible for a limited time
             else if (this.damaged) {
                 this.damagedCounter++;
                 this.blinkCounter++;
@@ -185,10 +193,11 @@ module objects {
                     this.damaged = false;
                 }
             }
+            //transition to the next level
             else {
                 this.transitionState();
             }
-
+            //update bullets
             for (var i = 0; i < this.bullets.length; i++) {
                 this.bullets[i].update();
             }
@@ -213,6 +222,7 @@ module objects {
             this.changeAnimation("idle", false);
         }
 
+        //if hit
         hit(): number {
             if (!this.damaged) {
                 this.idle();
@@ -231,6 +241,7 @@ module objects {
             return;
         }
 
+        //change the aniamtion of the player
         changeAnimation(animationName: string, forceChange: boolean) {
             if (this.currentAnimationType != animationName || forceChange) {
                 this.currentAnimationType = animationName;
@@ -241,6 +252,7 @@ module objects {
             }
         }
 
+        //switch to the next level
         transitionState() {
             this.transitionCounter++;
             if (this.transitionCounter > constants.ANIMATION_COUNT * 20) {

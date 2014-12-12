@@ -5,6 +5,7 @@ var states;
     var player;
     var level;
 
+    //update the level
     function level2Update() {
         if (player.transition) {
             if (!player.gameover) {

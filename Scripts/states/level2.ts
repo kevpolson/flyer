@@ -4,6 +4,7 @@ module states {
     var player: objects.sideScrollingPlayer;
     var level: objects.sideScrollingLevel;
 
+    //update the level
     export function level2Update() {
         if (player.transition) {
             if (!player.gameover) {

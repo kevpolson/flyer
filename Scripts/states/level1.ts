@@ -3,6 +3,7 @@
 module states {
     var level: objects.skyDiverLevel;
 
+    //update the level
     export function level1Update() {
         if (level.nextState) {
             if (level.levelCompleted) {

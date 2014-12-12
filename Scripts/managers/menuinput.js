@@ -1,5 +1,6 @@
 ﻿var managers;
 (function (managers) {
+    //input manager for the menus
     var MenuInput = (function () {
         function MenuInput() {
             this.currentKeyDown = [false, false, false, false, false, false, false];

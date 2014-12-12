@@ -1,30 +1,37 @@
 ﻿/// <reference path="../constants.ts" />
 /// <reference path="../managers/asset.ts" />
 
+//loading state
 module states {
+    //unload the loading state
     export function loadingUnload() {
         destroyHUD();
         currentState = constants.STARTMENU_STATE;//constants.CUTSCENE1;//
         changeState(currentState);
     }
 
+    //update event
     export function loadingState(event) {
         updateHUD(Math.floor(event.progress * 100).toString() + "%");
     }
 
+    //update the loading
     export function loadingUpdate() {
     }
 
+    //create the loading state
     export function loading(currentStage) {
         createHUD(currentStage);
     }
 
+    //update the HUD
     function updateHUD(progressUpdate: string) {
         var progress = document.getElementById("progress");
 
         progress.innerHTML = progressUpdate;
     }
 
+    //create the HUD
     function createHUD(currentStage) {
         var hud = document.createElement('div');
         var progress = document.createElement('div');
@@ -52,6 +59,7 @@ module states {
         document.body.appendChild(hud);
     }
 
+    //destroy the HUD
     function destroyHUD() {
         document.body.removeChild(document.getElementById("hud"));
     }

@@ -31,6 +31,7 @@ module objects {
             game.addChildAt(this, this.objectIndex);
         }
 
+        //update the exit
         update(player: objects.sideScrollingPlayer, cameraStatus: boolean) {
             if (cameraStatus) {
                 this.x -= player.lastMovement;
@@ -38,6 +39,7 @@ module objects {
             }
         }
 
+        //destroy the exit
         destroy() {
             game.removeChildAt(this.objectIndex);
             game.removeChildAt(this.frameIndex);

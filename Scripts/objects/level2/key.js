@@ -23,12 +23,14 @@ var objects;
             this.objectIndex = game.children.length;
             game.addChildAt(this, this.objectIndex);
         }
+        //update the key
         key.prototype.update = function (player, cameraStatus) {
             if (cameraStatus) {
                 this.x -= player.lastMovement;
             }
         };
 
+        //destroy the key
         key.prototype.destroy = function () {
             game.removeChildAt(this.objectIndex);
         };

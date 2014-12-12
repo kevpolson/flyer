@@ -12,7 +12,6 @@ var objects;
             this.width = 2;
             this.height = 2;
 
-            //playerSprite.wrapT = THREE.ClampToEdgeWrapping;
             this.sprites = new Array();
             this.sprites[0] = THREE.ImageUtils.loadTexture("assets/images/threejs/player.png");
             this.sprites[1] = THREE.ImageUtils.loadTexture("assets/images/threejs/parachute.png");
@@ -42,6 +41,7 @@ var objects;
             this.motion = new THREE.Vector3(0.2, 0.2, constants.DESCEND_PER_UPDATE);
             managers.Assets.playSound("assets/sounds/wind.mp3", 0.5, true);
         }
+        //update the player
         skyDiverPlayer.prototype.update = function (dino) {
             if (!dino.caughtPrey) {
                 if (this.position.z > constants.GROUND) {
@@ -62,6 +62,7 @@ var objects;
                         this.camera.position.y -= 0.5;
                     }
 
+                    //fast dive
                     if (!this.parachuteOpen && input.isKeyDown(constants.ENTER)) {
                         this.rotation.x = -0.45;
                         this.position.z -= this.motion.z * 3;
@@ -75,6 +76,7 @@ var objects;
                         this.ascendLevel = this.position.z + constants.MAX_ASCEND;
                         this.motion = new THREE.Vector3(0.1, 0.1, -constants.ASCEND_PER_UPDATE);
                     } else {
+                        //move the player
                         if (input.isKeyDown(constants.UP)) {
                             this.rotation.x = -0.25;
                             this.position.y += this.motion.y;
@@ -97,6 +99,7 @@ var objects;
                     }
                 }
             } else {
+                //move play based on the dino after caught
                 this.position.x = dino.position.x;
                 if (this.parachuteOpen) {
                     this.position.y = dino.position.y - 2;
@@ -107,6 +110,8 @@ var objects;
                     this.currentSprite = 0;
                     this.changeSprite(this.currentSprite);
                 }
+
+                //change to the next level
                 this.transitionCounter++;
                 if (this.transitionCounter > constants.ANIMATION_COUNT * 15) {
                     this.transition = true;
@@ -114,6 +119,7 @@ var objects;
             }
         };
 
+        //change the sprite
         skyDiverPlayer.prototype.changeSprite = function (index) {
             this.material = new THREE.MeshBasicMaterial({ map: this.sprites[index], transparent: true });
             if (this.currentSprite > 0) {
@@ -123,6 +129,7 @@ var objects;
             }
         };
 
+        //animate the sprite
         skyDiverPlayer.prototype.animateLanding = function () {
             this.landingCounter++;
             if (this.currentSprite <= constants.MAX_SPIRTES && this.landingCounter > constants.ANIMATION_COUNT) {
@@ -133,12 +140,15 @@ var objects;
             }
         };
 
+        //change to the next level
         skyDiverPlayer.prototype.transitionState = function () {
             this.transitionCounter++;
             if (this.transitionCounter > constants.ANIMATION_COUNT * 20) {
                 this.transition = true;
             }
         };
+
+        //destroy the player
         skyDiverPlayer.prototype.destroy = function () {
             scene.remove(this);
         };

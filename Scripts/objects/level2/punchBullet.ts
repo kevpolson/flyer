@@ -31,6 +31,7 @@
             this.destroyed = false;
         }
 
+        //update the bullet
         update() {
             this.x += this.direction * constants.GAME_SPEED * 3;
             if (this.timer++ >= this.life) {
@@ -38,6 +39,7 @@
             }
         }
 
+        //destroy the bullet
         destroy() {
             game.removeChild(this);
             this.destroyed = true;

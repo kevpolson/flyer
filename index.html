@@ -1,8 +1,118 @@
 ﻿<!DOCTYPE html>
 <!-- Author:             Kevin Polson -->
 <!-- Last modified by:   Kevin Polson -->
-<!-- Last date modified: Dec 10, 2014 -->
+<!-- Last date modified: Dec 11, 2014 -->
 <!-- Revision History:
+
+Version 0.1								November 23, 2014
+- 	Setup repo, create player, add jumping when screen clicked, add scrolling background
+-	Import background.ts, create new player class w/ asset and start input manager
+-	Add isKeyDown and hasKeyBeenUp functions to input.ts
+
+Version 0.2								December 2, 2014
+-	Add level scrolling based on movement and lock the player to the level
+-	Add fixed size to level and the background should scroll left or right based on movement
+-	Add new player and animations
+-	Add punching animation
+-	Clean up player class
+
+Version 0.3								December 3, 2014
+-	Rewrite animation system
+-	Rename files to perpare for multiple levels
+
+Version 0.4								December 5, 2014
+-	Add ground, skydiver w/ movement, and smoke ring to skydiving level
+
+Version 0.5								December 6, 2014
+-	Convert skydivinglevel to use threejs instead of createjs
+-	Add rings, points, mulitplier, level finished flag
+
+Version 0.6								December 7, 2014
+-	Add parachute sprite and landing animation
+-	Add level failed condition, parachute opening w/o animation
+
+Version 0.7								December 8, 2014
+-	Add dino attack to skydiving level if 3 smoke rings are missed
+-	Add hud to skydivinglevel
+-	Add warning message when altitude is below 100ft
+-	Change scent text to a image of a smoke ring
+
+Version 0.8								December 9, 2014
+-	Clean up skydiving code, separate play state into separate levels
+-	Allow score to transition from level to level
+-	Add basic startup screen
+-	Add energy to the weapon so it can't always be fired
+-	Add HUD to sidescrolling level
+-	Add ability for enemy to move
+-	Add bullet damage to enemies
+-	Add punching bullets and idle enemy
+-	Add empty cutscene screen
+-	Remove label from loading state and change to html HUD
+-	Add a basic gamover screen
+
+
+Version 0.9								December 10, 2014
+-	Add delayed transition between level 1 and states
+-	Add key card and exit to level 2
+-	Add player damage when hit by enemy
+-	If players lives equal 0 then change to gameover state, pick up keys adds 100 to score
+-	Respawn enemy if off the screen and randomly place based on the way you are facing
+
+Version 0.91								December 11, 2014
+-	Clean up title screen, add pictures to cutscenes, and sounds
+
+Source:
+    http://github.com/kevpolson/flyer/commits/master
+
+Assets:
+    Sound Track:
+	    Under the Clouds by Snabisch
+	    Link: https://www.jamendo.com/es/list/a139905/music-for-videogames-vol.-ii
+
+    Sound Effects:
+	    Wind by Mark DiAngelo
+	    Link: http://soundbible.com/1810-Wind.html
+	
+        Cough by Mike Koenig
+	    Link: http://soundbible.com/1275-Dry-Cough.html
+
+	    Click by Sound Jay
+	    Link: http://www.soundjay.com/button-sounds-1.html
+
+	    Fanfare by John Stracke
+	    Link: http://soundbible.com/1823-Winning-Triumphal-Fanfare.html
+
+	    Key Sound by Mike Koenig
+	    Link: http://soundbible.com/1003-Ta-Da.html
+
+	    Laser by themfish
+	    Link: http://www.freesound.org/people/themfish/sounds/34205/
+
+	    Screech by Mike Koenig
+	    Link: http://soundbible.com/1860-Pterodactyl-Screech.html
+
+	    Stampede by Mike Koenig
+	    Link: http://soundbible.com/1655-Stampede-Large.html
+
+    Images:
+        Island Image:
+        http://en.wikipedia.org/wiki/Nishinoshima_%28Ogasawara%29
+ 
+        Pterodactyl:
+        http://www.spriters-resource.com/arcade/cadillacsdinosaurs/sheet/55446/
+ 
+        Triceratops:
+        http://www.spriters-resource.com/arcade/cadillacsdinosaurs/sheet/55423/
+ 
+        Sky Diving Player Sprite Sheet:	      
+        http://www.spriters-resource.com/snes/pilotwings/sheet/31600/
+
+        Side Scrolling Player Sprite Sheet:
+        http://www.mineimatorforums.com/index.php?/topic/4116-the-pixel-painters-shed-please-read-red-text/
+
+        Pilot Image: 
+        http://www.spriters-resource.com/snes/pilotwings/sheet/13139/
+
 -->
 
 <html lang="en">

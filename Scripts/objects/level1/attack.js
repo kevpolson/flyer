@@ -6,6 +6,7 @@
 };
 var objects;
 (function (objects) {
+    //the dino attack from the sky diving level
     var attack = (function (_super) {
         __extends(attack, _super);
         function attack() {
@@ -21,6 +22,7 @@ var objects;
             this.caughtPrey = false;
             this.attack = false;
         }
+        //update the dino
         attack.prototype.update = function (player) {
             if (this.attack) {
                 this.position.z = player.position.z + 0.01;
@@ -41,6 +43,7 @@ var objects;
             }
         };
 
+        //add the dino to the scene
         attack.prototype.show = function (currentScene, player) {
             this.position.z = player.position.z;
             this.position.y = player.position.y;
@@ -49,6 +52,7 @@ var objects;
             currentScene.add(this);
         };
 
+        //start the attack
         attack.prototype.startAttack = function (currentScene, player) {
             this.attack = true;
             this.show(currentScene, player);

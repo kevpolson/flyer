@@ -30,9 +30,11 @@
     }
     states.cutscene1 = cutscene1;
 
+    //update the HUD
     function updateHUD() {
     }
 
+    //create the HUD
     var bgImage;
     function createHUD(currentStage) {
         bgImage = new createjs.Bitmap(managers.Assets.loader.getResult("cutscene1"));
@@ -63,6 +65,7 @@
         document.body.appendChild(hud);
     }
 
+    //destroy the HUD
     function destroyHUD() {
         document.body.removeChild(document.getElementById("hud"));
     }

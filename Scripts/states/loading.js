@@ -1,7 +1,9 @@
 ﻿/// <reference path="../constants.ts" />
 /// <reference path="../managers/asset.ts" />
+//loading state
 var states;
 (function (states) {
+    //unload the loading state
     function loadingUnload() {
         destroyHUD();
         currentState = constants.STARTMENU_STATE; //constants.CUTSCENE1;//
@@ -9,26 +11,31 @@ var states;
     }
     states.loadingUnload = loadingUnload;
 
+    //update event
     function loadingState(event) {
         updateHUD(Math.floor(event.progress * 100).toString() + "%");
     }
     states.loadingState = loadingState;
 
+    //update the loading
     function loadingUpdate() {
     }
     states.loadingUpdate = loadingUpdate;
 
+    //create the loading state
     function loading(currentStage) {
         createHUD(currentStage);
     }
     states.loading = loading;
 
+    //update the HUD
     function updateHUD(progressUpdate) {
         var progress = document.getElementById("progress");
 
         progress.innerHTML = progressUpdate;
     }
 
+    //create the HUD
     function createHUD(currentStage) {
         var hud = document.createElement('div');
         var progress = document.createElement('div');
@@ -56,6 +63,7 @@ var states;
         document.body.appendChild(hud);
     }
 
+    //destroy the HUD
     function destroyHUD() {
         document.body.removeChild(document.getElementById("hud"));
     }

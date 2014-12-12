@@ -33,6 +33,7 @@ var objects;
             game.addChildAt(this, this.objectIndex);
             this.destroyed = false;
         }
+        //update the bullet
         punchBullet.prototype.update = function () {
             this.x += this.direction * constants.GAME_SPEED * 3;
             if (this.timer++ >= this.life) {
@@ -40,6 +41,7 @@ var objects;
             }
         };
 
+        //destroy the bullet
         punchBullet.prototype.destroy = function () {
             game.removeChild(this);
             this.destroyed = true;
@@ -48,4 +50,4 @@ var objects;
     })(createjs.Shape);
     objects.punchBullet = punchBullet;
 })(objects || (objects = {}));
-//# sourceMappingURL=punchBullet.js.map
+//# sourceMappingURL=punchbullet.js.map

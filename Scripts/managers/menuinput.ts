@@ -1,4 +1,5 @@
 ﻿module managers {
+    //input manager for the menus
     export class MenuInput {
         specialKeyPressed: number;
         specialKeyReleased: number;

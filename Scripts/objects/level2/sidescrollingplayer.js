@@ -66,14 +66,17 @@ var objects;
 
             this.gameover = false;
         }
+        //update the player
         sideScrollingPlayer.prototype.update = function (exit, key) {
             var points = 0;
 
+            //recharge gun
             this.energy += constants.ENERGY_CHARGE;
             if (this.energy > constants.ENERGY_MAX) {
                 this.energy = constants.ENERGY_MAX;
             }
 
+            //animate
             this.animationCounter++;
             this.currentAnimationFrame = Math.floor(this.currentAnimationFrame);
 
@@ -92,6 +95,7 @@ var objects;
 
             if (!this.damaged && !this.startTransition) {
                 if (this.currentAnimationType != "attack" && this.currentAnimationType != "victory") {
+                    //movement
                     this.punching = false;
                     if (input.isKeyDown(constants.RIGHT)) {
                         this.movement(constants.FACING_RIGHT);
@@ -102,11 +106,14 @@ var objects;
                     }
                 }
 
+                //shoot
                 if (!this.punching && this.currentAnimationType != "victory" && input.hasKeyBeenUp(constants.SPACE)) {
                     this.punching = true;
                     this.bulletCount = 0;
                     this.changeAnimation("attack", false);
                 }
+
+                //interact with object
                 if (!this.punching && input.hasKeyBeenUp(constants.ENTER)) {
                     this.changeAnimation("victory", false);
                     if (managers.Collision.playerExit(this, exit)) {
@@ -125,6 +132,7 @@ var objects;
                     }
                 }
 
+                //create a bullet
                 if (this.punching) {
                     if (this.currentAnimationFrame === this.punchFrames[this.bulletCount]) {
                         if (this.energy - constants.ENERGY_DRAIN >= constants.ENERGY_DRAIN) {
@@ -186,6 +194,7 @@ var objects;
             this.changeAnimation("idle", false);
         };
 
+        //if hit
         sideScrollingPlayer.prototype.hit = function () {
             if (!this.damaged) {
                 this.idle();
@@ -204,6 +213,7 @@ var objects;
             return;
         };
 
+        //change the aniamtion of the player
         sideScrollingPlayer.prototype.changeAnimation = function (animationName, forceChange) {
             if (this.currentAnimationType != animationName || forceChange) {
                 this.currentAnimationType = animationName;
@@ -214,6 +224,7 @@ var objects;
             }
         };
 
+        //switch to the next level
         sideScrollingPlayer.prototype.transitionState = function () {
             this.transitionCounter++;
             if (this.transitionCounter > constants.ANIMATION_COUNT * 20) {

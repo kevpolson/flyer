@@ -22,7 +22,7 @@ var bgMusic: createjs.SoundInstance;
 var currentState: number;
 var currentStateFunction;
 
-// Preload function - Loads Assets and initializes game;
+//Preload function - Loads Assets and initializes game;
 function preload(): void {
     scene = new THREE.Scene();
     renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -41,31 +41,19 @@ function preload(): void {
     managers.Assets.loader.addEventListener("complete", init);
 }
 
-// init called after Assets have been loaded.
+//init called after Assets have been loaded.
 function init(): void {
     stage.enableMouseOver(30);
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", gameLoop);
 
-    optimizeForMobile();
-
-    //difficulty = constants.NORMAL;
     bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 0.025, 0);
 }
 
-// Add touch support for mobile devices
-function optimizeForMobile() {
-    if (createjs.Touch.isSupported()) {
-        createjs.Touch.enable(stage);
-    }
-}
-
-// Game Loop
+//Game Loop
 function gameLoop(event): void {
     stage.update();
     currentStateFunction();
-
-    //console.log("objects: " + stage.children.length);
 }
 
 function changeState(state: number): void {

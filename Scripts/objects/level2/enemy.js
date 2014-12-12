@@ -7,6 +7,7 @@
 /// <reference path="../../managers/asset.ts" />
 var objects;
 (function (objects) {
+    //enemy abstract class
     var enemy = (function (_super) {
         __extends(enemy, _super);
         function enemy(game, spriteSheet, newAnimation) {

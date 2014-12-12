@@ -2,7 +2,7 @@
 /// <reference path="../../managers/asset.ts" />
 var objects;
 (function (objects) {
-    // sidescrolling Level Class
+    //Sidescrolling Level Class
     var sideScrollingLevel = (function () {
         function sideScrollingLevel(game, player, currentEnemyModifier) {
             this.background = [];
@@ -30,6 +30,7 @@ var objects;
 
             this.enemy = new objects.triceratops(game, this.enemyLifeModifier);
         }
+        //update the player, enemies, and camera
         sideScrollingLevel.prototype.update = function (player, screenWidth) {
             score += player.update(this.exit, this.key);
             this.camera(player, screenWidth);
@@ -48,15 +49,18 @@ var objects;
             this.updateHUD(player);
         };
 
+        //reset the background image
         sideScrollingLevel.prototype.resetImageRight = function (index) {
             console.log(index);
             this.background[index].x = this.backgroundWidth;
         };
 
+        //reset the background image
         sideScrollingLevel.prototype.resetImageLeft = function (index) {
             this.background[index].x = -this.backgroundWidth;
         };
 
+        //camera
         sideScrollingLevel.prototype.camera = function (player, screenWidth) {
             this.cameraLocked = false;
             if (player.lastMovement > 0) {
@@ -100,6 +104,7 @@ var objects;
             }
         };
 
+        //destroy all the objects of the level
         sideScrollingLevel.prototype.destroy = function () {
             this.destroyHUD();
             this.enemy.destroy();
@@ -110,6 +115,7 @@ var objects;
             }
         };
 
+        //update the HUD
         sideScrollingLevel.prototype.updateHUD = function (player) {
             var scoreDisplay = document.getElementById("scoreDisplay");
             var lives = document.getElementById("lives");
@@ -124,6 +130,7 @@ var objects;
             }
         };
 
+        //create the HUD
         sideScrollingLevel.prototype.createHUD = function (player) {
             var hud = document.createElement('div');
             var scoreLabel = document.createElement('div');
@@ -219,6 +226,7 @@ var objects;
             document.body.appendChild(hud);
         };
 
+        //destroy the HUD
         sideScrollingLevel.prototype.destroyHUD = function () {
             document.body.removeChild(document.getElementById("hud"));
         };

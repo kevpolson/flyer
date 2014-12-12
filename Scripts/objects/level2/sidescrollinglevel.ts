@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../managers/input.ts" />
 /// <reference path="../../managers/asset.ts" />
 module objects {
-    // sidescrolling Level Class
+    //Sidescrolling Level Class
     export class sideScrollingLevel {
         background: createjs.Bitmap[] = [];
         objectIndex: number[] = [];
@@ -41,6 +41,7 @@ module objects {
             this.enemy = new objects.triceratops(game, this.enemyLifeModifier);
         }
 
+        //update the player, enemies, and camera
         update(player: objects.sideScrollingPlayer, screenWidth: number) {
             score += player.update(this.exit, this.key);
             this.camera(player, screenWidth);
@@ -58,16 +59,18 @@ module objects {
             this.updateHUD(player);
         }
     
-
+        //reset the background image
         resetImageRight(index: number) {
             console.log(index);
             this.background[index].x = this.backgroundWidth;
         }
 
+        //reset the background image
         resetImageLeft(index: number) {
             this.background[index].x = -this.backgroundWidth;
         }
 
+        //camera 
         private camera(player: objects.sideScrollingPlayer, screenWidth: number) {
             this.cameraLocked = false;
             if (player.lastMovement > 0) {
@@ -116,6 +119,7 @@ module objects {
             }
         }
 
+        //destroy all the objects of the level
         destroy() {
             this.destroyHUD();
             this.enemy.destroy();
@@ -126,6 +130,7 @@ module objects {
             }
         }
 
+        //update the HUD
         updateHUD(player: objects.sideScrollingPlayer) {
             var scoreDisplay = document.getElementById("scoreDisplay");
             var lives = document.getElementById("lives");
@@ -140,6 +145,7 @@ module objects {
             }
         }
 
+        //create the HUD
         createHUD(player: objects.sideScrollingPlayer) {
             var hud = document.createElement('div');
             var scoreLabel = document.createElement('div');
@@ -235,6 +241,7 @@ module objects {
             document.body.appendChild(hud);
         }
 
+        //destroy the HUD
         destroyHUD() {
             document.body.removeChild(document.getElementById("hud"));
         }

@@ -69,8 +69,8 @@
     }
     states.startMenu = startMenu;
 
+    //update the HUD
     function updateHUD() {
-        //var start = document.getElementById("start");
         var difficultyLevel = document.getElementById("difficultyLevel");
         var diffRightArrow = document.getElementById("diffRightArrow");
         var diffLefttArrow = document.getElementById("diffLeftArrow");
@@ -80,6 +80,7 @@
         }
     }
 
+    //create the HUD
     var bgImage;
     function createHUD(currentStage) {
         bgImage = new createjs.Bitmap(managers.Assets.loader.getResult("island"));
@@ -170,6 +171,7 @@
         document.body.appendChild(hud);
     }
 
+    //destroy the HUD
     function destroyHUD() {
         document.body.removeChild(document.getElementById("hud"));
     }

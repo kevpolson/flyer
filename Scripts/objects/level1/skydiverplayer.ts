@@ -16,7 +16,6 @@
             this.width = 2;
             this.height = 2;
 
-            //playerSprite.wrapT = THREE.ClampToEdgeWrapping;
             this.sprites = new Array<THREE.Texture>();
             this.sprites[0] = THREE.ImageUtils.loadTexture("assets/images/threejs/player.png");
             this.sprites[1] = THREE.ImageUtils.loadTexture("assets/images/threejs/parachute.png");
@@ -48,6 +47,7 @@
             managers.Assets.playSound("assets/sounds/wind.mp3", 0.5, true);
         }
 
+        //update the player
         update(dino: objects.attack) {
             if (!dino.caughtPrey) {
                 if (this.position.z > constants.GROUND) {
@@ -69,11 +69,13 @@
                         this.camera.position.y -= 0.5;
                     }
 
+                    //fast dive
                     if (!this.parachuteOpen && input.isKeyDown(constants.ENTER)) {
                         this.rotation.x = -0.45;
                         this.position.z -= this.motion.z * 3;
                         this.camera.position.z -= this.motion.z * 3;
                     }
+                    //open the parachute
                     else if (!this.parachuteOpen && this.position.z <= constants.PARACHUTE_HEIGHT && input.isKeyDown(constants.SPACE)) {
                         this.parachuteOpen = true;
                         this.ascending = true;
@@ -84,6 +86,7 @@
                         this.motion = new THREE.Vector3(0.1, 0.1, -constants.ASCEND_PER_UPDATE);
                     }
                     else {
+                        //move the player
                         if (input.isKeyDown(constants.UP)) {
                             this.rotation.x = -0.25;
                             this.position.y += this.motion.y;
@@ -109,6 +112,7 @@
                 }
             }
             else {
+                //move play based on the dino after caught
                 this.position.x = dino.position.x;
                 if (this.parachuteOpen) {
                     this.position.y = dino.position.y - 2;
@@ -119,6 +123,7 @@
                     this.currentSprite = 0;
                     this.changeSprite(this.currentSprite);
                 }
+                //change to the next level
                 this.transitionCounter++;
                 if (this.transitionCounter > constants.ANIMATION_COUNT * 15) {
                     this.transition = true;
@@ -126,6 +131,7 @@
             }
         }
 
+        //change the sprite
         changeSprite(index: number) {
             this.material = new THREE.MeshBasicMaterial({ map: this.sprites[index], transparent: true });
             if (this.currentSprite > 0) {
@@ -136,6 +142,7 @@
             }
         }
 
+        //animate the sprite
         animateLanding() {
             this.landingCounter++;
             if (this.currentSprite <= constants.MAX_SPIRTES && this.landingCounter > constants.ANIMATION_COUNT) {
@@ -147,12 +154,15 @@
             }
         }
 
+        //change to the next level
         transitionState() {
             this.transitionCounter++;
             if (this.transitionCounter > constants.ANIMATION_COUNT * 20) {
                 this.transition = true;
             }
         }
+
+        //destroy the player
         destroy() {
             scene.remove(this);
         }

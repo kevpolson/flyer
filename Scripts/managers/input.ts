@@ -1,4 +1,5 @@
 ﻿module managers {
+    //input manager for the games
     export class Input {
         specialKeyPressed: number;
         specialKeyReleased: number;
