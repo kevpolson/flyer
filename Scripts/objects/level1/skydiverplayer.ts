@@ -45,6 +45,7 @@
             this.parachuteOpen = false;
             this.ascending = false;
             this.motion = new THREE.Vector3(0.2, 0.2, constants.DESCEND_PER_UPDATE);
+            managers.Assets.playSound("assets/sounds/wind.mp3", 0.5, true);
         }
 
         update(dino: objects.attack) {

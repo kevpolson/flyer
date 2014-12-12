@@ -5,7 +5,8 @@
         //update all elements of the cutscene state
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
-            //game.removeChild(image);
+            stage.removeChild(bgImage);
+            managers.Assets.killSounds();
             destroyHUD();
             stage.removeChild(game);
             currentState = constants.LEVEL2;
@@ -28,7 +29,10 @@
     function updateHUD() {
     }
 
+    var bgImage: createjs.Bitmap;
     function createHUD(currentStage) {
+        bgImage = new createjs.Bitmap(managers.Assets.loader.getResult("cutscene2"));
+        stage.addChild(bgImage);
         var hud = document.createElement('div');
         var inputStatement = document.createElement('div');
 

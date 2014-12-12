@@ -2,7 +2,19 @@
 module managers {
     // Image and Sound Manifest;
     var assetManifest = [
+        { id: "cough", src: "assets/sounds/cough.mp3" },
+        { id: "fanfare", src: "assets/sounds/fanfare.mp3" },
+        { id: "key", src: "assets/sounds/key.mp3" },
+        { id: "laser", src: "assets/sounds/laser.mp3" },
+        { id: "screech", src: "assets/sounds/screech.mp3" },
+        { id: "stampede", src: "assets/sounds/stampede.mp3" },
+        { id: "wind", src: "assets/sounds/wind.mp3" },
+        { id: "click", src: "assets/sounds/click.mp3" },
         { id: "bgMusic", src: "assets/sounds/UnderTheClouds.mp3" },
+        { id: "island", src: "assets/images/threejs/ground.png" },
+        { id: "cutscene1", src: "assets/images/cutscene1.png" },
+        { id: "cutscene2", src: "assets/images/cutscene2.png" },
+        { id: "cutscene3", src: "assets/images/cutscene3.png" },
         { id: "background", src: "assets/images/background.png" }
     ];
 
@@ -103,6 +115,30 @@ module managers {
         public static triceratops: createjs.SpriteSheet;
         public static energytank: createjs.SpriteSheet;
         public static missile: createjs.SpriteSheet;
+
+        public static audio = [];
+
+        public static playSound(location: string, volume: number, loop: boolean) {
+            var sound = document.createElement('audio');
+            var source = document.createElement('source');
+            var id = this.audio.length;
+            console.log(id);
+
+            source.src = location;
+            sound.appendChild(source);
+
+            this.audio[id] = sound;
+            this.audio[id].volume = volume;
+            this.audio[id].loop = loop;
+            this.audio[id].play();
+        }
+
+        public static killSounds() {
+            for (var i = 0; i < this.audio.length; i++) {
+                this.audio[i].pause();
+            }
+            this.audio = [];
+        }
 
         public static init() {
             createjs.Sound.initializeDefaultPlugins();

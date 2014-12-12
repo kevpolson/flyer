@@ -6,6 +6,7 @@
         //update all elements of the cutscene state
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
+            managers.Assets.killSounds();
             destroyHUD();
             stage.removeChild(game);
             currentState = constants.STARTMENU_STATE;

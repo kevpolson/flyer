@@ -77,6 +77,7 @@ module objects {
                     this.player.position.z <= (this.rings[i].position.z + 0.01 ) &&
                     this.player.position.z >= (this.rings[i].position.z - buffer)) {
                     if (managers.Collision.inCircle(this.player.position.x, this.player.position.y, this.rings[i].position.x, this.rings[i].position.y, this.rings[i].collisionRadius)) {
+                        managers.Assets.playSound("assets/sounds/cough.mp3", 0.25, false);
                         this.rings[i].cleared = true;
                         this.multiplier++;
                         score += this.multiplier * constants.POINTS;
@@ -102,6 +103,9 @@ module objects {
                 this.player.rotation.y = 0;
                 if (this.player.parachuteOpen) {
                     if (!this.levelCompleted && this.rings[constants.LEVEL_END_RING].cleared) {
+                        if (i < 17) {
+                            managers.Assets.playSound("assets/sounds/fanfare.mp3", 0.5, false);
+                        }
                         this.player.rotation.x = 0;
                         this.player.position.z = constants.GROUND;
 
@@ -141,6 +145,7 @@ module objects {
         }
 
         queueAttack(currentScene) {
+            managers.Assets.playSound("assets/sounds/screech.mp3", 0.1, false);
             this.attackDino.startAttack(currentScene, this.player);
         }
 

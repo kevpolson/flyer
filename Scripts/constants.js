@@ -103,7 +103,7 @@
     })(constants.ringMisses || (constants.ringMisses = {}));
     var ringMisses = constants.ringMisses;
     ;
-    constants.PLANE_HEIGHT = 994.01;
+    constants.PLANE_HEIGHT = 990.01;
     constants.PARACHUTE_HEIGHT = 50;
     constants.DESCEND_PER_UPDATE = 0.1;
     constants.ASCEND_PER_UPDATE = 1;

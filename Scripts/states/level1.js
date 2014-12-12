@@ -7,6 +7,7 @@ var states;
     function level1Update() {
         if (level.nextState) {
             if (level.levelCompleted) {
+                managers.Assets.killSounds();
                 level.destroy(scene);
                 currentState = constants.CUTSCENE2;
                 changeState(currentState);

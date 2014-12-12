@@ -60,6 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\background.png" />
+    <Content Include="assets\images\cutscene1.png" />
+    <Content Include="assets\images\cutscene2.png" />
+    <Content Include="assets\images\cutscene3.png" />
     <Content Include="assets\images\level2\playerLogo.png" />
     <Content Include="assets\images\level2\tri.png" />
     <Content Include="assets\images\threejs\attackDino.png" />
@@ -76,7 +79,15 @@
     <Content Include="assets\images\threejs\player.png" />
     <Content Include="assets\images\sidescrollingplayer.png" />
     <Content Include="assets\images\threejs\ring.png" />
+    <Content Include="assets\sounds\click.mp3" />
+    <Content Include="assets\sounds\cough.mp3" />
+    <Content Include="assets\sounds\laser.mp3" />
+    <Content Include="assets\sounds\screech.mp3" />
+    <Content Include="assets\sounds\fanfare.mp3" />
+    <Content Include="assets\sounds\stampede.mp3" />
+    <Content Include="assets\sounds\key.mp3" />
     <Content Include="assets\sounds\UnderTheClouds.mp3" />
+    <Content Include="assets\sounds\wind.mp3" />
     <Content Include="css\app.css" />
     <Content Include="css\normalize.css" />
     <Content Include="index.html" />

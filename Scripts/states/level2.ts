@@ -7,6 +7,7 @@ module states {
     export function level2Update() {
         if (player.transition) {
             if (!player.gameover) {
+                managers.Assets.killSounds();
                 player.destroy();
                 level.destroy();
                 currentState = constants.CUTSCENE3;

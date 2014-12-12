@@ -127,12 +127,15 @@ module objects {
                         if (this.keyCount > 0) {
                             this.startTransition = true;
                             this.keyCount--;
+
+                            managers.Assets.playSound("assets/sounds/fanfare.mp3", 1, false);
                         }
                     }
                     if (managers.Collision.playerKey(this, key)) {
                         this.keyCount++;
                         points += constants.POINTS;
                         key.y += 1000;
+                        managers.Assets.playSound("assets/sounds/key.mp3", 0.05, false);
                     }
                 }
 
@@ -153,6 +156,7 @@ module objects {
                                     this.x - this.regX + this.punchOffset[this.bulletCount].x,
                                     this.y - this.regY + this.punchOffset[this.bulletCount].y,
                                     this.direction);
+                                managers.Assets.playSound("assets/sounds/laser.mp3", 0.05, false);
                             }
                             this.bulletCount++;
                         }

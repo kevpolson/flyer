@@ -47,8 +47,9 @@ function init() {
     createjs.Ticker.addEventListener("tick", gameLoop);
 
     optimizeForMobile();
+
     //difficulty = constants.NORMAL;
-    //bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 1, 0);
+    bgMusic = createjs.Sound.play("bgMusic", createjs.Sound.INTERRUPT_NONE, 0, 0, -1, 0.025, 0);
 }
 
 // Add touch support for mobile devices

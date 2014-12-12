@@ -6,10 +6,11 @@
         //update all elements of the cutscene state
         input.update();
         if (input.hasKeyBeenUp(constants.SPACE)) {
-            //game.removeChild(image);
+            stage.removeChild(bgImage);
+            managers.Assets.killSounds();
             destroyHUD();
             stage.removeChild(game);
-            currentState = constants.LEVEL2;
+            currentState = constants.LEVEL1;
             changeState(currentState);
         }
     }
@@ -32,7 +33,11 @@
     function updateHUD() {
     }
 
+    var bgImage;
     function createHUD(currentStage) {
+        bgImage = new createjs.Bitmap(managers.Assets.loader.getResult("cutscene1"));
+        stage.addChild(bgImage);
+
         var hud = document.createElement('div');
         var inputStatement = document.createElement('div');
 
